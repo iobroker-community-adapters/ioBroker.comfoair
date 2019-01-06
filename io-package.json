@@ -1,0 +1,293 @@
+{
+	"common": {
+		"name": "comfoair",
+		"version": "0.0.1",
+		"news": {
+			"0.0.1": {
+				"en": "development edition",
+				"de": "Entwicklungsversion"
+			}
+		},
+		"title": "comfoair",
+		"titleLang": {
+			"en": "comfoairControl",
+			"de": "ComfoairSteuerung"
+		},
+		"desc": {
+			"en": "Control you ComfoAir ventilation",
+			"de": "Steuere deine ComfoAir - Lüftung"
+		},
+		"authors": [
+			"forelleblau <marceladam@gmx.ch>"
+		],
+		"docs": {
+			"de": "docs/de/README.md"
+		},
+		"platform": "Javascript/Node.js",
+		"mode": "daemon",
+		"icon": "zehnder.png",
+		"materialize": true,
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/forelleblau/ioBroker.comfoair/master/admin/comfoair.png",
+		"keywords": [
+			"comfoair",
+			"ventilation",
+			"smart",
+			"home"
+		],
+		"readme": "https://github.com/forelleblau/ioBroker.comfoair/blob/master/README.md",
+		"loglevel": "info",
+		"type": "climate-control",
+		"license": "MIT",
+		"messagebox": false
+	},
+	"native": {
+		"host": "",
+		"pollInterval":300000,
+		"port": 9999
+	},
+	"objects": [],
+	"instanceObjects": [
+		{
+			"_id": "temperature",
+			"type": "channel",
+			"common": {
+			"name": "Temperatures"
+			},
+			"native": {
+				
+			}
+		},
+		{
+			"_id": "temperature.ABL",
+			"type": "state",
+			"common": {
+				"name": "Ablufttemperatur",
+				"type": "number",
+				"role": "value.temperature",
+				"read": true,
+				"write": false,
+				"desc": "Ablufttemperatur",
+				"unit": "°C"
+			},
+			"native": {
+				
+			}
+		},
+		{
+			"_id": "temperature.AUL",
+			"type": "state",
+			"common": {
+				"name": "Aussenlufttemperatur",
+				"type": "number",
+				"role": "value.temperature",
+				"read": true,
+				"write": false,
+				"desc": "Aussenlufttemperatur",
+				"unit": "°C"
+			},
+			"native": {
+				
+			}
+		},
+		{
+			"_id": "temperature.FOL",
+			"type": "state",
+			"common": {
+				"name": "Fortlufttemperatur",
+				"type": "number",
+				"role": "value.temperature",
+				"read": true,
+				"write": false,
+				"desc": "Fortlufttemperatur",
+				"unit": "°C"
+			},
+			"native": {
+				
+			}
+		},
+		{
+			"_id": "temperature.ZUL",
+			"type": "state",
+			"common": {
+				"name": "Zulufttemperatur",
+				"type": "number",
+				"role": "value.temperature",
+				"read": true,
+				"write": false,
+				"desc": "Zulufttemperatur",
+				"unit": "°C"
+			},
+			"native": {
+				
+			}
+		},
+		{
+			"_id": "temperature.statcomfort",
+			"type": "state",
+			"common": {
+				"name": "Status Komforttemperatur",
+				"type": "number",
+				"role": "value.temperature",
+				"read": true,
+				"write": false,
+				"desc": "Eingestellte Komforttemperatur",
+				"unit": "°C"
+			},
+			"native": {
+				
+			}
+		},
+		{
+			"_id": "info.connection",
+			"type": "state",
+			"common": {
+				"name": "comfoair connected",
+				"type": "boolean",
+				"role": "indicator.connected",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Is comfoair connected?"
+			},
+			"native": {
+				
+			}
+		},
+		{
+			"_id": "status",
+			"type": "channel",
+			"common": {
+				"name": "Status"
+			},
+			"native": {
+				
+			}
+		},
+		{
+			"_id": "status.filterh",
+			"type": "state",
+			"common": {
+				"name": "Betriebsstunden Filter",
+				"type": "number",
+				"role": "value.hours",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Betriebsstunden der Filter",
+				"unit": "h"
+			},
+			"native": {
+				
+			}
+		},
+		{
+			"_id": "status.bypass",
+			"type": "state",
+			"common": {
+				"name": "bypass",
+				"type": "number",
+				"role": "value.info",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Klappenstatus Bypass",
+				"unit": "%"
+			},
+			"native": {
+				
+			}
+		},
+		{
+			"_id": "status.statstufe",
+			"type": "state",
+			"common": {
+				"name": "Voltage AC",
+				"type": "number",
+				"role": "value.info",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Aktuelle Stufe"
+			},
+			"native": {
+				
+			}
+		},
+	{
+			"_id": "control",
+			"type": "channel",
+			"common": {
+				"name": "Steuerung"
+			},
+			"native": {
+				
+			}
+		},
+		{
+			"_id": "control.comfort",
+			"type": "state",
+			"common": {
+				"name": "Komforttemperatur",
+				"type": "number",
+				"role": "value.temperature",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Vorgegebene Komforttemperatur",
+				"unit": "°C"
+			},
+			"native": {
+				
+			}
+		},
+		{
+			"_id": "control.stufe",
+			"type": "state",
+			"common": {
+				"name": "Stufe",
+				"type": "number",
+				"role": "value.info",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Vorgabe Stufe"
+			},
+			"native": {
+				
+			}
+		},
+		{
+			"_id": "control.kommando",
+			"type": "state",
+			"common": {
+				"name": "Kommando",
+				"type": "string",
+				"role": "value.info",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Kommando"
+			},
+			"native": {
+				
+			}
+		},	
+		{
+			"_id": "control.status",
+			"type": "state",
+			"common": {
+				"name": "status",
+				"type": "string",
+				"role": "value.info",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Status des letzten Kommandos"
+			},
+			"native": {
+				
+			}
+		}
+	]
+}
