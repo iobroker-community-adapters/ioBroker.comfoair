@@ -2,13 +2,13 @@
 # ioBroker.comfoair
 
 
-An ioBroker adapter for comfoair - ventilations
+An ioBroker adapter for comfoair - ventilations (i.e. ComfoAir 200/350, NOT ComfoAir Q350...)
 
 Install adapter, create instance.
 Install hardware: i.e. RS232 to LAN adapter to the serial interface of the comfoair
 Set comfoair - IP-adress, port and polling - intervall 
 
-Tested on comfoair 
+Tested on comfoair 350
 
 
 ## Changelog
