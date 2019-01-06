@@ -11,9 +11,10 @@ Set comfoair - IP-adress, port and polling - intervall
 Tested on comfoair 350
 
 
+
 ## Changelog
 
-### 0.0.1 In development stage
+### 0.0.1 In development stage, contributeions welcome
 
 
 ## License
