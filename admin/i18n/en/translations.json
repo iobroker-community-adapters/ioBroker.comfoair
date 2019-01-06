@@ -6,5 +6,5 @@
   "template adapter settings": "template adapter settings",
   "host": "Solarlog IP:",
   "pollInterval": "Polling - Interval (ms):",
-  "invimp": "Import all inverter data. !! User-password in Solarlog has to be deactivated"
+  "port": "Port"
 }
