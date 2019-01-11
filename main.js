@@ -11,7 +11,7 @@ const adapter = new utils.Adapter('comfoair');
 var DeviceIpAdress;
 var port;
 var net = require('net');
-var hexout = [0x07, 0xF0, 0x00, 0x69, 0x00, 0x16, 0x07, 0x0F]; //hier nur Beispiel
+var vent = [0x07, 0xF0, 0x00, 0x0B, 0x00, 0xB8, 0x07, 0x0F];
 var hexin;
 
 let polling;
@@ -72,7 +72,7 @@ adapter.on('ready', function() {
 function main() {
     // Vars
     DeviceIpAdress = adapter.config.host;
-	port = adapter.config.port;
+	  port = adapter.config.port;
 
 
     const pollingTime = adapter.config.pollInterval || 300000;
@@ -96,7 +96,7 @@ function main() {
 function callcomfoair (hexout){
 
   var client = new net.Socket();
-  client.connect(8899, '192.168.1.132', function() {  //Connection Data ComfoAir
+  client.connect(port, DeviceIpAdress, function() {  //Connection Data ComfoAir
   	console.log.debug('Connected');
 
   	var msgbuf = new Buffer(hexout);
@@ -105,13 +105,13 @@ function callcomfoair (hexout){
 
   client.on('data', function(data) {
       hexin = new Buffer(data, 'utf8');
-      console.log('Received: ' + hexin.toString('hex'));
+      console.log.debug('Received: ' + hexin.toString('hex'));
       var arrhexin = [...hexin];
-      console.log('Received: ' + arrhexin);
+      console.log.debug('Received: ' + arrhexin);
       return hexin
   	client.destroy(); // kill client after server's response
   });
-  
+
   client.on('close', function() {
   	console.log('Connection closed');
   });
