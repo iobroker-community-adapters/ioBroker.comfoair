@@ -150,10 +150,60 @@
 			}
 		},
 		{
-			"_id": "status.filterh",
+			"_id": "status.statstufe",
 			"type": "state",
 			"common": {
-				"name": "Betriebsstunden Filter",
+				"name": "Aktuelle Stufe",
+				"type": "number",
+				"role": "value.info",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Aktuelle Stufe"
+			},
+			"native": {
+
+			}
+		},
+		{
+			"_id": "status.ventZUL",
+			"type": "state",
+			"common": {
+				"name": "Ventilatorstatus Zuluft",
+				"type": "number",
+				"role": "value.hours",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Ventilatorstatus Zuluft",
+				"unit": "%"
+			},
+			"native": {
+
+			}
+		},
+		{
+			"_id": "status.ventABL",
+			"type": "state",
+			"common": {
+				"name": "Ventilatorstatus Abluft",
+				"type": "number",
+				"role": "value.hours",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Ventilatorstatus Abluft",
+				"unit": "%"
+			},
+			"native": {
+
+			}
+		},
+		{
+			"_id": "status.filterH",
+			"type": "state",
+			"common": {
+				"name": "filterH",
 				"type": "number",
 				"role": "value.hours",
 				"read": true,
@@ -184,16 +234,238 @@
 			}
 		},
 		{
-			"_id": "status.statstufe",
+			"_id": "status.setVentAbwABL",
 			"type": "state",
 			"common": {
-				"name": "Voltage AC",
+				"name": "setVentAbwABL",
 				"type": "number",
-				"role": "value.info",
+				"role": "value.level",
 				"read": true,
 				"write": false,
 				"def": false,
-				"desc": "Aktuelle Stufe"
+				"desc": "Ventilationsstufe abwesend Abluft",
+				"unit": "%"
+			},
+			"native": {
+
+			}
+		},
+		{
+			"_id": "status.setVentAbwZUL",
+			"type": "state",
+			"common": {
+				"name": "setVentAbwZUL",
+				"type": "number",
+				"role": "value.level",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Ventilationsstufe abwesend Zuluft",
+				"unit": "%"
+			},
+			"native": {
+
+			}
+		},
+		{
+			"_id": "status.setVent1ABL",
+			"type": "state",
+			"common": {
+				"name": "setVent1ABL",
+				"type": "number",
+				"role": "value.level",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Ventilationsstufe niedrig Abluft",
+				"unit": "%"
+			},
+			"native": {
+
+			}
+		},
+		{
+			"_id": "status.setVent1ZUL",
+			"type": "state",
+			"common": {
+				"name": "setVent1ZUL",
+				"type": "number",
+				"role": "value.level",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Ventilationsstufe niedrig Zuluft",
+				"unit": "%"
+			},
+			"native": {
+
+			}
+		},
+		{
+			"_id": "status.setVent2ABL",
+			"type": "state",
+			"common": {
+				"name": "setVent2ABL",
+				"type": "number",
+				"role": "value.level",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Ventilationsstufe mittel Abluft",
+				"unit": "%"
+			},
+			"native": {
+
+			}
+		},
+		{
+			"_id": "status.setVent2ZUL",
+			"type": "state",
+			"common": {
+				"name": "setVent2ZUL",
+				"type": "number",
+				"role": "value.level",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Ventilationsstufe mittel Zuluft",
+				"unit": "%"
+			},
+			"native": {
+
+			}
+		},
+		{
+			"_id": "status.setVent3ABL",
+			"type": "state",
+			"common": {
+				"name": "setVent3ABL",
+				"type": "number",
+				"role": "value.level",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Ventilationsstufe hoch Abluft",
+				"unit": "%"
+			},
+			"native": {
+
+			}
+		},
+		{
+			"_id": "status.setVent3ZUL",
+			"type": "state",
+			"common": {
+				"name": "setVent1ZUL",
+				"type": "number",
+				"role": "value.level",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Ventilationsstufe hoch Zuluft",
+				"unit": "%"
+			},
+			"native": {
+
+			}
+		},
+		{
+			"_id": "status.BetrHabw",
+			"type": "state",
+			"common": {
+				"name": "BetrHabw",
+				"type": "number",
+				"role": "value.hours",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Betriebsstunden Stufe abwesend",
+				"unit": "h"
+			},
+			"native": {
+
+			}
+		},
+		{
+			"_id": "status.BetrH1",
+			"type": "state",
+			"common": {
+				"name": "BetrH1",
+				"type": "number",
+				"role": "value.hours",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Betriebsstunden Stufe niedrig",
+				"unit": "h"
+			},
+			"native": {
+
+			}
+		},
+		{
+			"_id": "status.BetrH2",
+			"type": "state",
+			"common": {
+				"name": "BetrH2",
+				"type": "number",
+				"role": "value.hours",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Betriebsstunden Stufe mittel",
+				"unit": "h"
+			},
+			"native": {
+
+			}
+		},
+		{
+			"_id": "status.BetrH3",
+			"type": "state",
+			"common": {
+				"name": "BetrH3",
+				"type": "number",
+				"role": "value.hours",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Betriebsstunden Stufe hoch",
+				"unit": "h"
+			},
+			"native": {
+
+			}
+		},
+		{
+			"_id": "status.BetrHbypass",
+			"type": "state",
+			"common": {
+				"name": "BetrHbypass",
+				"type": "number",
+				"role": "value.hours",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Betriebsstunden Bypass offen",
+				"unit": "h"
+			},
+			"native": {
+
+			}
+		},
+		{
+			"_id": "status.BetrHFrost",
+			"type": "state",
+			"common": {
+				"name": "BetrHFrost",
+				"type": "number",
+				"role": "value.hours",
+				"read": true,
+				"write": false,
+				"def": false,
+				"desc": "Betriebsstunden Frostschutz",
+				"unit": "h"
 			},
 			"native": {
 
@@ -215,6 +487,7 @@
 
 			}
 		},
+
 	{
 			"_id": "control",
 			"type": "channel",
