@@ -11,11 +11,19 @@ const adapter = new utils.Adapter('comfoair');
 var DeviceIpAdress;
 var port;
 var net = require('net');
-var stattemp = [0x07, 0xF0, 0x00, 0xD1, 0x00, 0x7E, 0x07, 0x0F];
-var statvent = [0x07, 0xF0, 0x00, 0xCD, 0x00, 0x7A, 0x07, 0x0F];
+var hexout= [];
+var buffarr = [];
+var buff;
+var cmdi;
+var statTemp = [0x07, 0xF0, 0x00, 0xD1, 0x00, 0x7E, 0x07, 0x0F];
+var statVent = [0x07, 0xF0, 0x00, 0xCD, 0x00, 0x7A, 0x07, 0x0F];
 var statBetrH = [0x07, 0xF0, 0x00, 0xDD, 0x00, 0x8A, 0x07, 0x0F];
-var statbyp = [0x07, 0xF0, 0x00, 0x0D, 0x00, 0xBA, 0x07, 0x0F];
-var hexin;
+var statByp = [0x07, 0xF0, 0x00, 0x0D, 0x00, 0xBA, 0x07, 0x0F];
+var statcmd = [stat0Temp, stat1Vent, stat2BetrH, stat3Byp];
+var statcmdi = [[0x07, 0xF0, 0x00, 0xD1, 0x00, 0x7E, 0x07, 0x0F], [0x07, 0xF0, 0x00, 0xCD, 0x00, 0x7A, 0x07, 0x0F], [0x07, 0xF0, 0x00, 0xDD, 0x00, 0x8A, 0x07, 0x0F], [0x07, 0xF0, 0x00, 0x0D, 0x00, 0xBA, 0x07, 0x0F] ];
+var statcmdS = ["statTemp", "statVent", "statBetrH", "statByp"];
+var statcmdL = statcmdi.length;
+var calli = 0;
 
 let polling;
 
@@ -82,11 +90,11 @@ function main() {
     adapter.log.debug('[INFO] Configured polling interval: ' + pollingTime);
     adapter.log.debug('[START] Started Adapter with: ' + adapter.config.host);
 
-
+    callval = setInterval(callvalues, 2000);
 
 	if (!polling) {
 		polling = setTimeout(function repeat() { // poll states every [30] seconds
-			//DATAREQUEST;
+			callval = setInterval(callvalues, 2000);//DATAREQUEST;
 			setTimeout(repeat, pollingTime);
 		}, pollingTime);
 	} // endIf
@@ -96,27 +104,51 @@ function main() {
 
 } // endMain
 
-function callcomfoair (hexout){
+function callvalues(){
+    hexout = statcmdi[calli];
+    console.log(hexout);
+    callcomfoair(hexout);
+    calli++;
+    if (calli == statcmdL){
+        clearInterval(callval);
+    }
+}//end callvalues
 
-  var client = new net.Socket();
-  client.connect(port, DeviceIpAdress, function() {  //Connection Data ComfoAir
-  	console.log.debug('Connected');
 
-  	var msgbuf = new Buffer(hexout);
-  	client.write(msgbuf);
-  });
+function callcomfoair (hexout) {
+var client = new net.Socket();
+client.connect(8899, '192.168.1.132', function() {  //Connection Data ComfoAir
+	console.log('Connected');
+	console.log(hexout);
+	var msgbuf = new Buffer(hexout);
+	var hexoutarr = [...msgbuf];
+	console.log("out " + msgbuf.toString('hex'));
+	console.log("outarr: " + hexoutarr);
+	client.write(msgbuf);
+});
 
-  client.on('data', function(data) {
-      hexin = new Buffer(data, 'utf8');
-      console.log.debug('Received: ' + hexin.toString('hex'));
-      var arrhexin = [...hexin];
-      console.log.debug('Received: ' + arrhexin);
-      return hexin
-  	client.destroy(); // kill client after server's response
-  });
+client.on('data', function(data) {
+    var buff = new Buffer(data, 'utf8');
+    console.log('Received: ' + buff.toString('hex'));
+    buffarr = [...buff];
+    console.log('Received arr: '  + buffarr);
+    client.destroy(); // kill client after server's response
+    cmd = buffarr[5];
+    console.log("Befehlsnummer: " + cmd);
+    switch(cmd){
+        case 222:
+            console.log("es ist Befehl 222");
+            break;
+        case 14:
+            console.log("es ist Befehl 14");
+            break;
+    }
 
-  client.on('close', function() {
-  	console.log('Connection closed');
-  });
 
-}// end callcomfoair
+});
+
+client.on('close', function() {
+	console.log('Connection closed');
+});
+} //end callcomfoair
+// end callcomfoair
