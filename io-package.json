@@ -25,7 +25,7 @@
     },
     "platform": "Javascript/Node.js",
     "mode": "daemon",
-    "icon": "zehnder.png",
+    "icon": "comfoair.png",
     "materialize": true,
     "enabled": true,
     "extIcon": "https://raw.githubusercontent.com/forelleblau/ioBroker.comfoair/master/admin/comfoair.png",
