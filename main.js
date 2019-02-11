@@ -139,10 +139,7 @@ function callcomfoair(hexout) {
       adapter.log.debug('Received arr: ' + buffarr);
       client.destroy(); // kill client after server's response
       readComfoairData(buffarr);
-    }
-
-
-  });
+      });
 
 client.on('close', function() {
   adapter.log.debug('Connection closed');
