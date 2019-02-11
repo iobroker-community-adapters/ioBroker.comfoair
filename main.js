@@ -19,7 +19,7 @@ var statTemp = [0x07, 0xF0, 0x00, 0xD1, 0x00, 0x7E, 0x07, 0x0F];
 var statVent = [0x07, 0xF0, 0x00, 0xCD, 0x00, 0x7A, 0x07, 0x0F];
 var statBetrH = [0x07, 0xF0, 0x00, 0xDD, 0x00, 0x8A, 0x07, 0x0F];
 var statByp = [0x07, 0xF0, 0x00, 0x0D, 0x00, 0xBA, 0x07, 0x0F];
-var statcmd = [stat0Temp, stat1Vent, stat2BetrH, stat3Byp];
+var statcmd = [statTemp, statVent, statBetrH, statByp];
 var statcmdi = [
   [0x07, 0xF0, 0x00, 0xD1, 0x00, 0x7E, 0x07, 0x0F],
   [0x07, 0xF0, 0x00, 0xCD, 0x00, 0x7A, 0x07, 0x0F],
@@ -133,17 +133,17 @@ function callcomfoair(hexout) {
   });
 
   client.on('data', function(data) {
-      var buff = new Buffer(data, 'utf8');
-      adapter.log.debug('Received: ' + buff.toString('hex'));
-      buffarr = [...buff];
-      adapter.log.debug('Received arr: ' + buffarr);
-      client.destroy(); // kill client after server's response
-      readComfoairData(buffarr);
-      });
+    var buff = new Buffer(data, 'utf8');
+    adapter.log.debug('Received: ' + buff.toString('hex'));
+    buffarr = [...buff];
+    adapter.log.debug('Received arr: ' + buffarr);
+    client.destroy(); // kill client after server's response
+    readComfoairData(buffarr);
+  });
 
-client.on('close', function() {
-  adapter.log.debug('Connection closed');
-});
+  client.on('close', function() {
+    adapter.log.debug('Connection closed');
+  });
 } //end callcomfoair
 
 function readComfoairData(buffarr) {
@@ -151,15 +151,18 @@ function readComfoairData(buffarr) {
   switch (cmd) {
     case 210:
       adapter.log.debug(cmd + " : lese Temperaturwerte");
-adapter.setState('temperature.statcomfort', ((buffarr[7]/2)-20), true);
-adapter.setState('temperature.AUL', ((buffarr[8]/2)-20), true);
-adapter.setState('temperature.ZUL', ((buffarr[9]/2)-20), true);
-adapter.setState('temperature.ABL', ((buffarr[10]/2)-20), true);
-adapter.setState('temperature.FOL', ((buffarr[11]/2)-20), true);
-adapter.setState('temperature.FOL', ((buffarr[11]/2)-20), true);
+      adapter.setState('temperature.statcomfort', ((buffarr[7] / 2) - 20), true);
+      adapter.setState('temperature.AUL', ((buffarr[8] / 2) - 20), true);
+      adapter.setState('temperature.ZUL', ((buffarr[9] / 2) - 20), true);
+      adapter.setState('temperature.ABL', ((buffarr[10] / 2) - 20), true);
+      adapter.setState('temperature.FOL', ((buffarr[11] / 2) - 20), true);
+      adapter.setState('temperature.FOL', ((buffarr[11] / 2) - 20), true);
       break;
     case 206:
       adapter.log.debug(cmd + " : lese Ventilatorstatus");
+      adapter.setState('status.ventABL', buffarr[13], true);
+      adapter.setState('status.ventZUL', buffarr[14], true);
+      adapter.setState('status.statstufe', buffarr[15], true);
       break;
     case 222:
       adapter.log.debug(cmd + " : lese Betriebsstunden");
