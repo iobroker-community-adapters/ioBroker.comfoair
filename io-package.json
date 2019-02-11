@@ -201,7 +201,7 @@
       "_id": "status.statstufe",
       "type": "state",
       "common": {
-        "name": "Voltage AC",
+        "name": "statstufe",
         "type": "number",
         "role": "value.info",
         "read": true,
@@ -213,6 +213,41 @@
 
       }
     },
+    {
+      "_id": "status.ventZUL",
+      "type": "state",
+      "common": {
+        "name": "ventZUL",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Ventilatorstatus Zuluft",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.ventABL",
+      "type": "state",
+      "common": {
+        "name": "ventABL",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Ventilatorstatus Abluft",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+
 
     {
       "_id": "control",

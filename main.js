@@ -169,4 +169,5 @@ adapter.setState('temperature.FOL', ((buffarr[11]/2)-20), true);
       break;
 
 
-  } //end readComfoairData
+  }
+} //end readComfoairData
