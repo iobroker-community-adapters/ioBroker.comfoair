@@ -1,567 +1,294 @@
 {
-	"common": {
-		"name": "comfoair",
-		"version": "0.0.1",
-		"news": {
-			"0.0.1": {
-				"en": "development edition",
-				"de": "Entwicklungsversion"
-			}
-		},
-		"title": "comfoair",
-		"titleLang": {
-			"en": "comfoairControl",
-			"de": "ComfoairSteuerung"
-		},
-		"desc": {
-			"en": "Control you ComfoAir ventilation",
-			"de": "Steuere deine ComfoAir - Lüftung"
-		},
-		"authors": [
-			"forelleblau <marceladam@gmx.ch>"
-		],
-		"docs": {
-			"de": "docs/de/README.md"
-		},
-		"platform": "Javascript/Node.js",
-		"mode": "daemon",
-		"icon": "zehnder.png",
-		"materialize": true,
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/forelleblau/ioBroker.comfoair/master/admin/comfoair.png",
-		"keywords": [
-			"comfoair",
-			"ventilation",
-			"smart",
-			"home"
-		],
-		"readme": "https://github.com/forelleblau/ioBroker.comfoair/blob/master/README.md",
-		"loglevel": "info",
-		"type": "climate-control",
-		"license": "MIT",
-		"messagebox": false
-	},
-	"native": {
-		"host": "",
-		"pollInterval":300000,
-		"port": 9999
-	},
-	"objects": [],
-	"instanceObjects": [
-		{
-			"_id": "temperature",
-			"type": "channel",
-			"common": {
-			"name": "Temperatures"
-			},
-			"native": {
+  "common": {
+    "name": "comfoair",
+    "version": "0.0.1",
+    "news": {
+      "0.0.1": {
+        "en": "development edition",
+        "de": "Entwicklungsversion"
+      }
+    },
+    "title": "comfoair",
+    "titleLang": {
+      "en": "comfoairControl",
+      "de": "ComfoairSteuerung"
+    },
+    "desc": {
+      "en": "Control you ComfoAir ventilation",
+      "de": "Steuere deine ComfoAir - Lüftung"
+    },
+    "authors": [
+      "forelleblau <marceladam@gmx.ch>"
+    ],
+    "docs": {
+      "de": "docs/de/README.md"
+    },
+    "platform": "Javascript/Node.js",
+    "mode": "daemon",
+    "icon": "zehnder.png",
+    "materialize": true,
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/forelleblau/ioBroker.comfoair/master/admin/comfoair.png",
+    "keywords": [
+      "comfoair",
+      "ventilation",
+      "smart",
+      "home"
+    ],
+    "readme": "https://github.com/forelleblau/ioBroker.comfoair/blob/master/README.md",
+    "loglevel": "info",
+    "type": "climate-control",
+    "license": "MIT",
+    "messagebox": false
+  },
+  "native": {
+    "host": "",
+    "pollInterval": 300000,
+    "port": 9999
+  },
+  "objects": [],
+  "instanceObjects": [{
+      "_id": "temperature",
+      "type": "channel",
+      "common": {
+        "name": "Temperatures"
+      },
+      "native": {
 
-			}
-		},
-		{
-			"_id": "temperature.ABL",
-			"type": "state",
-			"common": {
-				"name": "Ablufttemperatur",
-				"type": "number",
-				"role": "value.temperature",
-				"read": true,
-				"write": false,
-				"desc": "Ablufttemperatur",
-				"unit": "°C"
-			},
-			"native": {
+      }
+    },
+    {
+      "_id": "temperature.ABL",
+      "type": "state",
+      "common": {
+        "name": "Ablufttemperatur",
+        "type": "number",
+        "role": "value.temperature",
+        "read": true,
+        "write": false,
+        "desc": "Ablufttemperatur",
+        "unit": "°C"
+      },
+      "native": {
 
-			}
-		},
-		{
-			"_id": "temperature.AUL",
-			"type": "state",
-			"common": {
-				"name": "Aussenlufttemperatur",
-				"type": "number",
-				"role": "value.temperature",
-				"read": true,
-				"write": false,
-				"desc": "Aussenlufttemperatur",
-				"unit": "°C"
-			},
-			"native": {
+      }
+    },
+    {
+      "_id": "temperature.AUL",
+      "type": "state",
+      "common": {
+        "name": "Aussenlufttemperatur",
+        "type": "number",
+        "role": "value.temperature",
+        "read": true,
+        "write": false,
+        "desc": "Aussenlufttemperatur",
+        "unit": "°C"
+      },
+      "native": {
 
-			}
-		},
-		{
-			"_id": "temperature.FOL",
-			"type": "state",
-			"common": {
-				"name": "Fortlufttemperatur",
-				"type": "number",
-				"role": "value.temperature",
-				"read": true,
-				"write": false,
-				"desc": "Fortlufttemperatur",
-				"unit": "°C"
-			},
-			"native": {
+      }
+    },
+    {
+      "_id": "temperature.FOL",
+      "type": "state",
+      "common": {
+        "name": "Fortlufttemperatur",
+        "type": "number",
+        "role": "value.temperature",
+        "read": true,
+        "write": false,
+        "desc": "Fortlufttemperatur",
+        "unit": "°C"
+      },
+      "native": {
 
-			}
-		},
-		{
-			"_id": "temperature.ZUL",
-			"type": "state",
-			"common": {
-				"name": "Zulufttemperatur",
-				"type": "number",
-				"role": "value.temperature",
-				"read": true,
-				"write": false,
-				"desc": "Zulufttemperatur",
-				"unit": "°C"
-			},
-			"native": {
+      }
+    },
+    {
+      "_id": "temperature.ZUL",
+      "type": "state",
+      "common": {
+        "name": "Zulufttemperatur",
+        "type": "number",
+        "role": "value.temperature",
+        "read": true,
+        "write": false,
+        "desc": "Zulufttemperatur",
+        "unit": "°C"
+      },
+      "native": {
 
-			}
-		},
-		{
-			"_id": "temperature.statcomfort",
-			"type": "state",
-			"common": {
-				"name": "Status Komforttemperatur",
-				"type": "number",
-				"role": "value.temperature",
-				"read": true,
-				"write": false,
-				"desc": "Eingestellte Komforttemperatur",
-				"unit": "°C"
-			},
-			"native": {
+      }
+    },
+    {
+      "_id": "temperature.statcomfort",
+      "type": "state",
+      "common": {
+        "name": "Status Komforttemperatur",
+        "type": "number",
+        "role": "value.temperature",
+        "read": true,
+        "write": false,
+        "desc": "Eingestellte Komforttemperatur",
+        "unit": "°C"
+      },
+      "native": {
 
-			}
-		},
+      }
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "name": "comfoair connected",
+        "type": "boolean",
+        "role": "indicator.connected",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Is comfoair connected?"
+      },
+      "native": {
 
-		{
-			"_id": "status",
-			"type": "channel",
-			"common": {
-				"name": "Status"
-			},
-			"native": {
+      }
+    },
+    {
+      "_id": "status",
+      "type": "channel",
+      "common": {
+        "name": "Status"
+      },
+      "native": {
 
-			}
-		},
-		{
-			"_id": "status.statstufe",
-			"type": "state",
-			"common": {
-				"name": "Aktuelle Stufe",
-				"type": "number",
-				"role": "value.info",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Aktuelle Stufe"
-			},
-			"native": {
+      }
+    },
+    {
+      "_id": "status.filterh",
+      "type": "state",
+      "common": {
+        "name": "Betriebsstunden Filter",
+        "type": "number",
+        "role": "value.hours",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Betriebsstunden der Filter",
+        "unit": "h"
+      },
+      "native": {
 
-			}
-		},
-		{
-			"_id": "status.ventZUL",
-			"type": "state",
-			"common": {
-				"name": "Ventilatorstatus Zuluft",
-				"type": "number",
-				"role": "value.hours",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Ventilatorstatus Zuluft",
-				"unit": "%"
-			},
-			"native": {
+      }
+    },
+    {
+      "_id": "status.bypass",
+      "type": "state",
+      "common": {
+        "name": "bypass",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Klappenstatus Bypass",
+        "unit": "%"
+      },
+      "native": {
 
-			}
-		},
-		{
-			"_id": "status.ventABL",
-			"type": "state",
-			"common": {
-				"name": "Ventilatorstatus Abluft",
-				"type": "number",
-				"role": "value.hours",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Ventilatorstatus Abluft",
-				"unit": "%"
-			},
-			"native": {
+      }
+    },
+    {
+      "_id": "status.statstufe",
+      "type": "state",
+      "common": {
+        "name": "Voltage AC",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Aktuelle Stufe"
+      },
+      "native": {
 
-			}
-		},
-		{
-			"_id": "status.filterH",
-			"type": "state",
-			"common": {
-				"name": "filterH",
-				"type": "number",
-				"role": "value.hours",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Betriebsstunden der Filter",
-				"unit": "h"
-			},
-			"native": {
+      }
+    },
 
-			}
-		},
-		{
-			"_id": "status.bypass",
-			"type": "state",
-			"common": {
-				"name": "bypass",
-				"type": "number",
-				"role": "value.info",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Klappenstatus Bypass",
-				"unit": "%"
-			},
-			"native": {
+    {
+      "_id": "control",
+      "type": "channel",
+      "common": {
+        "name": "Steuerung"
+      },
+      "native": {
 
-			}
-		},
-		{
-			"_id": "status.setVentAbwABL",
-			"type": "state",
-			"common": {
-				"name": "setVentAbwABL",
-				"type": "number",
-				"role": "value.level",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Ventilationsstufe abwesend Abluft",
-				"unit": "%"
-			},
-			"native": {
+      }
+    },
+    {
+      "_id": "control.comfort",
+      "type": "state",
+      "common": {
+        "name": "Komforttemperatur",
+        "type": "number",
+        "role": "value.temperature",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Vorgegebene Komforttemperatur",
+        "unit": "°C"
+      },
+      "native": {
 
-			}
-		},
-		{
-			"_id": "status.setVentAbwZUL",
-			"type": "state",
-			"common": {
-				"name": "setVentAbwZUL",
-				"type": "number",
-				"role": "value.level",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Ventilationsstufe abwesend Zuluft",
-				"unit": "%"
-			},
-			"native": {
+      }
+    },
+    {
+      "_id": "control.stufe",
+      "type": "state",
+      "common": {
+        "name": "Stufe",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Vorgabe Stufe"
+      },
+      "native": {
 
-			}
-		},
-		{
-			"_id": "status.setVent1ABL",
-			"type": "state",
-			"common": {
-				"name": "setVent1ABL",
-				"type": "number",
-				"role": "value.level",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Ventilationsstufe niedrig Abluft",
-				"unit": "%"
-			},
-			"native": {
+      }
+    },
+    {
+      "_id": "control.kommando",
+      "type": "state",
+      "common": {
+        "name": "Kommando",
+        "type": "string",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Kommando"
+      },
+      "native": {
 
-			}
-		},
-		{
-			"_id": "status.setVent1ZUL",
-			"type": "state",
-			"common": {
-				"name": "setVent1ZUL",
-				"type": "number",
-				"role": "value.level",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Ventilationsstufe niedrig Zuluft",
-				"unit": "%"
-			},
-			"native": {
+      }
+    },
+    {
+      "_id": "control.status",
+      "type": "state",
+      "common": {
+        "name": "status",
+        "type": "string",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Status des letzten Kommandos"
+      },
+      "native": {
 
-			}
-		},
-		{
-			"_id": "status.setVent2ABL",
-			"type": "state",
-			"common": {
-				"name": "setVent2ABL",
-				"type": "number",
-				"role": "value.level",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Ventilationsstufe mittel Abluft",
-				"unit": "%"
-			},
-			"native": {
 
-			}
-		},
-		{
-			"_id": "status.setVent2ZUL",
-			"type": "state",
-			"common": {
-				"name": "setVent2ZUL",
-				"type": "number",
-				"role": "value.level",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Ventilationsstufe mittel Zuluft",
-				"unit": "%"
-			},
-			"native": {
-
-			}
-		},
-		{
-			"_id": "status.setVent3ABL",
-			"type": "state",
-			"common": {
-				"name": "setVent3ABL",
-				"type": "number",
-				"role": "value.level",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Ventilationsstufe hoch Abluft",
-				"unit": "%"
-			},
-			"native": {
-
-			}
-		},
-		{
-			"_id": "status.setVent3ZUL",
-			"type": "state",
-			"common": {
-				"name": "setVent1ZUL",
-				"type": "number",
-				"role": "value.level",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Ventilationsstufe hoch Zuluft",
-				"unit": "%"
-			},
-			"native": {
-
-			}
-		},
-		{
-			"_id": "status.BetrHabw",
-			"type": "state",
-			"common": {
-				"name": "BetrHabw",
-				"type": "number",
-				"role": "value.hours",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Betriebsstunden Stufe abwesend",
-				"unit": "h"
-			},
-			"native": {
-
-			}
-		},
-		{
-			"_id": "status.BetrH1",
-			"type": "state",
-			"common": {
-				"name": "BetrH1",
-				"type": "number",
-				"role": "value.hours",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Betriebsstunden Stufe niedrig",
-				"unit": "h"
-			},
-			"native": {
-
-			}
-		},
-		{
-			"_id": "status.BetrH2",
-			"type": "state",
-			"common": {
-				"name": "BetrH2",
-				"type": "number",
-				"role": "value.hours",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Betriebsstunden Stufe mittel",
-				"unit": "h"
-			},
-			"native": {
-
-			}
-		},
-		{
-			"_id": "status.BetrH3",
-			"type": "state",
-			"common": {
-				"name": "BetrH3",
-				"type": "number",
-				"role": "value.hours",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Betriebsstunden Stufe hoch",
-				"unit": "h"
-			},
-			"native": {
-
-			}
-		},
-		{
-			"_id": "status.BetrHbypass",
-			"type": "state",
-			"common": {
-				"name": "BetrHbypass",
-				"type": "number",
-				"role": "value.hours",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Betriebsstunden Bypass offen",
-				"unit": "h"
-			},
-			"native": {
-
-			}
-		},
-		{
-			"_id": "status.BetrHFrost",
-			"type": "state",
-			"common": {
-				"name": "BetrHFrost",
-				"type": "number",
-				"role": "value.hours",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Betriebsstunden Frostschutz",
-				"unit": "h"
-			},
-			"native": {
-
-			}
-		},
-		{
-			"_id": "status.connection",
-			"type": "state",
-			"common": {
-				"name": "comfoair connected",
-				"type": "boolean",
-				"role": "indicator.connected",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Is comfoair connected?"
-			},
-			"native": {
-
-			}
-		},
-
-	{
-			"_id": "control",
-			"type": "channel",
-			"common": {
-				"name": "Steuerung"
-			},
-			"native": {
-
-			}
-		},
-		{
-			"_id": "control.comfort",
-			"type": "state",
-			"common": {
-				"name": "Komforttemperatur",
-				"type": "number",
-				"role": "value.temperature",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Vorgegebene Komforttemperatur",
-				"unit": "°C"
-			},
-			"native": {
-
-			}
-		},
-		{
-			"_id": "control.stufe",
-			"type": "state",
-			"common": {
-				"name": "Stufe",
-				"type": "number",
-				"role": "value.info",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Vorgabe Stufe"
-			},
-			"native": {
-
-			}
-		},
-		{
-			"_id": "control.kommando",
-			"type": "state",
-			"common": {
-				"name": "Kommando",
-				"type": "string",
-				"role": "value.info",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Kommando"
-			},
-			"native": {
-
-			}
-		},
-		{
-			"_id": "control.status",
-			"type": "state",
-			"common": {
-				"name": "status",
-				"type": "string",
-				"role": "value.info",
-				"read": true,
-				"write": false,
-				"def": false,
-				"desc": "Status des letzten Kommandos"
-			},
-			"native": {
-
-			}
-		}
-	]
+      }
+    }
+  ]
 }
