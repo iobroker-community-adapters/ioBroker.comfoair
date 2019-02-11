@@ -32,67 +32,68 @@ var calli = 0;
 var callval;
 
 let polling;
+
 function startAdapter(options) {
-    options = options || {};
-    Object.assign(options, {
-        name: 'comfoair'
-    });
+  options = options || {};
+  Object.assign(options, {
+    name: 'comfoair'
+  });
 
-    adapter = new utils.Adapter(options);
+  adapter = new utils.Adapter(options);
 
 
-// when adapter shuts down
-adapter.on('unload', function(callback) {
-  try {
-    clearInterval(polling);
-    adapter.log.info('[END] Stopping comfoair adapter...');
-    adapter.setState('info.connection', false, true);
-    callback();
-  } catch (e) {
-    callback();
-  }
-});
-
-// is called if a subscribed object changes
-adapter.on('objectChange', function(id, obj) {
-  // Warning, obj can be null if it was deleted
-  adapter.log.info('objectChange ' + id + ' ' + JSON.stringify(obj));
-});
-
-// is called if a subscribed state changes
-adapter.on('stateChange', function(id, state) {
-  // Warning, state can be null if it was deleted
-  adapter.log.debug('stateChange ' + id + ' ' + JSON.stringify(state));
-
-  // you can use the ack flag to detect if it is status (true) or command (false)
-  if (state && !state.ack) {
-    adapter.log.info('ack is not set!');
-  }
-});
-
-// Some message was sent to adapter instance over message box. Used by email, pushover, text2speech, ...
-adapter.on('message', function(obj) {
-  if (typeof obj === 'object' && obj.message) {
-    if (obj.command === 'send') {
-      // e.g. send email or pushover or whatever
-      adapter.log('send command');
-
-      // Send response in callback if required
-      if (obj.callback) adapter.sendTo(obj.from, obj.command, 'Message received', obj.callback);
+  // when adapter shuts down
+  adapter.on('unload', function(callback) {
+    try {
+      clearInterval(polling);
+      adapter.log.info('[END] Stopping comfoair adapter...');
+      adapter.setState('info.connection', false, true);
+      callback();
+    } catch (e) {
+      callback();
     }
-  }
-});
+  });
 
-// is called when databases are connected and adapter received configuration.
-adapter.on('ready', function() {
-  if (adapter.config.host) {
-    adapter.log.info('[START] Starting comfoair adapter');
-    adapter.setState('info.connection', true, true);
-    main();
-  } else adapter.log.warn('[START] No IP-address set');
-});
+  // is called if a subscribed object changes
+  adapter.on('objectChange', function(id, obj) {
+    // Warning, obj can be null if it was deleted
+    adapter.log.info('objectChange ' + id + ' ' + JSON.stringify(obj));
+  });
 
-return adapter;
+  // is called if a subscribed state changes
+  adapter.on('stateChange', function(id, state) {
+    // Warning, state can be null if it was deleted
+    adapter.log.debug('stateChange ' + id + ' ' + JSON.stringify(state));
+
+    // you can use the ack flag to detect if it is status (true) or command (false)
+    if (state && !state.ack) {
+      adapter.log.info('ack is not set!');
+    }
+  });
+
+  // Some message was sent to adapter instance over message box. Used by email, pushover, text2speech, ...
+  adapter.on('message', function(obj) {
+    if (typeof obj === 'object' && obj.message) {
+      if (obj.command === 'send') {
+        // e.g. send email or pushover or whatever
+        adapter.log('send command');
+
+        // Send response in callback if required
+        if (obj.callback) adapter.sendTo(obj.from, obj.command, 'Message received', obj.callback);
+      }
+    }
+  });
+
+  // is called when databases are connected and adapter received configuration.
+  adapter.on('ready', function() {
+    if (adapter.config.host) {
+      adapter.log.info('[START] Starting comfoair adapter');
+      adapter.setState('info.connection', true, true);
+      main();
+    } else adapter.log.warn('[START] No IP-address set');
+  });
+
+  return adapter;
 } // endStartAdapter
 
 
@@ -126,6 +127,7 @@ function callvalues() {
   callcomfoair(hexout);
   calli++;
   if (calli == statcmdL) {
+    calli = 0;
     clearInterval(callval);
   }
 } //end callvalues
@@ -163,7 +165,7 @@ function callcomfoair(hexout) {
 } //end callcomfoair
 
 function readComfoairData(buffarr) {
-adapter.log.debug("Verarbeite Daten");
+  adapter.log.debug("Verarbeite Daten");
   var cmd = buffarr[5];
   switch (cmd) {
     case 210:
@@ -194,8 +196,8 @@ adapter.log.debug("Verarbeite Daten");
 
 // If started as allInOne/compact mode => return function to create instance
 if (module && module.parent) {
-    module.exports = startAdapter;
+  module.exports = startAdapter;
 } else {
-    // or start the instance directly
-    startAdapter();
+  // or start the instance directly
+  startAdapter();
 } // endElse
