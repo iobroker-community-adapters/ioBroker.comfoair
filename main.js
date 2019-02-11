@@ -7,7 +7,7 @@
 'use strict';
 
 const utils = require(__dirname + '/lib/utils'); // Get common adapter utils
-const adapter = new utils.Adapter('comfoair');
+let adapter;
 var DeviceIpAdress;
 var port;
 var net = require('net');
@@ -31,6 +31,13 @@ var statcmdL = statcmdi.length;
 var calli = 0;
 
 let polling;
+function startAdapter(options) {
+    options = options || {};
+    Object.assign(options, {
+        name: 'comfoair'
+    });
+
+    adapter = new utils.Adapter(options);
 
 
 // when adapter shuts down
@@ -83,6 +90,9 @@ adapter.on('ready', function() {
     main();
   } else adapter.log.warn('[START] No IP-address set');
 });
+
+return adapter;
+} // endStartAdapter
 
 
 function main() {
@@ -174,3 +184,11 @@ function readComfoairData(buffarr) {
 
   }
 } //end readComfoairData
+
+// If started as allInOne/compact mode => return function to create instance
+if (module && module.parent) {
+    module.exports = startAdapter;
+} else {
+    // or start the instance directly
+    startAdapter();
+} // endElse
