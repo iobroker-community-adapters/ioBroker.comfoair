@@ -165,10 +165,10 @@ function readComfoairData(buffarr) {
       adapter.setState('status.statstufe', buffarr[15], true);
       break;
     case 222:
-      adapter.log.debug(cmd + " : lese Betriebsstunden");
+      adapter.log.debug(cmd + " : lese Betriebsstunden - noch zu erstellen");
       break;
     case 14:
-      adapter.log.debug(cmd + " : lese Status Bypass");
+      adapter.log.debug(cmd + " : lese Status Bypass - noch zu erstellen");
       break;
 
 
