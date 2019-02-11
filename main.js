@@ -29,6 +29,7 @@ var statcmdi = [
 var statcmdS = ["statTemp", "statVent", "statBetrH", "statByp"];
 var statcmdL = statcmdi.length;
 var calli = 0;
+var callval;
 
 let polling;
 function startAdapter(options) {
@@ -109,7 +110,7 @@ function main() {
 
   if (!polling) {
     polling = setTimeout(function repeat() { // poll states every [30] seconds
-      callval = setInterval(callvalues, 2000); //DATAREQUEST;
+      callval = setInterval(callvalues(calval), 2000); //DATAREQUEST;
       setTimeout(repeat, pollingTime);
     }, pollingTime);
   } // endIf
@@ -132,7 +133,8 @@ function callvalues() {
 
 function callcomfoair(hexout) {
   var client = new net.Socket();
-  client.connect(8899, '192.168.1.132', function() { //Connection Data ComfoAir
+
+  client.connect(port, DeviceIpAdress, function() { //Connection Data ComfoAir
     adapter.log.debug('Connected');
     adapter.log.debug(hexout);
     var msgbuf = new Buffer(hexout);
@@ -140,6 +142,7 @@ function callcomfoair(hexout) {
     adapter.log.debug("out " + msgbuf.toString('hex'));
     adapter.log.debug("outarr: " + hexoutarr);
     client.write(msgbuf);
+
   });
 
   client.on('data', function(data) {
@@ -147,17 +150,21 @@ function callcomfoair(hexout) {
     adapter.log.debug('Received: ' + buff.toString('hex'));
     buffarr = [...buff];
     adapter.log.debug('Received arr: ' + buffarr);
-    client.destroy(); // kill client after server's response
     readComfoairData(buffarr);
+    client.destroy(); // kill client after server's response
+
   });
 
   client.on('close', function() {
+
+
     adapter.log.debug('Connection closed');
   });
 } //end callcomfoair
 
 function readComfoairData(buffarr) {
-  cmd = buffarr[5];
+adapter.log.debug("Verarbeite Daten");
+  var cmd = buffarr[5];
   switch (cmd) {
     case 210:
       adapter.log.debug(cmd + " : lese Temperaturwerte");

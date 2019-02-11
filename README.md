@@ -8,13 +8,15 @@ Install adapter, create instance.
 Install hardware: i.e. RS232 to LAN adapter to the serial interface of the comfoair
 Set comfoair - IP-adress, port and polling - intervall
 
+Works only if ccEASE - Panel is disconnected.
+
 Tested on comfoair 350
 
 
 
 ## Changelog
 
-### 0.0.1 In development stage, contributeions welcome
+### 0.0.1 In development stage, contributions welcome
 
 
 ## License
