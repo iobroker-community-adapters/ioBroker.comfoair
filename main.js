@@ -110,7 +110,7 @@ function main() {
 
   if (!polling) {
     polling = setTimeout(function repeat() { // poll states every [30] seconds
-      callval = setInterval(callvalues(calval), 2000); //DATAREQUEST;
+      callval = setInterval(callvalues, 2000); //DATAREQUEST;
       setTimeout(repeat, pollingTime);
     }, pollingTime);
   } // endIf
