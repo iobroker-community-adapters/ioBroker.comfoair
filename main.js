@@ -174,7 +174,7 @@ function callcomfoair(hexout) {
       readComfoairData(buffarr);
     }
 
-    client.destroy(); // kill client after server's response
+    setTimeout(function() {client.destroy();}, 1000); // kill client after server's response
 
   });
 
