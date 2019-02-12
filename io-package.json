@@ -47,7 +47,9 @@
     "port": 9999
   },
   "objects": [],
-  "instanceObjects": [{
+  "instanceObjects": [
+
+    {
       "_id": "temperature",
       "type": "channel",
       "common": {
@@ -291,7 +293,6 @@
       "native": {
 
       }
-    },
-
+    }
   ]
 }
