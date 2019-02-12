@@ -267,7 +267,7 @@
         "type": "number",
         "role": "value.temperature",
         "read": true,
-        "write": false,
+        "write": true,
         "def": false,
         "desc": "Vorgegebene Komforttemperatur",
         "unit": "°C"
@@ -280,11 +280,11 @@
       "_id": "control.stufe",
       "type": "state",
       "common": {
-        "name": "Stufe",
+        "name": "Stufe (1_Abw - 4_hoch)",
         "type": "number",
         "role": "value.info",
         "read": true,
-        "write": false,
+        "write": true,
         "def": false,
         "desc": "Vorgabe Stufe"
       },
@@ -292,38 +292,6 @@
 
       }
     },
-    {
-      "_id": "control.kommando",
-      "type": "state",
-      "common": {
-        "name": "Kommando",
-        "type": "string",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "def": false,
-        "desc": "Kommando"
-      },
-      "native": {
 
-      }
-    },
-    {
-      "_id": "control.status",
-      "type": "state",
-      "common": {
-        "name": "status",
-        "type": "string",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "def": false,
-        "desc": "Status des letzten Kommandos"
-      },
-      "native": {
-
-
-      }
-    }
   ]
 }
