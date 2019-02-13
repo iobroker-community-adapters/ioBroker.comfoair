@@ -8,31 +8,31 @@
 
 const utils = require(__dirname + '/lib/utils'); // Get common adapter utils
 let adapter;
-var DeviceIpAdress;
+var deviceIpAdress;
 var port;
 var net = require('net');
 var hexout = [];
 var buffarr = [];
 var buff;
-var cmdi;
+/* var cmdi;
 var statTemp = [0x07, 0xF0, 0x00, 0xD1, 0x00, 0x7E, 0x07, 0x0F];
 var statVent = [0x07, 0xF0, 0x00, 0xCD, 0x00, 0x7A, 0x07, 0x0F];
 var statBetrH = [0x07, 0xF0, 0x00, 0xDD, 0x00, 0x8A, 0x07, 0x0F];
 var statByp = [0x07, 0xF0, 0x00, 0x0D, 0x00, 0xBA, 0x07, 0x0F];
-var statcmd = [statTemp, statVent, statBetrH, statByp];
+var statcmd = [statTemp, statVent, statBetrH, statByp];*/
 var statcmdi = [
-  [0x07, 0xF0, 0x00, 0xD1, 0x00, 0x7E, 0x07, 0x0F],
-  [0x07, 0xF0, 0x00, 0xCD, 0x00, 0x7A, 0x07, 0x0F],
-  [0x07, 0xF0, 0x00, 0xDD, 0x00, 0x8A, 0x07, 0x0F],
-  [0x07, 0xF0, 0x00, 0x0D, 0x00, 0xBA, 0x07, 0x0F]
+  [0x07, 0xF0, 0x00, 0xD1, 0x00, 0x7E, 0x07, 0x0F], //Temperaturen
+  [0x07, 0xF0, 0x00, 0xCD, 0x00, 0x7A, 0x07, 0x0F], //Ventilatorenstati
+  [0x07, 0xF0, 0x00, 0xDD, 0x00, 0x8A, 0x07, 0x0F], //Betriebsstunden
+  [0x07, 0xF0, 0x00, 0x0D, 0x00, 0xBA, 0x07, 0x0F] //Status Bypass
 ];
-var statesetcmd = [
-  [0x07, 0xF0, 0x00, 0x99, 0x01, 0x01, 0x48, 0x07, 0x0F],
-  [0x07, 0xF0, 0x00, 0x99, 0x01, 0x02, 0x49, 0x07, 0x0F],
-  [0x07, 0xF0, 0x00, 0x99, 0x01, 0x03, 0x4A, 0x07, 0x0F],
-  [0x07, 0xF0, 0x00, 0x99, 0x01, 0x04, 0x4B, 0x07, 0x0F]
+var setfanstate = [
+  [0x07, 0xF0, 0x00, 0x99, 0x01, 0x01, 0x48, 0x07, 0x0F], //Stufe abwesend
+  [0x07, 0xF0, 0x00, 0x99, 0x01, 0x02, 0x49, 0x07, 0x0F], //Stufe niedrig
+  [0x07, 0xF0, 0x00, 0x99, 0x01, 0x03, 0x4A, 0x07, 0x0F], //Stufe mittel
+  [0x07, 0xF0, 0x00, 0x99, 0x01, 0x04, 0x4B, 0x07, 0x0F] //Stufe hoch
 ];
-var statcmdS = ["statTemp", "statVent", "statBetrH", "statByp"];
+//var statcmdS = ["statTemp", "statVent", "statBetrH", "statByp"];
 var statcmdL = statcmdi.length;
 var calli = 0;
 var callval;
@@ -79,7 +79,10 @@ function startAdapter(options) {
     if (id === "control.stufe") {
       adapter.log.debug("Setzte Stufe: " + state);
 
-      callcomfoair(statesetcmd[state-1]);
+      callcomfoair(setfanstate[state - 1]);
+    } else if (id === "control.comfort") {
+      adapter.log.warn("Das Setzen der Komforttemperatur ist noch nicht programmiert");
+
     }
 
 
@@ -117,7 +120,7 @@ function startAdapter(options) {
 
 function main() {
   // Vars
-  DeviceIpAdress = adapter.config.host;
+  deviceIpAdress = adapter.config.host;
   port = adapter.config.port;
 
 
@@ -154,7 +157,7 @@ function callvalues() {
 function callcomfoair(hexout) {
   var client = new net.Socket();
 
-  client.connect(port, DeviceIpAdress, function() { //Connection Data ComfoAir
+  client.connect(port, deviceIpAdress, function() { //Connection Data ComfoAir
     adapter.log.debug('Connected');
     adapter.log.debug(hexout);
     var msgbuf = new Buffer(hexout);
@@ -170,11 +173,35 @@ function callcomfoair(hexout) {
     adapter.log.debug('Received: ' + buff.toString('hex'));
     buffarr = [...buff];
     adapter.log.debug('Received arr: ' + buffarr);
-    if (buffarr.length > 3) {
-      readComfoairData(buffarr);
+    try {
+      if (buffarr.length > 3) {
+        if (buffarr[0] == 7 && buffarr[1] == 243) {
+          adapter.log.debug("ACK erhalten");
+          readComfoairData(buffarr);
+        } else {
+          adapter.log.warn("ACK zu Datenabfrage nicht erhalten");
+        }
+
+      } else {
+        if (buff.toString('hex') == "07f3") {
+          adapter.log.debug("ACK erhalten");
+          switch (hexout[3]) {
+            case 153:
+              adapter.setState('status.statstufe', hexout[5], true);
+              break;
+          }
+        } else {
+          adapter.log.debug("ACK zu Kommando nicht erhlaten");
+        }
+      }
+
+    } catch (e) {
+      adapter.log.warn("Client-Data - Fehler" + e);
     }
 
-    setTimeout(function() {client.destroy();}, 1000); // kill client after server's response
+    setTimeout(function() {
+      client.destroy();
+    }, 1000); // kill client after server's response
 
   });
 
@@ -186,32 +213,39 @@ function callcomfoair(hexout) {
 } //end callcomfoair
 
 function readComfoairData(buffarr) {
-  adapter.log.debug("Verarbeite Daten");
-  var cmd = buffarr[5];
-  switch (cmd) {
-    case 210:
-      adapter.log.debug(cmd + " : lese Temperaturwerte");
-      adapter.setState('temperature.statcomfort', ((buffarr[7] / 2) - 20), true);
-      adapter.setState('temperature.AUL', ((buffarr[8] / 2) - 20), true);
-      adapter.setState('temperature.ZUL', ((buffarr[9] / 2) - 20), true);
-      adapter.setState('temperature.ABL', ((buffarr[10] / 2) - 20), true);
-      adapter.setState('temperature.FOL', ((buffarr[11] / 2) - 20), true);
-      adapter.setState('temperature.FOL', ((buffarr[11] / 2) - 20), true);
-      break;
-    case 206:
-      adapter.log.debug(cmd + " : lese Ventilatorstatus");
-      adapter.setState('status.ventABL', buffarr[13], true);
-      adapter.setState('status.ventZUL', buffarr[14], true);
-      adapter.setState('status.statstufe', buffarr[15], true);
-      break;
-    case 222:
-      adapter.log.debug(cmd + " : lese Betriebsstunden - noch zu erstellen");
-      break;
-    case 14:
-      adapter.log.debug(cmd + " : lese Status Bypass - noch zu erstellen");
-      break;
+  try {
+    adapter.log.debug("Verarbeite Daten");
+    var cmd = buffarr[5];
+    switch (cmd) {
+      case 210:
+        adapter.log.debug(cmd + " : lese Temperaturwerte");
+        adapter.setState('temperature.statcomfort', ((buffarr[7] / 2) - 20), true);
+        adapter.setState('temperature.AUL', ((buffarr[8] / 2) - 20), true);
+        adapter.setState('temperature.ZUL', ((buffarr[9] / 2) - 20), true);
+        adapter.setState('temperature.ABL', ((buffarr[10] / 2) - 20), true);
+        adapter.setState('temperature.FOL', ((buffarr[11] / 2) - 20), true);
+        adapter.setState('temperature.FOL', ((buffarr[11] / 2) - 20), true);
+        break;
+      case 206:
+        adapter.log.debug(cmd + " : lese Ventilatorstatus");
+        adapter.setState('status.ventABL', buffarr[13], true);
+        adapter.setState('status.ventZUL', buffarr[14], true);
+        adapter.setState('status.statstufe', buffarr[15], true);
+        break;
+      case 222:
+        adapter.log.debug(cmd + " : lese Betriebsstunden");
+        adapter.setState('status.filterh', parseInt((buffarr[22].toString(16) + buffarr[23].toString(16)), 16), true);
+        break;
+      case 14:
+        adapter.log.debug(cmd + " : lese Status Bypass");
+        adapter.setState('status.bypass', buffarr[7], true);
+        break;
+      default:
+        adapter.log.warn("Fehler: ACK korrekt, aber Daten nicht erkannt");
 
-
+    }
+  } catch (e) {
+    adapter.log.warn("readComfoairData - Fehler: " + e);
   }
 } //end readComfoairData
 

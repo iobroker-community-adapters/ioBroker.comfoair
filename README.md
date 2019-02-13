@@ -2,19 +2,21 @@
 # ioBroker.comfoair
 
 
-An ioBroker adapter for comfoair - ventilations (i.e. ComfoAir 200/350, NOT ComfoAir Q350...)
+An ioBroker adapter for comfoair  'CA' -ventilations (i.e. ComfoAir CA350, NOT ComfoAir Q350...)
 
 Install adapter, create instance.
-Install hardware: i.e. RS232 to LAN adapter to the serial interface of the comfoair
+Install hardware for TCP - connection to comfoair: i.e. RS232 to LAN adapter to the serial interface of the comfoair
 Set comfoair - IP-adress, port and polling - intervall
 
-Works only if ccEASE - Panel is disconnected.
+Might work even CC-Ease Panel is connectett. Works well if ccEASE - Panel is disconnected.
 
-Tested on comfoair 350
+Tested on comfoair CA350
 
 
 
 ## Changelog
+
+### 0.0.2 First running Version. Gets temp, vent, bypass and filter states, sets fan level.
 
 ### 0.0.1 In development stage, contributions welcome
 

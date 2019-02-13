@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "news": {
+      "0.0.1": {
+        "en": "First running Version. Gets temp, vent, bypass and filter states, sets fan level.",
+        "de": "Erste funktionierende Version. Zeigt, Temperatur-, Ventilator-, Filter- und Bypass - Stati, ermöglicht das Setzen der Lüftungsstufe."
+      },
       "0.0.1": {
         "en": "development edition",
         "de": "Entwicklungsversion"
