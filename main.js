@@ -14,12 +14,7 @@ var net = require('net');
 var hexout = [];
 var buffarr = [];
 var buff;
-/* var cmdi;
-var statTemp = [0x07, 0xF0, 0x00, 0xD1, 0x00, 0x7E, 0x07, 0x0F];
-var statVent = [0x07, 0xF0, 0x00, 0xCD, 0x00, 0x7A, 0x07, 0x0F];
-var statBetrH = [0x07, 0xF0, 0x00, 0xDD, 0x00, 0x8A, 0x07, 0x0F];
-var statByp = [0x07, 0xF0, 0x00, 0x0D, 0x00, 0xBA, 0x07, 0x0F];
-var statcmd = [statTemp, statVent, statBetrH, statByp];*/
+
 var statcmdi = [
   [0x07, 0xF0, 0x00, 0xD1, 0x00, 0x7E, 0x07, 0x0F], //Temperaturen
   [0x07, 0xF0, 0x00, 0xCD, 0x00, 0x7A, 0x07, 0x0F], //Ventilatorenstati
@@ -32,7 +27,9 @@ var setfanstate = [
   [0x07, 0xF0, 0x00, 0x99, 0x01, 0x03, 0x4A, 0x07, 0x0F], //Stufe mittel
   [0x07, 0xF0, 0x00, 0x99, 0x01, 0x04, 0x4B, 0x07, 0x0F] //Stufe hoch
 ];
-//var statcmdS = ["statTemp", "statVent", "statBetrH", "statByp"];
+var setcomfotemp = [0x07, 0xF0, 0x00, 0xD3, 0x01, 0x14, 0x48, 0x07, 0x0F]; //Komforttemperatur setzen
+var setreset = [0x07, 0xF0, 0x00, 0xDB, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x0F]
+
 var statcmdL = statcmdi.length;
 var calli = 0;
 var callval;
@@ -69,26 +66,46 @@ function startAdapter(options) {
   // is called if a subscribed state changes
   adapter.on('stateChange', function(id, state) {
     // Warning, state can be null if it was deleted
-    adapter.log.debug('stateChange ' + id + ' ' + JSON.stringify(state));
-    //adapter.log.debug("Adapter=" + adapter.toString());
 
-    if (!id || state.ack) return; // Ignore acknowledged state changes or error states
-    id = id.substring(adapter.namespace.length + 1); // remove instance name and id
-    state = state.val;
-    adapter.log.debug("id=" + id);
-    if (id === "control.stufe") {
-      adapter.log.debug("Setzte Stufe: " + state);
+    try {
+      adapter.log.debug('stateChange ' + id + ' ' + JSON.stringify(state));
+      //adapter.log.debug("Adapter=" + adapter.toString());
 
-      callcomfoair(setfanstate[state - 1]);
-    } else if (id === "control.comfort") {
-      adapter.log.warn("Das Setzen der Komforttemperatur ist noch nicht programmiert");
+      if (!id || state.ack) return; // Ignore acknowledged state changes or error states
+      id = id.substring(adapter.namespace.length + 1); // remove instance name and id
+      state = state.val;
+      adapter.log.debug("id=" + id);
+      switch (id) {
+        case "control.stufe":
+          adapter.log.debug("Setzte Stufe: " + state);
+          callcomfoair(setfanstate[state - 1]);
+          break;
 
-    }
+        case "control.comfort":
+          adapter.log.warn("Setze Komforttemperatur auf: " + state + "°C");
+          setcomfotemp[5] = ((state + 20) * 2);
+          setcomfotemp[6] = parseInt(checksumcmd(setcomfotemp), 16);
+          callcomfoair(setcomfotemp);
+          break;
+
+        case "control.reset.filterh":
+          adapter.log.warn("Setze Betriebsstunden Filter zurück");
+          setreset[8] = 1;
+          setreset[9] = parseInt(checksumcmd(setreset), 16);
+          setreset = [0x07, 0xF0, 0x00, 0xDB, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x0F]
+
+        default:
+          adapter.log.warn("Befehl nicht erkannt");
+      }
 
 
-    // you can use the ack flag to detect if it is status (true) or command (false)
-    if (state && !state.ack) {
-      adapter.log.info('ack is not set!');
+
+      // you can use the ack flag to detect if it is status (true) or command (false)
+      if (state && !state.ack) {
+        adapter.log.info('ack is not set!');
+      }
+    } catch (e) {
+      adapter.log.debug("Fehler Befehlsauswertung: " + e);
     }
   });
 
@@ -175,11 +192,14 @@ function callcomfoair(hexout) {
     adapter.log.debug('Received arr: ' + buffarr);
     try {
       if (buffarr.length > 3) {
-        if (buffarr[0] == 7 && buffarr[1] == 243) {
-          adapter.log.debug("ACK erhalten");
+        adapter.log.debug("ACK: " + buffarr[0] + ", " + buffarr[1]);
+        adapter.log.debug("Checksumme aus Datensatz: " + buffarr[buffarr.length - 3]);
+        adapter.log.debug("Checksumme berechnet: " + parseInt(checksumcmd(buff.slice(2)), 16));
+        if (buffarr[0] == 7 && buffarr[1] == 243 && buffarr[buffarr.length - 3] == parseInt(checksumcmd(buff.slice(2)), 16)) {
+          adapter.log.debug("ACK erhalten und Checksumme ok");
           readComfoairData(buffarr);
         } else {
-          adapter.log.warn("ACK zu Datenabfrage nicht erhalten");
+          adapter.log.warn("ACK zu Datenabfrage nicht erhalten oder Checksumme falsch");
         }
 
       } else {
@@ -189,6 +209,24 @@ function callcomfoair(hexout) {
             case 153:
               adapter.setState('status.statstufe', hexout[5], true);
               break;
+            case 211:
+              adapter.setState('temperature.statcomfort', ((hexout[5] / 2) - 20), true);
+              break;
+            case 219:
+              if (hexout[5] == 1) {
+                adapter.log.warn("Störungen zurückgesetzt");
+              }
+              if (hexout[6] == 1) {
+                adapter.log.warn("Einstellungen zurückgesetzt");
+              }
+              if (hexout[7] == 1) {
+                adapter.log.warn("Selbsttest gestartet");
+              }
+              if (hexout[5] == 1) {
+                adapter.log.warn("Betriebsstunden Filter zurückgesetzt");
+                adapter.setState('status.filterh', 0, true);
+              }
+
           }
         } else {
           adapter.log.debug("ACK zu Kommando nicht erhlaten");
@@ -248,6 +286,28 @@ function readComfoairData(buffarr) {
     adapter.log.warn("readComfoairData - Fehler: " + e);
   }
 } //end readComfoairData
+
+function checksumcmd(csdata) {
+  try {
+    var checksum = 0;
+    for (var i = 2; i < (csdata.length - 3); i++) {
+      if (i > 5 && csdata[i] == 7 && csdata[i - 1] == 7) {
+        adapter.log.debug("doppelte '07'");
+      } else {
+        checksum = checksum + csdata[i]
+      }
+    }
+    checksum = ((checksum + 173).toString(16)).slice(-2);
+    return checksum;
+
+  } catch (e) {
+    s
+    adapter.log.warn("ChecksumCmd - Fehler: " + e)
+  }
+} //end checksumcmd
+
+
+
 
 // If started as allInOne/compact mode => return function to create instance
 if (module && module.parent) {

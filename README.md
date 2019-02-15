@@ -8,17 +8,21 @@ Install adapter, create instance.
 Install hardware for TCP - connection to comfoair: i.e. RS232 to LAN adapter to the serial interface of the comfoair
 Set comfoair - IP-adress, port and polling - intervall
 
-Might work even CC-Ease Panel is connectett. Works well if ccEASE - Panel is disconnected.
+Might work even if CC-Ease Panel is connectett. Works well if ccEASE - Panel is disconnected.
 
 Tested on comfoair CA350
 
 
 
 ## Changelog
+### 0.0.3
+- minor bugfixes, sets comfort-temperature and resets filter-hours.
 
-### 0.0.2 First running Version. Gets temp, vent, bypass and filter states, sets fan level.
+### 0.0.2
+- First running Version. Gets temp, vent, bypass and filter states, sets fan level.
 
-### 0.0.1 In development stage, contributions welcome
+### 0.0.1
+- In development stage, contributions welcome
 
 
 ## License

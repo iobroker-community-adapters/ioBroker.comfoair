@@ -1,9 +1,13 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "news": {
-      "0.0.1": {
+      "0.0.3": {
+        "en": "minor bugfixes, sets comfort-temperature and resets filter-hours.",
+        "de": "Kleinere Fehler behoben, Setzen Komforttemperatur und Reset Filter-Timer möglich."
+      },
+      "0.0.2": {
         "en": "First running Version. Gets temp, vent, bypass and filter states, sets fan level.",
         "de": "Erste funktionierende Version. Zeigt, Temperatur-, Ventilator-, Filter- und Bypass - Stati, ermöglicht das Setzen der Lüftungsstufe."
       },
@@ -29,6 +33,7 @@
     },
     "platform": "Javascript/Node.js",
     "mode": "daemon",
+    "compact": true,
     "icon": "comfoair.png",
     "materialize": true,
     "enabled": true,
@@ -271,7 +276,7 @@
       "common": {
         "name": "Komforttemperatur",
         "type": "number",
-        "role": "value.temperature",
+        "role": "value.control",
         "read": true,
         "write": true,
         "def": false,
@@ -288,11 +293,37 @@
       "common": {
         "name": "Stufe (1_Abw - 4_hoch)",
         "type": "number",
-        "role": "value.info",
+        "role": "value.control",
         "read": true,
         "write": true,
         "def": false,
         "desc": "Vorgabe Stufe"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "control.reset",
+      "type": "channel",
+      "common": {
+        "name": "Steuerung"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "control.reset.filterh",
+      "type": "state",
+      "common": {
+        "name": "Reset Betriebsstunden Filter",
+        "type": "boolean",
+        "role": "value.control",
+        "read": true,
+        "write": true,
+        "def": false,
+        "desc": "Zurücksetzen Betriebsstunden Filter"
       },
       "native": {
 
