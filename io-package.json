@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "news": {
+      "0.0.4": {
+        "en": "gets & sets vent levels, gets filter-timer.",
+        "de": "Abfrage uns setzen Ventilationsstufen, anzeigen Filter-Timer."
+      },
       "0.0.3": {
         "en": "minor bugfixes, sets comfort-temperature and resets filter-hours.",
         "de": "Kleinere Fehler behoben, Setzen Komforttemperatur und Reset Filter-Timer möglich."
@@ -192,6 +196,23 @@
       }
     },
     {
+      "_id": "status.filterw",
+      "type": "state",
+      "common": {
+        "name": "Filter Zähler Wochen",
+        "type": "number",
+        "role": "value.weeks",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Filter Wochenzähler",
+        "unit": "Wochen"
+      },
+      "native": {
+
+      }
+    },
+    {
       "_id": "status.bypass",
       "type": "state",
       "common": {
@@ -252,6 +273,142 @@
         "write": false,
         "def": false,
         "desc": "Ventilatorstatus Abluft",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.ventlevel.ABLabw",
+      "type": "state",
+      "common": {
+        "name": "Ventilationsstufe Abluft abwesend",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Ventilationsstufe Abluft abwesend",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.ventlevel.ZULabw",
+      "type": "state",
+      "common": {
+        "name": "Ventilationsstufe Zuluft abwesend",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Ventilationsstufe Zuluft abwesend",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.ventlevel.ABL1",
+      "type": "state",
+      "common": {
+        "name": "Ventilationsstufe Abluft Stufe 1",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Ventilationsstufe Abluft Stufe 1",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.ventlevel.ZUL1",
+      "type": "state",
+      "common": {
+        "name": "Ventilationsstufe Zuluft Stufe 1",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Ventilationsstufe Zuluft Stufe 1",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.ventlevel.ABL2",
+      "type": "state",
+      "common": {
+        "name": "Ventilationsstufe Abluft Stufe 2",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Ventilationsstufe Abluft Stufe 2",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.ventlevel.ZUL2",
+      "type": "state",
+      "common": {
+        "name": "Ventilationsstufe Zuluft Stufe 2",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Ventilationsstufe Zuluft Stufe 2",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.ventlevel.ABL3",
+      "type": "state",
+      "common": {
+        "name": "Ventilationsstufe Abluft Stufe 3",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Ventilationsstufe Abluft Stufe 3",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.ventlevel.ZUL3",
+      "type": "state",
+      "common": {
+        "name": "Ventilationsstufe Zuluft Stufe 3",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Ventilationsstufe Zuluft Stufe 3",
         "unit": "%"
       },
       "native": {
@@ -324,6 +481,152 @@
         "write": true,
         "def": false,
         "desc": "Zurücksetzen Betriebsstunden Filter"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "control.setvent",
+      "type": "channel",
+      "common": {
+        "name": "Ventilationsstufe setzen"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "control.setvent.ABLabw",
+      "type": "state",
+      "common": {
+        "name": "Abluft abwesend",
+        "type": "number",
+        "role": "value.control",
+        "read": true,
+        "write": true,
+        "def": false,
+        "desc": "Setzen Ventilationsstufe Abluft abwesend",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "control.setvent.ZULabw",
+      "type": "state",
+      "common": {
+        "name": "Zuluft abwesend",
+        "type": "number",
+        "role": "value.control",
+        "read": true,
+        "write": true,
+        "def": false,
+        "desc": "Setzen Ventilationsstufe Zuluft abwesend",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "control.setvent.ABL1",
+      "type": "state",
+      "common": {
+        "name": "Abluft Stufe 1",
+        "type": "number",
+        "role": "value.control",
+        "read": true,
+        "write": true,
+        "def": false,
+        "desc": "Setzen Ventilationsstufe Abluft Stufe 1",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "control.setvent.ZUL1",
+      "type": "state",
+      "common": {
+        "name": "Zuluft Stufe 1",
+        "type": "number",
+        "role": "value.control",
+        "read": true,
+        "write": true,
+        "def": false,
+        "desc": "Setzen Ventilationsstufe Zuluft Stufe 1",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "control.setvent.ABL2",
+      "type": "state",
+      "common": {
+        "name": "Abluft Stufe 2",
+        "type": "number",
+        "role": "value.control",
+        "read": true,
+        "write": true,
+        "def": false,
+        "desc": "Setzen Ventilationsstufe Abluft Stufe 2",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "control.setvent.ZUL2",
+      "type": "state",
+      "common": {
+        "name": "Zuluft Stufe 2",
+        "type": "number",
+        "role": "value.control",
+        "read": true,
+        "write": true,
+        "def": false,
+        "desc": "Setzen Ventilationsstufe Zuluft Stufe 2",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "control.setvent.ABL3",
+      "type": "state",
+      "common": {
+        "name": "Abluft Stufe 3",
+        "type": "number",
+        "role": "value.control",
+        "read": true,
+        "write": true,
+        "def": false,
+        "desc": "Setzen Ventilationsstufe Abluft Stufe 3",
+        "unit": "%"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "control.setvent.ZUL1",
+      "type": "state",
+      "common": {
+        "name": "Zuluft Stufe 1",
+        "type": "number",
+        "role": "value.control",
+        "read": true,
+        "write": true,
+        "def": false,
+        "desc": "Setzen Ventilationsstufe Zuluft Stufe 3",
+        "unit": "%"
       },
       "native": {
 

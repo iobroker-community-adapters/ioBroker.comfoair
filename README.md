@@ -10,11 +10,14 @@ Set comfoair - IP-adress, port and polling - intervall
 
 Might work even if CC-Ease Panel is connectett. Works well if ccEASE - Panel is disconnected.
 
-Tested on comfoair CA350
+Tested on comfoair CA350.
 
 
 
 ## Changelog
+### 0.0.4
+- gets & sets vent levels, gets filter-timer.
+
 ### 0.0.3
 - minor bugfixes, sets comfort-temperature and resets filter-hours.
 
