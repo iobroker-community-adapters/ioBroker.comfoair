@@ -100,36 +100,38 @@ function startAdapter(options) {
           break;
 
         default:
-          adapter.log.warn("Befehl nicht erkannt");
 
-      }
-      if (id.slice(0, 14) == "control.setvent") {
-        adapter.log.warn("Setze Ventilationsstufen");
-        adapter.getState("control.setvent.ABLabw", function(err, state) {
-          setvent[5] = state.val;
-        });
-        adapter.getState("control.setvent.ABL1", function(err, state) {
-          setvent[6] = state.val;
-        });
-        adapter.getState("control.setvent.ABL2", function(err, state) {
-          setvent[7] = state.val;
-        });
-        adapter.getState("control.setvent.ZULabw", function(err, state) {
-          setvent[8] = state.val;
-        });
-        adapter.getState("control.setvent.ZUL1", function(err, state) {
-          setvent[9] = state.val;
-        });
-        adapter.getState("control.setvent.ZUL2", function(err, state) {
-          setvent[10] = state.val;
-        });
-        adapter.getState("control.setvent.ABL3", function(err, state) {
-          setvent[11] = state.val;
-        });
-        adapter.getState("control.setvent.ZUL3", function(err, state) {
-          setvent[12] = state.val;
-        });
-        setTimeout(callcomfoair(setvent), 1000);
+          if (id.slice(0, 15) == "control.setvent") {
+            adapter.log.warn("Setze Ventilationsstufen - funktioniert leider noch nicht");
+/*
+            adapter.getState("control.setvent.ABLabw", function(err, state) {
+              setvent[5] = state.val;
+            });
+            adapter.getState("control.setvent.ABL1", function(err, state) {
+              setvent[6] = state.val;
+            });
+            adapter.getState("control.setvent.ABL2", function(err, state) {
+              setvent[7] = state.val;
+            });
+            adapter.getState("control.setvent.ZULabw", function(err, state) {
+              setvent[8] = state.val;
+            });
+            adapter.getState("control.setvent.ZUL1", function(err, state) {
+              setvent[9] = state.val;
+            });
+            adapter.getState("control.setvent.ZUL2", function(err, state) {
+              setvent[10] = state.val;
+            });
+            adapter.getState("control.setvent.ABL3", function(err, state) {
+              setvent[11] = state.val;
+            });
+            adapter.getState("control.setvent.ZUL3", function(err, state) {
+              setvent[12] = state.val;
+            });
+            setTimeout(callcomfoair(setvent), 1000);*/
+          } else {
+            adapter.log.warn("Befehl nicht erkannt");
+          }
       }
 
       // you can use the ack flag to detect if it is status (true) or command (false)
@@ -267,7 +269,7 @@ function callcomfoair(hexout) {
               adapter.setState('status.ventlevel.ZUL1', hexout[9], true);
               adapter.setState('status.ventlevel.ABL3', hexout[11], true);
               adapter.setState('status.ventlevel.ZUL3', hexout[12], true);
-
+"control.setvent.ABLabw"
               adapter.log.debug("Ventilationsstufen gesetzt");
           }
         } else {
@@ -330,6 +332,7 @@ function readComfoairData(buffarr) {
         break;
       case 202:
         adapter.setState("status.filterw", buffarr[11], true);
+        break;
       default:
         adapter.log.warn("Fehler: ACK korrekt, aber Daten nicht erkannt");
 
