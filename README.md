@@ -15,6 +15,9 @@ Tested on comfoair CA350.
 
 
 ## Changelog
+### 0.0.5
+- bugfig set vent levels.
+
 ### 0.0.4
 - gets & sets vent levels, gets filter-timer.
 

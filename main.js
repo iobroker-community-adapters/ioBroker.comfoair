@@ -30,7 +30,8 @@ var setfanstate = [
 ];
 var setcomfotemp = [0x07, 0xF0, 0x00, 0xD3, 0x01, 0x14, 0x48, 0x07, 0x0F]; //Komforttemperatur setzen
 var setreset = [0x07, 0xF0, 0x00, 0xDB, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x0F];
-var setvent = [0x07, 0xF0, 0x00, 0xCF, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x0F]; //Ventilatorstufen setzen
+var setvent = [0x07, 0xF0, 0x00, 0xCF, 0x09, 0x0F, 0x28, 0x46, 0x0F, 0x28, 0x46, 0x5A, 0x5A, 0x00, 0x00, 0x07, 0x0F]; //Ventilatorstufen setzen
+var setventlevel = ['ABLabw', 'ABL1', 'ABL2', 'ZULabw', 'ZUL1', 'ZUL2', 'ABL3', 'ZUL3'];
 var statcmdL = statcmdi.length;
 var calli = 0;
 var callval;
@@ -92,7 +93,7 @@ function startAdapter(options) {
         case "control.reset.filterh":
           if (state == true) {
             adapter.log.warn("Setze Betriebsstunden Filter zurück");
-            setreset[8] = 0x01;
+            setreset[8] = 1;
             setreset[9] = parseInt(checksumcmd(setreset), 16);
             callcomfoair(setreset);
             setreset = [0x07, 0xF0, 0x00, 0xDB, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x0F]
@@ -100,35 +101,27 @@ function startAdapter(options) {
           break;
 
         default:
-
           if (id.slice(0, 15) == "control.setvent") {
-            adapter.log.warn("Setze Ventilationsstufen - funktioniert leider noch nicht");
-/*
-            adapter.getState("control.setvent.ABLabw", function(err, state) {
-              setvent[5] = state.val;
-            });
-            adapter.getState("control.setvent.ABL1", function(err, state) {
-              setvent[6] = state.val;
-            });
-            adapter.getState("control.setvent.ABL2", function(err, state) {
-              setvent[7] = state.val;
-            });
-            adapter.getState("control.setvent.ZULabw", function(err, state) {
-              setvent[8] = state.val;
-            });
-            adapter.getState("control.setvent.ZUL1", function(err, state) {
-              setvent[9] = state.val;
-            });
-            adapter.getState("control.setvent.ZUL2", function(err, state) {
-              setvent[10] = state.val;
-            });
-            adapter.getState("control.setvent.ABL3", function(err, state) {
-              setvent[11] = state.val;
-            });
-            adapter.getState("control.setvent.ZUL3", function(err, state) {
-              setvent[12] = state.val;
-            });
-            setTimeout(callcomfoair(setvent), 1000);*/
+            var setventl = setventlevel.indexOf(id.slice(16));
+            if (state != setvent[setventl + 5]) {
+              adapter.log.warn("Setze Ventilationsstufen");
+              adapter.log.debug("Aendere: " + id.slice(16) + "Position: " + setventl);
+              setvent[setventl + 5] = state;
+              setvent[14] = parseInt(checksumcmd(setvent), 16);
+              adapter.log.debug("Setvent neu: " + setvent);
+              adapter.log.debug(id.slice(16) + " neu " + setvent[setventl + 5] + "%");
+
+              callcomfoair(setvent);
+              adapter.setState('control.setvent.ABLabw', setvent[5], true);
+              adapter.setState('control.setvent.ABL1', setvent[6], true);
+              adapter.setState('control.setvent.ABL2', setvent[7], true);
+              adapter.setState('control.setvent.ZULabw', setvent[8], true);
+              adapter.setState('control.setvent.ZUL2', setvent[10], true);
+              adapter.setState('control.setvent.ZUL1', setvent[9], true);
+              adapter.setState('control.setvent.ABL3', setvent[11], true);
+              adapter.setState('control.setvent.ZUL3', setvent[12], true);
+            }
+
           } else {
             adapter.log.warn("Befehl nicht erkannt");
           }
@@ -260,6 +253,7 @@ function callcomfoair(hexout) {
                 adapter.log.warn("Betriebsstunden Filter zurückgesetzt");
                 adapter.setState('status.filterh', 0, true);
               }
+              break;
             case 207:
               adapter.setState('status.ventlevel.ABLabw', hexout[5], true);
               adapter.setState('status.ventlevel.ABL1', hexout[6], true);
@@ -269,7 +263,6 @@ function callcomfoair(hexout) {
               adapter.setState('status.ventlevel.ZUL1', hexout[9], true);
               adapter.setState('status.ventlevel.ABL3', hexout[11], true);
               adapter.setState('status.ventlevel.ZUL3', hexout[12], true);
-"control.setvent.ABLabw"
               adapter.log.debug("Ventilationsstufen gesetzt");
           }
         } else {
@@ -321,6 +314,11 @@ function readComfoairData(buffarr) {
         adapter.setState('status.statstufe', buffarr[15], true);
         adapter.setState('status.ventlevel.ABL3', buffarr[17], true);
         adapter.setState('status.ventlevel.ZUL3', buffarr[18], true);
+        for (var i = 5; i < 11; i++) {
+          setvent[i] = buffarr[i + 2];
+        }
+        setvent[11] = buffarr[17];
+        setvent[12] = buffarr[18];
         break;
       case 222:
         adapter.log.debug(cmd + " : lese Betriebsstunden");
@@ -360,8 +358,6 @@ function checksumcmd(csdata) {
     adapter.log.warn("ChecksumCmd - Fehler: " + e)
   }
 } //end checksumcmd
-
-
 
 
 // If started as allInOne/compact mode => return function to create instance
