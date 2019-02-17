@@ -505,7 +505,7 @@
         "role": "value.control",
         "read": true,
         "write": true,
-        "def": 15,
+        "def": false,
         "desc": "Setzen Ventilationsstufe Abluft abwesend",
         "unit": "%"
       },
@@ -616,10 +616,10 @@
       }
     },
     {
-      "_id": "control.setvent.ZUL1",
+      "_id": "control.setvent.ZUL3",
       "type": "state",
       "common": {
-        "name": "Zuluft Stufe 1",
+        "name": "Zuluft Stufe 3",
         "type": "number",
         "role": "value.control",
         "read": true,
