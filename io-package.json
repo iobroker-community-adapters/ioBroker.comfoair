@@ -505,7 +505,7 @@
         "role": "value.control",
         "read": true,
         "write": true,
-        "def": false,
+        "def": 15,
         "desc": "Setzen Ventilationsstufe Abluft abwesend",
         "unit": "%"
       },
