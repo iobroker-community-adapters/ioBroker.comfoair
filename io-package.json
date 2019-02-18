@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "news": {
+      "0.0.6": {
+        "en": "Filter - change - indicator.",
+        "de": "Filterwechselanzeige."
+      },
       "0.0.5": {
         "en": "bugfix set vent levels.",
         "de": "Fehlerbehebung setzen Ventilationsstufen."
@@ -211,6 +215,22 @@
         "def": false,
         "desc": "Filter Wochenzähler",
         "unit": "Wochen"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.filterChange",
+      "type": "state",
+      "common": {
+        "name": "Filter wechseln",
+        "type": "boolean",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "Filter Wechselanzeige"
       },
       "native": {
 

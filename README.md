@@ -15,6 +15,9 @@ Tested on comfoair CA350.
 
 
 ## Changelog
+### 0.0.6
+- Filter - change - indicator.
+
 ### 0.0.5
 - bugfig set vent levels.
 
