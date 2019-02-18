@@ -333,7 +333,7 @@ function readComfoairData(buffarr) {
         adapter.setState("status.filterw", buffarr[11], true);
         break;
       case 218:
-        adapter.log.debug(cmd ": lese Störungsmeldungen");
+        adapter.log.debug(cmd + ": lese Störungsmeldungen");
         adapter.setState("status.filterChange", buffarr[15], true);
         break;
 
