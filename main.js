@@ -85,7 +85,7 @@ function startAdapter(options) {
           break;
 
         case "control.comfort":
-          adapter.log.warn("Setze Komforttemperatur auf: " + state + "°C");
+          adapter.log.debug("Setze Komforttemperatur auf: " + state + "°C");
           setcomfotemp[5] = ((state + 20) * 2);
           setcomfotemp[6] = parseInt(checksumcmd(setcomfotemp), 16);
           callcomfoair(setcomfotemp);
@@ -93,7 +93,7 @@ function startAdapter(options) {
 
         case "control.reset.filterh":
           if (state == true) {
-            adapter.log.warn("Setze Betriebsstunden Filter zurück");
+            adapter.log.debug("Setze Betriebsstunden Filter zurück");
             setreset[8] = 1;
             setreset[9] = parseInt(checksumcmd(setreset), 16);
             callcomfoair(setreset);
@@ -105,7 +105,7 @@ function startAdapter(options) {
           if (id.slice(0, 15) == "control.setvent") {
             var setventl = setventlevel.indexOf(id.slice(16));
             if (state != setvent[setventl + 5]) {
-              adapter.log.warn("Setze Ventilationsstufen");
+              adapter.log.debug("Setze Ventilationsstufen");
               adapter.log.debug("Aendere: " + id.slice(16) + "Position: " + setventl);
               setvent[setventl + 5] = state;
               setvent[14] = parseInt(checksumcmd(setvent), 16);
@@ -124,7 +124,7 @@ function startAdapter(options) {
             }
 
           } else {
-            adapter.log.warn("Befehl nicht erkannt");
+            adapter.log.debug("Befehl nicht erkannt");
           }
       }
 
@@ -227,7 +227,7 @@ function callcomfoair(hexout) {
           adapter.log.debug("ACK erhalten und Checksumme ok");
           readComfoairData(buffarr);
         } else {
-          adapter.log.warn("ACK zu Datenabfrage nicht erhalten oder Checksumme falsch");
+          adapter.log.debug("ACK zu Datenabfrage nicht erhalten oder Checksumme falsch");
         }
 
       } else {
@@ -242,17 +242,17 @@ function callcomfoair(hexout) {
               break;
             case 219:
               if (hexout[5] == 1) {
-                adapter.log.warn("Störungen zurückgesetzt");
+                adapter.log.debug("Störungen zurückgesetzt");
               }
               if (hexout[6] == 1) {
-                adapter.log.warn("Einstellungen zurückgesetzt");
+                adapter.log.debug("Einstellungen zurückgesetzt");
               }
               if (hexout[7] == 1) {
-                adapter.log.warn("Selbsttest gestartet");
+                adapter.log.debug("Selbsttest gestartet");
               }
               if (hexout[8] == 1) {
-                adapter.log.warn("Betriebsstunden Filter zurückgesetzt");
-                adapter.setState('status.filterh', 0, true);
+                adapter.log.debug("Betriebsstunden Filter zurückgesetzt");
+                adapter.setState('status.filterChange', 0, true);
               }
               break;
             case 207:
@@ -338,7 +338,7 @@ function readComfoairData(buffarr) {
         break;
 
       default:
-        adapter.log.warn("Fehler: ACK korrekt, aber Daten nicht erkannt");
+        adapter.log.debug("Fehler: ACK korrekt, aber Daten nicht erkannt");
 
     }
   } catch (e) {
