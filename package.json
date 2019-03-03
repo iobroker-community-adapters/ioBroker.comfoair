@@ -9,10 +9,12 @@
     "name": "Marcel Adam",
     "email": "marceladam@gmx.ch"
   },
-  "contributors": [{
-    "name": "Marcel Adam",
-    "email": "marceladam@gmx.ch"
-  }],
+  "contributors": [
+    {
+      "name": "Marcel Adam",
+      "email": "marceladam@gmx.ch"
+    }
+  ],
   "homepage": "https://github.com/forelleblau/ioBroker.comfoair",
   "license": "MIT",
   "keywords": [
@@ -31,7 +33,8 @@
   "devDependencies": {
     "gulp": "^4.0.0",
     "mocha": "^4.1.0",
-    "chai": "^4.1.2"
+    "chai": "^4.1.2",
+    "@iobroker/adapter-core": "^1.0.3"
   },
   "main": "main.js",
   "scripts": {
