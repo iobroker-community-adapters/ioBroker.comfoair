@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "news": {
+      "0.0.7": {
+        "en": "Core Files/Testing Update and introduce adapter-core.",
+        "de": "Core Files/Testing Update und adapter-core eingeführt."
+      },
       "0.0.6": {
         "en": "Filter - change - indicator.",
         "de": "Filterwechselanzeige."

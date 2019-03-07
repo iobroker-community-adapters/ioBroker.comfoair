@@ -1,6 +1,6 @@
 ![Logo](admin/comfoair.png)
-# ioBroker.comfoair
 
+# ioBroker.comfoair
 
 An ioBroker adapter for comfoair  'CA' -ventilations (i.e. ComfoAir CA350, NOT ComfoAir Q350...)
 
@@ -12,29 +12,38 @@ Might work even if CC-Ease Panel is connectett. Works well if ccEASE - Panel is 
 
 Tested on comfoair CA350.
 
-
-
 ## Changelog
+
+### 0.0.7
+
+-   Core Files/Testing Update and introduce adapter-core
+
 ### 0.0.6
-- Filter - change - indicator.
+
+-   Filter - change - indicator.
 
 ### 0.0.5
-- bugfig set vent levels.
+
+-   bugfig set vent levels.
 
 ### 0.0.4
-- gets & sets vent levels, gets filter-timer.
+
+-   gets & sets vent levels, gets filter-timer.
 
 ### 0.0.3
-- minor bugfixes, sets comfort-temperature and resets filter-hours.
+
+-   minor bugfixes, sets comfort-temperature and resets filter-hours.
 
 ### 0.0.2
-- First running Version. Gets temp, vent, bypass and filter states, sets fan level.
+
+-   First running Version. Gets temp, vent, bypass and filter states, sets fan level.
 
 ### 0.0.1
-- In development stage, contributions welcome
 
+-   In development stage, contributions welcome
 
 ## License
+
 The MIT License (MIT)
 
 Copyright (c) 2018 forelleblau marceladam@gmx.ch
