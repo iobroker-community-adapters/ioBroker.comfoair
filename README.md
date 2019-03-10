@@ -2,13 +2,15 @@
 
 # ioBroker.comfoair
 
-An ioBroker adapter for comfoair  'CA' -ventilations (i.e. ComfoAir CA350, NOT ComfoAir Q350...)
+An ioBroker adapter for Zehnder Comfoair  'CA' -ventilations (i.e. ComfoAir CA350, NOT ComfoAir Q350...)
 
 Install adapter, create instance.
 Install hardware for TCP - connection to comfoair: i.e. RS232 to LAN adapter to the serial interface of the comfoair
-Set comfoair - IP-adress, port and polling - intervall
+Set comfoair - IP-adress, port and polling - intervall.
 
-Might work even if CC-Ease Panel is connectett. Works well if ccEASE - Panel is disconnected.
+By setting/changeing values in the 'control' - channel, you control your comfoair ventilation.
+
+Might work even if CC-Ease Panel is connected. Works well if ccEASE - Panel is disconnected.
 
 Tested on comfoair CA350.
 
