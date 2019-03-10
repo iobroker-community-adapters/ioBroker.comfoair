@@ -1,7 +1,7 @@
 ![Logo](admin/comfoair.png)
 
 # ioBroker.comfoair
-
+![Number of Installations](http://iobroker.live/badges/comfoair-installed.svg) ![Number of Installations](http://iobroker.live/badges/comfoair-stable.svg) 
 An ioBroker adapter for Zehnder Comfoair  'CA' -ventilations (i.e. ComfoAir CA350, NOT ComfoAir Q350...)
 
 Install adapter, create instance.
