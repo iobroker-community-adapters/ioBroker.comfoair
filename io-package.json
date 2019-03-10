@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "0.0.7",
+    "version": "0.1.0",
     "news": {
+      "0.1.0": {
+        "en": "Redme updated after successful 3rd party testing.",
+        "de": "Readme aktualisiert nach erfolgreichem Testing."
+      },
       "0.0.7": {
         "en": "Core Files/Testing Update and introduce adapter-core.",
         "de": "Core Files/Testing Update und adapter-core eingeführt."
@@ -17,7 +21,7 @@
       },
       "0.0.4": {
         "en": "gets & sets vent levels, gets filter-timer.",
-        "de": "Abfrage uns setzen Ventilationsstufen, anzeigen Filter-Timer."
+        "de": "Abfrage und setzen Ventilationsstufen, anzeigen Filter-Timer."
       },
       "0.0.3": {
         "en": "minor bugfixes, sets comfort-temperature and resets filter-hours.",

@@ -20,6 +20,10 @@ Tested on comfoair CA350.
 
 ## Changelog
 
+### 0.1.0
+
+-   ReadME Update
+
 ### 0.0.7
 
 -   Core Files/Testing Update and introduce adapter-core
