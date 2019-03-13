@@ -337,15 +337,13 @@ function readComfoairData(buffarr) {
         adapter.setState("status.filterChange", buffarr[15], true);
         adapter.setState("status.errors.aktuellA", 'A' + errorcode(buffarr[7]), true);
         adapter.setState("status.errors.aktuellE", 'E' + errorcode(buffarr[8]), true);
-        adapter.setState("status.errors.letzerA", 'A' + errorcode(buffarr[9]), true);
-        adapter.setState("status.errors.letzerE", 'E' + errorcode(buffarr[10]), true);
-        adapter.setState("status.errors.vorletzerA", 'A' + errorcode(buffarr[11]), true);
-        adapter.setState("status.errors.vorletzerE", 'E' + errorcode(buffarr[12]), true);
+        adapter.setState("status.errors.letzterA", 'A' + errorcode(buffarr[9]), true);
+        adapter.setState("status.errors.letzterE", 'E' + errorcode(buffarr[10]), true);
+        adapter.setState("status.errors.vorletzterA", 'A' + errorcode(buffarr[11]), true);
+        adapter.setState("status.errors.vorletzterE", 'E' + errorcode(buffarr[12]), true);
         adapter.setState("status.errors.aktuellEA", 'EA' + errorcode(buffarr[16]), true);
-        adapter.setState("status.errors.letzerEA", 'EA' + errorcode(buffarr[17]), true);
-        adapter.setState("status.errors.vorletzerEA", 'EA' + errorcode(buffarr[18]), true);
-
-
+        adapter.setState("status.errors.letzterEA", 'EA' + errorcode(buffarr[17]), true);
+        adapter.setState("status.errors.vorletzterEA", 'EA' + errorcode(buffarr[18]), true);
 
         break;
 
