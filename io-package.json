@@ -595,7 +595,6 @@
 
       }
     },
-
     {
       "_id": "control",
       "type": "channel",
