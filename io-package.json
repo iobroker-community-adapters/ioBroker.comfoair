@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "news": {
+      "0.1.1": {
+        "en": "bugfix ventlevels, reads errors.",
+        "de": "Fehler ventlevels behoben, liest Fehlermeldungen."
+      },
       "0.1.0": {
         "en": "Redme updated after successful 3rd party testing.",
         "de": "Readme aktualisiert nach erfolgreichem Testing."
@@ -447,7 +451,150 @@
 
       }
     },
+    {
+      "_id": "status.errors.aktuellA",
+      "type": "state",
+      "common": {
+        "name": "aktueller Fehler A",
+        "type": "string",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "aktueller Fehler A"
+      },
+      "native": {
 
+      }
+    },
+    {
+      "_id": "status.errors.letzerA",
+      "type": "state",
+      "common": {
+        "name": "letzer Fehler A",
+        "type": "string",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "letzer Fehler A"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.errors.vorletzerA",
+      "type": "state",
+      "common": {
+        "name": "vorletzter Fehler A",
+        "type": "string",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "vorletzter Fehler A"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.errors.aktuellE",
+      "type": "state",
+      "common": {
+        "name": "aktueller Fehler E",
+        "type": "string",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "aktueller Fehler E"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.errors.letzerE",
+      "type": "state",
+      "common": {
+        "name": "letzer Fehler E",
+        "type": "string",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "letzer Fehler E"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.errors.vorletzerE",
+      "type": "state",
+      "common": {
+        "name": "vorletzter Fehler E",
+        "type": "string",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "vorletzter Fehler E"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.errors.aktuellEA",
+      "type": "state",
+      "common": {
+        "name": "aktueller Fehler EA",
+        "type": "string",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "aktueller Fehler EA"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.errors.letzerEA",
+      "type": "state",
+      "common": {
+        "name": "letzer Fehler EA",
+        "type": "string",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "letzer Fehler EA"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "status.errors.vorletzerEA",
+      "type": "state",
+      "common": {
+        "name": "vorletzter Fehler EA",
+        "type": "string",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": false,
+        "desc": "vorletzter Fehler EA"
+      },
+      "native": {
+
+      }
+    },
 
     {
       "_id": "control",

@@ -20,6 +20,10 @@ Tested on comfoair CA350.
 
 ## Changelog
 
+### 0.1.1
+
+-   bugfix ventlevels, reading errors
+
 ### 0.1.0
 
 -   ReadME Update
@@ -56,7 +60,7 @@ Tested on comfoair CA350.
 
 The MIT License (MIT)
 
-Copyright (c) 2018 forelleblau marceladam@gmx.ch
+Copyright (c) 2019 forelleblau marceladam@gmx.ch
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

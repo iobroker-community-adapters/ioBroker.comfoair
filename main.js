@@ -308,8 +308,8 @@ function readComfoairData(buffarr) {
         adapter.setState('status.ventlevel.ABL1', buffarr[8], true);
         adapter.setState('status.ventlevel.ABL2', buffarr[9], true);
         adapter.setState('status.ventlevel.ZULabw', buffarr[10], true);
-        adapter.setState('status.ventlevel.ZUL2', buffarr[11], true);
-        adapter.setState('status.ventlevel.ZUL1', buffarr[12], true);
+        adapter.setState('status.ventlevel.ZUL1', buffarr[11], true);
+        adapter.setState('status.ventlevel.ZUL2', buffarr[12], true);
         adapter.setState('status.ventABL', buffarr[13], true);
         adapter.setState('status.ventZUL', buffarr[14], true);
         adapter.setState('status.statstufe', buffarr[15], true);
@@ -335,6 +335,18 @@ function readComfoairData(buffarr) {
       case 218:
         adapter.log.debug(cmd + ": lese Störungsmeldungen");
         adapter.setState("status.filterChange", buffarr[15], true);
+        adapter.setState("status.errors.aktuellA", 'A' + errorcode(buffarr[7]), true);
+        adapter.setState("status.errors.aktuellE", 'E' + errorcode(buffarr[8]), true);
+        adapter.setState("status.errors.letzerA", 'A' + errorcode(buffarr[9]), true);
+        adapter.setState("status.errors.letzerE", 'E' + errorcode(buffarr[10]), true);
+        adapter.setState("status.errors.vorletzerA", 'A' + errorcode(buffarr[11]), true);
+        adapter.setState("status.errors.vorletzerE", 'E' + errorcode(buffarr[12]), true);
+        adapter.setState("status.errors.aktuellEA", 'EA' + errorcode(buffarr[16]), true);
+        adapter.setState("status.errors.letzerEA", 'EA' + errorcode(buffarr[17]), true);
+        adapter.setState("status.errors.vorletzerEA", 'EA' + errorcode(buffarr[18]), true);
+
+
+
         break;
 
       default:
@@ -360,11 +372,22 @@ function checksumcmd(csdata) {
     return checksum;
 
   } catch (e) {
-    s
     adapter.log.warn("ChecksumCmd - Fehler: " + e)
   }
 } //end checksumcmd
 
+function errorcode(error) {
+  try {
+    if (error > 0) {
+      var errorcd = error;
+    } else {
+      var errorcd = "kein Fehler";
+    }
+    return errorcd;
+  } catch (e) {
+    adapter.log.warn("errorcode - Fehler: " + e)
+  }
+} //end errorcode
 
 // If started as allInOne/compact mode => return function to create instance
 if (module && module.parent) {
