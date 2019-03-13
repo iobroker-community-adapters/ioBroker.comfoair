@@ -1,7 +1,11 @@
 ![Logo](admin/comfoair.png)
 
 # ioBroker.comfoair
-![Number of Installations](http://iobroker.live/badges/comfoair-installed.svg) ![Number of Installations](http://iobroker.live/badges/comfoair-stable.svg) 
+![Number of Installations](http://iobroker.live/badges/comfoair-installed.svg) ![Number of Installations](http://iobroker.live/badges/comfoair-stable.svg) [![NPM version](http://img.shields.io/npm/v/iobroker.comfoair.svg)](https://www.npmjs.com/package/iobroker.comfoair)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.comfoair.svg)](https://www.npmjs.com/package/iobroker.comfoair)
+
+[![NPM](https://nodei.co/npm/iobroker.comfoair.png?downloads=true)](https://nodei.co/npm/iobroker.comfoair/)
+
 An ioBroker adapter for Zehnder Comfoair  'CA' -ventilations (i.e. ComfoAir CA350, NOT ComfoAir Q350...)
 
 Install adapter, create instance.
