@@ -468,23 +468,23 @@
       }
     },
     {
-      "_id": "status.errors.letzerA",
+      "_id": "status.errors.letzterA",
       "type": "state",
       "common": {
-        "name": "letzer Fehler A",
+        "name": "letzter Fehler A",
         "type": "string",
         "role": "value.info",
         "read": true,
         "write": false,
         "def": false,
-        "desc": "letzer Fehler A"
+        "desc": "letzter Fehler A"
       },
       "native": {
 
       }
     },
     {
-      "_id": "status.errors.vorletzerA",
+      "_id": "status.errors.vorletzterA",
       "type": "state",
       "common": {
         "name": "vorletzter Fehler A",
@@ -516,23 +516,23 @@
       }
     },
     {
-      "_id": "status.errors.letzerE",
+      "_id": "status.errors.letzterE",
       "type": "state",
       "common": {
-        "name": "letzer Fehler E",
+        "name": "letzter Fehler E",
         "type": "string",
         "role": "value.info",
         "read": true,
         "write": false,
         "def": false,
-        "desc": "letzer Fehler E"
+        "desc": "letzter Fehler E"
       },
       "native": {
 
       }
     },
     {
-      "_id": "status.errors.vorletzerE",
+      "_id": "status.errors.vorletzterE",
       "type": "state",
       "common": {
         "name": "vorletzter Fehler E",
@@ -564,23 +564,23 @@
       }
     },
     {
-      "_id": "status.errors.letzerEA",
+      "_id": "status.errors.letzterEA",
       "type": "state",
       "common": {
-        "name": "letzer Fehler EA",
+        "name": "letzter Fehler EA",
         "type": "string",
         "role": "value.info",
         "read": true,
         "write": false,
         "def": false,
-        "desc": "letzer Fehler EA"
+        "desc": "letzter Fehler EA"
       },
       "native": {
 
       }
     },
     {
-      "_id": "status.errors.vorletzerEA",
+      "_id": "status.errors.vorletzterEA",
       "type": "state",
       "common": {
         "name": "vorletzter Fehler EA",
