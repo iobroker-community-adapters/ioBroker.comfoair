@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "news": {
+      "0.1.2": {
+        "en": "ReadME - update.",
+        "de": "ReadME - Update."
+      },
       "0.1.1": {
         "en": "bugfix ventlevels, reads errors.",
         "de": "Fehler ventlevels behoben, liest Fehlermeldungen."

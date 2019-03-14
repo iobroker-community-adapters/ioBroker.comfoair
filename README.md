@@ -8,21 +8,26 @@
 
 An ioBroker adapter for Zehnder Comfoair  'CA' -ventilations (i.e. ComfoAir CA350, NOT ComfoAir Q350...)
 
-Install adapter, create instance.
-Install hardware for TCP - connection to comfoair: i.e. RS232 to LAN adapter to the serial interface of the comfoair. Connect Pins 2, 3 and 5 only (should work also with TX, RX and GND - contacts of the cc-Ease connection.
+To use this adapter, you need a RS232 to LAN oder WiFi Converter to connect ioBroker with your Zehnder Comfoair.
+Install hardware for TCP - connection to comfoair: i.e. RS232 to LAN adapter to the serial interface of the comfoair. Connect Pins 2, 3 and 5 only (should work also with TX, RX and GND - contacts of the cc-Ease connection too).
 Actually this adapter works only with a LAN-Connection. A direct link based on a direct serial connection is in development.
 
+Install adapter, create instance.
 Set comfoair - IP-adress, port and polling - intervall.
 
 Values of your comfoair should be visible in the 'status' and the 'temperatures' channel now.
 
 By setting/changeing values in the 'control' - channel, you control your comfoair ventilation.
 
-Might work even if CC-Ease Panel is connected. Works well if ccEASE - Panel is disconnected.
+Might work even if CC-Ease Panel is connected (on your own risk). Works well if ccEASE - Panel is disconnected.
 
 Tested on comfoair CA350.
 
 ## Changelog
+
+### 0.1.2
+
+- ReadME updated, minor bugfixes.
 
 ### 0.1.1
 

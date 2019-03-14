@@ -379,7 +379,7 @@ function errorcode(error) {
     if (error > 0) {
       var errorcd = error;
     } else {
-      var errorcd = "kein Fehler";
+      var errorcd = ": kein Fehler";
     }
     return errorcd;
   } catch (e) {
