@@ -600,6 +600,28 @@
       }
     },
     {
+      "_id": "status.rs232mode",
+      "type": "state",
+      "common": {
+        "name": "RS232 Mode",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "def": 1,
+        "desc": "Modus der RS232 - Schnittstelle",
+        "states": {
+          1: "PC only",
+          2: "CC-Ease only",
+          3: "PC Master",
+          4: "PC Logmode"
+        }
+      },
+      "native": {
+
+      }
+    },
+    {
       "_id": "control",
       "type": "channel",
       "common": {
