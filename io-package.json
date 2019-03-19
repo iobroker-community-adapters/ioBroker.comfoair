@@ -609,14 +609,8 @@
         "read": true,
         "write": false,
         "def": 1,
-        "desc": "Modus der RS232 - Schnittstelle",
-        "states": {
-          1: "PC only",
-          2: "CC-Ease only",
-          3: "PC Master",
-          4: "PC Logmode"
-        }
-      },
+        "desc": "Modus der RS232 - Schnittstelle"
+              },
       "native": {
 
       }
@@ -627,6 +621,22 @@
       "common": {
         "name": "Steuerung"
       },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "control.rs232mode",
+      "type": "state",
+      "common": {
+        "name": "Set RS232 Mode",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": true,
+        "def": 1,
+        "desc": "Setzen des Modus der RS232 - Schnittstelle"
+              },
       "native": {
 
       }
