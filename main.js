@@ -50,8 +50,7 @@ function startAdapter(options) {
   });
 
   adapter = new utils.Adapter(options);
-  safemode = adapter.config.rs232safe;
-  manualmode = adapter.config.rs232manual;
+
 
 
   // when adapter shuts down
@@ -133,6 +132,8 @@ function main() {
   // Vars
   deviceIpAdress = adapter.config.host;
   port = adapter.config.port;
+  safemode = adapter.config.rs232safe;
+  manualmode = adapter.config.rs232manual;
 
 
   const pollingTime = adapter.config.pollInterval || 300000;
