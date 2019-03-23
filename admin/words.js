@@ -103,7 +103,7 @@ systemDictionary = {
     "it": "RS-232 Safe - Mode (see README):",
     "es": "RS-232 Safe - Mode (see README):"
   },
-  "pollInterval": {
+  "rs232manual": {
     "en": "RS-232 Manual - Mode (see README):",
     "de": "RS-232 Manual - Mode (see README):",
     "ru": "RS-232 Manual - Mode (see README):",
