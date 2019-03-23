@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "news": {
+      "0.1.3": {
+        "en": "RS - 232 interface: manual- or safe - mode possible.",
+        "de": "RS - 232 Schnittstelle: Manual- oder Safe-Mode möglich."
+      },
       "0.1.2": {
         "en": "ReadME - update.",
         "de": "ReadME - Update."
@@ -81,7 +85,9 @@
   "native": {
     "host": "",
     "pollInterval": 300000,
-    "port": 9999
+    "port": 9999,
+    "rs232manual": false,
+    "rs232safe": false
   },
   "objects": [],
   "instanceObjects": [
@@ -599,22 +605,7 @@
 
       }
     },
-    {
-      "_id": "status.rs232mode",
-      "type": "state",
-      "common": {
-        "name": "RS232 Mode",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "def": 1,
-        "desc": "Modus der RS232 - Schnittstelle"
-              },
-      "native": {
 
-      }
-    },
     {
       "_id": "control",
       "type": "channel",
@@ -625,22 +616,7 @@
 
       }
     },
-    {
-      "_id": "control.rs232mode",
-      "type": "state",
-      "common": {
-        "name": "Set RS232 Mode",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": true,
-        "def": 1,
-        "desc": "Setzen des Modus der RS232 - Schnittstelle"
-              },
-      "native": {
 
-      }
-    },
     {
       "_id": "control.comfort",
       "type": "state",

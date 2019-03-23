@@ -1,6 +1,7 @@
 ![Logo](admin/comfoair.png)
 
 # ioBroker.comfoair
+
 ![Number of Installations](http://iobroker.live/badges/comfoair-installed.svg) ![Number of Installations](http://iobroker.live/badges/comfoair-stable.svg) [![NPM version](http://img.shields.io/npm/v/iobroker.comfoair.svg)](https://www.npmjs.com/package/iobroker.comfoair)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.comfoair.svg)](https://www.npmjs.com/package/iobroker.comfoair)
 
@@ -13,21 +14,43 @@ Install hardware for TCP - connection to comfoair: i.e. RS232 to LAN adapter to 
 Actually this adapter works only with a LAN-Connection. A direct link based on a direct serial connection is in development.
 
 Install adapter, create instance.
+
+## CCEase and use of the RS232-interface
+
+The comfoair knows 5 different RS232 modes: End/without connection, PC only, CCEase only, PC Master, PC logmode. Default is CCEase only.
+Usually, the parallel use of CCEase and RS232 results in errors. It is recommended to disconnect the CCEase cotrol panel while you're using this adapter. Alternativly you can try/use one of the RS232 - Modes (see Config) at your own risk.
+
+## Config
+
 Set comfoair - IP-adress, port and polling - intervall.
 
-Values of your comfoair should be visible in the 'status' and the 'temperatures' channel now.
+### RS-232 Manual Mode
+
+In this mode you get a rs232mode object in the 'control' and in the 'state' - channel. In the 'control' - channel you can set the RS232 - mode PCMaster and PCLogmode. In PCMaster mode, your CCEase's display will be off an there is no data traffic between the comfoair and the CCEase.
+In PCLogmode the display is on, as well as the data-traffic.
+To swicht back to CCEase only mode you have to 'hard-reset' your comfoair (power off - power on).
+
+### RS-232 Safe Mode
+
+In the 'safe mode' PCMaster mode is set before any polling of values and before every command sent. When the necessary traffic is done, PCLogmode is set. The CCEase's diyplay will be off, while traffic occurs, inbetween, CCEase is available.
+
+## Using the adapter
+
+Values of your comfoair should be visible in the 'status' and the 'temperatures' channel.
 
 By setting/changeing values in the 'control' - channel, you control your comfoair ventilation.
-
-Might work even if CC-Ease Panel is connected (on your own risk). Works well if ccEASE - Panel is disconnected.
 
 Tested on comfoair CA350.
 
 ## Changelog
 
+### 0.1.3
+
+-   RS - 232 interface: manual- or safe - mode possible.
+
 ### 0.1.2
 
-- ReadME updated, minor bugfixes.
+-   ReadME updated, minor bugfixes.
 
 ### 0.1.1
 

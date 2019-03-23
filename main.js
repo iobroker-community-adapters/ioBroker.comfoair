@@ -33,9 +33,13 @@ var setcomfotemp = [0x07, 0xF0, 0x00, 0xD3, 0x01, 0x14, 0x48, 0x07, 0x0F]; //Kom
 var setreset = [0x07, 0xF0, 0x00, 0xDB, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x0F];
 var setvent = [0x07, 0xF0, 0x00, 0xCF, 0x09, 0x0F, 0x28, 0x46, 0x0F, 0x28, 0x46, 0x5A, 0x5A, 0x00, 0x00, 0x07, 0x0F]; //Ventilatorstufen setzen
 var setventlevel = ['ABLabw', 'ABL1', 'ABL2', 'ZULabw', 'ZUL1', 'ZUL2', 'ABL3', 'ZUL3'];
+var setrs232 = [0x07, 0xF0, 0x00, 0x9B, 0x01, 0x02, 0x4b, 0x07, 0x0F];
 var statcmdL = statcmdi.length;
 var calli = 0;
 var callval;
+var safemode;
+var manualmode;
+
 
 let polling;
 
@@ -46,6 +50,8 @@ function startAdapter(options) {
   });
 
   adapter = new utils.Adapter(options);
+  safemode = adapter.config.rs232safe;
+  manualmode = adapter.config.rs232manual;
 
 
   // when adapter shuts down
@@ -78,54 +84,14 @@ function startAdapter(options) {
       id = id.substring(adapter.namespace.length + 1); // remove instance name and id
       state = state.val;
       adapter.log.debug("id=" + id);
-      switch (id) {
-        case "control.stufe":
-          adapter.log.debug("Setzte Stufe: " + state);
-          callcomfoair(setfanstate[state - 1]);
-          break;
-
-        case "control.comfort":
-          adapter.log.debug("Setze Komforttemperatur auf: " + state + "°C");
-          setcomfotemp[5] = ((state + 20) * 2);
-          setcomfotemp[6] = parseInt(checksumcmd(setcomfotemp), 16);
-          callcomfoair(setcomfotemp);
-          break;
-
-        case "control.reset.filterh":
-          if (state == true) {
-            adapter.log.debug("Setze Betriebsstunden Filter zurück");
-            setreset[8] = 1;
-            setreset[9] = parseInt(checksumcmd(setreset), 16);
-            callcomfoair(setreset);
-            setreset = [0x07, 0xF0, 0x00, 0xDB, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x0F]
-          }
-          break;
-
-        default:
-          if (id.slice(0, 15) == "control.setvent") {
-            var setventl = setventlevel.indexOf(id.slice(16));
-            if (state != setvent[setventl + 5]) {
-              adapter.log.debug("Setze Ventilationsstufen");
-              adapter.log.debug("Aendere: " + id.slice(16) + "Position: " + setventl);
-              setvent[setventl + 5] = state;
-              setvent[14] = parseInt(checksumcmd(setvent), 16);
-              adapter.log.debug("Setvent neu: " + setvent);
-              adapter.log.debug(id.slice(16) + " neu " + setvent[setventl + 5] + "%");
-
-              callcomfoair(setvent);
-              adapter.setState('control.setvent.ABLabw', setvent[5], true);
-              adapter.setState('control.setvent.ABL1', setvent[6], true);
-              adapter.setState('control.setvent.ABL2', setvent[7], true);
-              adapter.setState('control.setvent.ZULabw', setvent[8], true);
-              adapter.setState('control.setvent.ZUL2', setvent[10], true);
-              adapter.setState('control.setvent.ZUL1', setvent[9], true);
-              adapter.setState('control.setvent.ABL3', setvent[11], true);
-              adapter.setState('control.setvent.ZUL3', setvent[12], true);
-            }
-
-          } else {
-            adapter.log.debug("Befehl nicht erkannt");
-          }
+      if (safemode = true) {
+        adapter.log.debug("Setze RS232 auf PC Master");
+        callcomfoair([0x07, 0xF0, 0x00, 0x9B, 0x01, 0x03, 0x4c, 0x07, 0x0F]);
+        setTimeout(function() {
+          controlcomfoair(id, state);
+        }, 900);
+      } else {
+        controlcomfoair(id, state);
       }
 
       // you can use the ack flag to detect if it is status (true) or command (false)
@@ -172,11 +138,49 @@ function main() {
   const pollingTime = adapter.config.pollInterval || 300000;
   adapter.log.debug('[INFO] Configured polling interval: ' + pollingTime);
   adapter.log.debug('[START] Started Adapter with: ' + adapter.config.host);
+  if (manualmode = true) {
+    adapter.log.info("RS- 232 Manual - Mode is ON");
+    adapter.setObjectNotExists("status.rs232mode", {
+      type: "state",
+      common: {
+        name: "RS232 Mode",
+        type: "string",
+        role: "value.info",
+        read: true,
+        write: false,
+        def: false,
+        desc: "Modus der RS232 - Schnittstelle"
+      },
+      native: {}
+    });
+    adapter.setObjectNotExists("control.rs232mode", {
+      type: "state",
+      common: {
+        name: "Set RS232 Mode: 3:PCMaster 4:PCLogmode",
+        type: "number",
+        role: "value.control",
+        read: true,
+        write: true,
+        def: 4,
+        desc: "Setzen des Modus der RS232 - Schnittstelle"
+      },
+      native: {}
+    });
 
+  }
+  if (safemode = true) {
+    adapter.log.info("RS- 232 Safe - Mode is ON");
+    adapter.log.debug("Setze RS232 auf PC Master");
+    callcomfoair([0x07, 0xF0, 0x00, 0x9B, 0x01, 0x03, 0x4c, 0x07, 0x0F]);
+  }
   callval = setInterval(callvalues, 2000);
 
   if (!polling) {
     polling = setTimeout(function repeat() { // poll states every [30] seconds
+      if (safemode = true) {
+        adapter.log.debug("Setze RS232 auf PC Master");
+        callcomfoair([0x07, 0xF0, 0x00, 0x9B, 0x01, 0x03, 0x4c, 0x07, 0x0F]);
+      }
       callval = setInterval(callvalues, 2000); //DATAREQUEST;
       setTimeout(repeat, pollingTime);
     }, pollingTime);
@@ -194,10 +198,102 @@ function callvalues() {
   calli++;
   if (calli == statcmdL) {
     calli = 0;
+    if (safemode = true) {
+      setTimeout(function() {
+        adapter.log.debug("Setze RS232 auf PC Logmodus");
+        callcomfoair([0x07, 0xF0, 0x00, 0x9B, 0x01, 0x04, 0x4d, 0x07, 0x0F]);
+      }, 500);
+    }
     clearInterval(callval);
   }
 } //end callvalues
 
+function controlcomfoair(id, state) {
+  try {
+    switch (id) {
+      case "control.stufe":
+        adapter.log.debug("Setzte Stufe: " + state);
+        callcomfoair(setfanstate[state - 1]);
+        break;
+
+      case "control.comfort":
+        adapter.log.debug("Setze Komforttemperatur auf: " + state + "°C");
+        setcomfotemp[5] = ((state + 20) * 2);
+        setcomfotemp[6] = parseInt(checksumcmd(setcomfotemp), 16);
+        callcomfoair(setcomfotemp);
+        break;
+
+      case "control.reset.filterh":
+        if (state == true) {
+          adapter.log.debug("Setze Betriebsstunden Filter zurück");
+          setreset[8] = 1;
+          setreset[9] = parseInt(checksumcmd(setreset), 16);
+          callcomfoair(setreset);
+          setreset = [0x07, 0xF0, 0x00, 0xDB, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x0F]
+        }
+        break;
+
+      case "control.rs232mode":
+        switch (state) {
+          case 1:
+            var statetext = "PC only";
+            break;
+          case 2:
+            var statetext = "CC-Ease only";
+            break;
+          case 3:
+            var statetext = "PC Master";
+            break;
+          case 4:
+            var statetext = "PC Logmode";
+            break;
+        }
+        adapter.log.debug("Setze RS232 - Modus auf: " + statetext);
+        setrs232[5] = state;
+        setrs232[6] = parseInt(checksumcmd(setrs232), 16);
+        callcomfoair(setrs232);
+        setrs232 = [0x07, 0xF0, 0x00, 0x9B, 0x01, 0x02, 0x4b, 0x07, 0x0F];
+        adapter.setState('control.rs232mode', state, true);
+        break;
+
+
+      default:
+        if (id.slice(0, 15) == "control.setvent") {
+          var setventl = setventlevel.indexOf(id.slice(16));
+          if (state != setvent[setventl + 5]) {
+            adapter.log.debug("Setze Ventilationsstufen");
+            adapter.log.debug("Aendere: " + id.slice(16) + "Position: " + setventl);
+            setvent[setventl + 5] = state;
+            setvent[14] = parseInt(checksumcmd(setvent), 16);
+            adapter.log.debug("Setvent neu: " + setvent);
+            adapter.log.debug(id.slice(16) + " neu " + setvent[setventl + 5] + "%");
+
+            callcomfoair(setvent);
+            adapter.setState('control.setvent.ABLabw', setvent[5], true);
+            adapter.setState('control.setvent.ABL1', setvent[6], true);
+            adapter.setState('control.setvent.ABL2', setvent[7], true);
+            adapter.setState('control.setvent.ZULabw', setvent[8], true);
+            adapter.setState('control.setvent.ZUL2', setvent[10], true);
+            adapter.setState('control.setvent.ZUL1', setvent[9], true);
+            adapter.setState('control.setvent.ABL3', setvent[11], true);
+            adapter.setState('control.setvent.ZUL3', setvent[12], true);
+          }
+
+        } else {
+          adapter.log.debug("Befehl nicht erkannt");
+        }
+    }
+    if (safemode = true) {
+      setTimeout(function() {
+        adapter.log.debug("Setze RS232 auf PC Logmodus");
+        callcomfoair([0x07, 0xF0, 0x00, 0x9B, 0x01, 0x04, 0x4d, 0x07, 0x0F]);
+      }, 1000);
+    }
+  } catch (e) {
+    adapter.log.debug("Fehler controlcomfoair: " + e);
+  }
+
+} //end controlcomfoair
 
 function callcomfoair(hexout) {
   var client = new net.Socket();
@@ -208,7 +304,9 @@ function callcomfoair(hexout) {
     var msgbuf = new Buffer(hexout);
     var hexoutarr = [...msgbuf];
     adapter.log.debug("out " + msgbuf.toString('hex'));
+
     adapter.log.debug("outarr: " + hexoutarr);
+
     client.write(msgbuf);
 
   });
@@ -265,6 +363,7 @@ function callcomfoair(hexout) {
               adapter.setState('status.ventlevel.ABL3', hexout[11], true);
               adapter.setState('status.ventlevel.ZUL3', hexout[12], true);
               adapter.log.debug("Ventilationsstufen gesetzt");
+
           }
         } else {
           adapter.log.debug("ACK zu Kommando nicht erhlaten");
@@ -345,6 +444,22 @@ function readComfoairData(buffarr) {
         adapter.setState("status.errors.letzterEA", 'EA' + errorcode(buffarr[17]), true);
         adapter.setState("status.errors.vorletzterEA", 'EA' + errorcode(buffarr[18]), true);
 
+        break;
+      case 156:
+        switch (buffarr[7]) {
+          case 1:
+            var statetext = "PC only";
+            break;
+          case 2:
+            var statetext = "CC-Ease only";
+            break;
+          case 3:
+            var statetext = "PC Master";
+            break;
+          case 4:
+            var statetext = "PC Logmode";
+        }
+        adapter.setState('status.rs232mode', statetext, true);
         break;
 
       default:
