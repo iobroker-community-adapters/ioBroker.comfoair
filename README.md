@@ -18,7 +18,8 @@ Install adapter, create instance.
 ## CCEase and use of the RS232-interface
 
 The comfoair knows 5 different RS232 modes: End/without connection, PC only, CCEase only, PC Master, PC logmode. Default is CCEase only.
-Usually, the parallel use of CCEase and RS232 results in errors. It is recommended to disconnect the CCEase cotrol panel while you're using this adapter. Alternativly you can try/use one of the RS232 - Modes (see Config) at your own risk.
+The parallel use of CCEase and RS232 results in errors! It is higly recommended to disconnect the CCEase cotrol panel while you're using this adapter or to switch in PC Master mode, what will disabel CCEase too.
+A hardware based solution for a data - traffic - switch is in evaluation, support is welcome.
 
 ## Config
 
@@ -27,12 +28,7 @@ Set comfoair - IP-adress, port and polling - intervall.
 ### RS-232 Manual Mode
 
 In this mode you get a rs232mode object in the 'control' and in the 'state' - channel. In the 'control' - channel you can set the RS232 - mode PCMaster and PCLogmode. In PCMaster mode, your CCEase's display will be off an there is no data traffic between the comfoair and the CCEase.
-In PCLogmode the display is on, as well as the data-traffic.
 To swicht back to CCEase only mode you have to 'hard-reset' your comfoair (power off - power on).
-
-### RS-232 Safe Mode
-
-In the 'safe mode' PCMaster mode is set before any polling of values and before every command sent. When the necessary traffic is done, PCLogmode is set. The CCEase's diyplay will be off, while traffic occurs, inbetween, CCEase is available.
 
 ## Using the adapter
 
@@ -43,6 +39,10 @@ By setting/changeing values in the 'control' - channel, you control your comfoai
 Tested on comfoair CA350.
 
 ## Changelog
+
+### 0.1.4
+
+-   README-Update 'NO PARALLEL USE', discard 'Safe-Mode'.
 
 ### 0.1.3
 

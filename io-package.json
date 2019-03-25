@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "news": {
+      "0.1.4": {
+        "en": "README-Update 'NO PARALLEL USE', discard 'Safe-Mode'.",
+        "de": "README-Update 'KEIN PARALLELBETRIEB', Safe-Mode verworfen."
+      },
       "0.1.3": {
         "en": "RS - 232 interface: manual- or safe - mode possible.",
         "de": "RS - 232 Schnittstelle: Manual- oder Safe-Mode möglich."
@@ -86,9 +90,8 @@
     "host": "",
     "pollInterval": 300000,
     "port": 9999,
-    "rs232manual": false,
-    "rs232safe": false
-  },
+    "rs232manual": false
+    },
   "objects": [],
   "instanceObjects": [
 

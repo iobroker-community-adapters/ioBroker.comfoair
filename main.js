@@ -37,7 +37,6 @@ var setrs232 = [0x07, 0xF0, 0x00, 0x9B, 0x01, 0x02, 0x4b, 0x07, 0x0F];
 var statcmdL = statcmdi.length;
 var calli = 0;
 var callval;
-var safemode = true;
 var manualmode = true;
 
 
@@ -83,15 +82,9 @@ function startAdapter(options) {
       id = id.substring(adapter.namespace.length + 1); // remove instance name and id
       state = state.val;
       adapter.log.debug("id=" + id);
-      if (safemode = 'true') {
-        adapter.log.debug("Setze RS232 auf PC Master");
-        callcomfoair([0x07, 0xF0, 0x00, 0x9B, 0x01, 0x03, 0x4c, 0x07, 0x0F]);
-        setTimeout(function() {
-          controlcomfoair(id, state);
-        }, 900);
-      } else {
-        controlcomfoair(id, state);
-      }
+
+      controlcomfoair(id, state);
+
 
       // you can use the ack flag to detect if it is status (true) or command (false)
       if (state && !state.ack) {
@@ -132,7 +125,6 @@ function main() {
   // Vars
   deviceIpAdress = adapter.config.host;
   port = adapter.config.port;
-  safemode = adapter.config.rs232safe;
   manualmode = adapter.config.rs232manual;
 
 
@@ -169,19 +161,11 @@ function main() {
     });
 
   }
-  if (safemode == true) {
-    adapter.log.info("RS- 232 Safe - Mode is ON");
-    adapter.log.debug("Setze RS232 auf PC Master");
-    callcomfoair([0x07, 0xF0, 0x00, 0x9B, 0x01, 0x03, 0x4c, 0x07, 0x0F]);
-  }
+
   callval = setInterval(callvalues, 2000);
 
   if (!polling) {
     polling = setTimeout(function repeat() { // poll states every [30] seconds
-      if (safemode == true) {
-        adapter.log.debug("Setze RS232 auf PC Master");
-        callcomfoair([0x07, 0xF0, 0x00, 0x9B, 0x01, 0x03, 0x4c, 0x07, 0x0F]);
-      }
       callval = setInterval(callvalues, 2000); //DATAREQUEST;
       setTimeout(repeat, pollingTime);
     }, pollingTime);
@@ -199,12 +183,6 @@ function callvalues() {
   calli++;
   if (calli == statcmdL) {
     calli = 0;
-    if (safemode == true) {
-      setTimeout(function() {
-        adapter.log.debug("Setze RS232 auf PC Logmodus");
-        callcomfoair([0x07, 0xF0, 0x00, 0x9B, 0x01, 0x04, 0x4d, 0x07, 0x0F]);
-      }, 500);
-    }
     clearInterval(callval);
   }
 } //end callvalues
@@ -284,12 +262,7 @@ function controlcomfoair(id, state) {
           adapter.log.debug("Befehl nicht erkannt");
         }
     }
-    if (safemode == true) {
-      setTimeout(function() {
-        adapter.log.debug("Setze RS232 auf PC Logmodus");
-        callcomfoair([0x07, 0xF0, 0x00, 0x9B, 0x01, 0x04, 0x4d, 0x07, 0x0F]);
-      }, 1000);
-    }
+
   } catch (e) {
     adapter.log.debug("Fehler controlcomfoair: " + e);
   }
