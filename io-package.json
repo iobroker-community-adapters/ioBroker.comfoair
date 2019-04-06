@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "0.1.4",
+    "version": "0.2.0",
     "news": {
+      "0.2.0": {
+        "en": "New rs232 - Modes, reading enthalpie-values, handling connection-errors.",
+        "de": "Neue rs232 - Modi, liest Enthalpie-Werte, Verbindungsfehler - Handling."
+      },
       "0.1.4": {
         "en": "README-Update 'NO PARALLEL USE', discard 'Safe-Mode'.",
         "de": "README-Update 'KEIN PARALLELBETRIEB', Safe-Mode verworfen."
@@ -89,9 +93,8 @@
   "native": {
     "host": "",
     "pollInterval": 300000,
-    "port": 9999,
-    "rs232manual": false
-    },
+    "port": 9999
+  },
   "objects": [],
   "instanceObjects": [
 
@@ -210,6 +213,26 @@
       "native": {
 
       }
+    },
+    {
+      "_id": "status.rs232mode",
+      "type": "state",
+      "common": {
+        "name": "RS232 Mode",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": false,
+        "states": {
+          "0": "CC Ease only",
+          "1": "Adapter only",
+          "2": "Auto Switch Mode",
+          "3": "Parallel Mode"
+        },
+        "def": 1,
+        "desc": "Modus der RS232 - Schnittstelle (Readme!!)"
+      },
+      "native": {}
     },
     {
       "_id": "status.filterh",
@@ -619,7 +642,26 @@
 
       }
     },
-
+    {
+      "_id": "control.rs232mode",
+      "type": "state",
+      "common": {
+        "name": "Set RS232 Mode: 3:PCMaster 4:PCLogmode",
+        "type": "number",
+        "role": "value.control",
+        "read": true,
+        "write": true,
+        "states": {
+          "0": "CC Ease only",
+          "1": "Adapter only",
+          "2": "Auto Switch Mode",
+          "3": "Parallel Mode"
+        },
+        "def": 1,
+        "desc": "Setzen des Modus der RS232 - Schnittstelle"
+      },
+      "native": {}
+    },
     {
       "_id": "control.comfort",
       "type": "state",
@@ -641,11 +683,17 @@
       "_id": "control.stufe",
       "type": "state",
       "common": {
-        "name": "Stufe (1_Abw - 4_hoch)",
+        "name": "Stufe",
         "type": "number",
         "role": "value.control",
         "read": true,
         "write": true,
+        "states": {
+          "0": "Abwesend",
+          "1": "tief",
+          "2": "mittel",
+          "3": "hoch"
+        },
         "def": false,
         "desc": "Vorgabe Stufe"
       },

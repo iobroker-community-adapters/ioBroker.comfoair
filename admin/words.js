@@ -92,17 +92,5 @@ systemDictionary = {
     "fr": "Polling - Intervall (ms):",
     "it": "Polling - Intervall (ms):",
     "es": "Polling - Intervall (ms):"
-  },
-  "rs232manual": {
-    "en": "RS-232 Manual - Mode (see README):",
-    "de": "RS-232 Manual - Mode (see README):",
-    "ru": "RS-232 Manual - Mode (see README):",
-    "pt": "RS-232 Manual - Mode (see README):",
-    "nl": "RS-232 Manual - Mode (see README):",
-    "fr": "RS-232 Manual - Mode (see README):",
-    "it": "RS-232 Manual - Mode (see README):",
-    "es": "RS-232 Manual - Mode (see README):"
   }
-
-
 }
