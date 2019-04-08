@@ -90,7 +90,7 @@ function startAdapter(options) {
       state = state.val;
       adapter.log.debug("id=" + id);
       if (cceasemode == true && id != "control.rs232mode") {
-        adapter.log.debug("CC Ease only - Modus: Führe keine Befehle aus");
+        adapter.log.warn("CC Ease only - Modus: Führe keine Befehle aus");
         return;
       }
       if (safemode == 'true') {
@@ -105,7 +105,7 @@ function startAdapter(options) {
 
       // you can use the ack flag to detect if it is status (true) or command (false)
       if (state && !state.ack) {
-        adapter.log.info('ack is not set!');
+        adapter.log.debug('ack is not set!');
       }
     } catch (e) {
       adapter.log.debug("Fehler Befehlsauswertung: " + e);
@@ -182,7 +182,7 @@ function test() {
 
   if (pcmastermode == true) {
 
-    adapter.log.debug("CC-Ease ausgeschaltet, Starte Adapterbetrieb");
+    adapter.log.info("CC-Ease ausgeschaltet, Starte Adapterbetrieb");
     callcomfoair([0x07, 0xF0, 0x00, 0xD5, 0x00, 0x82, 0x07, 0x0F]);
 
     callval = setInterval(callvalues, 2000); //DATAREQUEST;
@@ -204,7 +204,7 @@ function testswitch() {
 
   if (pcmastermode == true) {
 
-    adapter.log.debug("CC-Ease ausgeschaltet, Starte Adapterbetrieb");
+    adapter.log.info("CC-Ease ausgeschaltet, Starte Adapterbetrieb");
 
     clearInterval(testswi);
   } else {
@@ -270,6 +270,7 @@ function controlcomfoair(id, state) {
         switch (state) {
           case 0:
             var statetext = "CC Ease only";
+            adapter.log.info("Umschalten auf CC Ease only");
             setrs232[5] = 0;
             cceasemode = true;
             safemode = false;
@@ -278,6 +279,7 @@ function controlcomfoair(id, state) {
 
           case 1:
             var statetext = "Adapter only";
+            adapter.log.info("Umschalten auf Adapter only");
             setrs232[5] = 3;
             cceasemode = false;
             safemode = false;
@@ -288,14 +290,15 @@ function controlcomfoair(id, state) {
 
           case 2:
             var statetext = "Parallel Mode";
+            adapter.log.info("Umschalten auf Parallelbetrieb");
             setrs232[5] = 4;
             cceasemode = false;
             safemode = false;
             pcmastermode = false;
             adapter.setState('status.rs232mode', 3, true);
             break;
-          case 3:
 
+          case 3:
             var statetext = "Auto Switch Mode";
             safemode = true;
             cceasemode = false;
@@ -510,16 +513,16 @@ function readComfoairData(buffarr, client) {
             break;
           case 2:
             var statetext = "CC-Ease only";
-adapter.log.debug("CC-Ease only Modus: keine Aktualisierung / Befehle durch Adapter");
+            adapter.log.info("CC-Ease only Modus: keine Aktualisierung / Befehle durch Adapter");
             adapter.setState('status.rs232mode', 0, true);
             client.destroy();
             break;
           case 3:
             var statetext = "PC Master";
             if (safemode == true) {
-              adapter.log.debug("Swicht to Master");
+              adapter.log.debug("Switch to Master");
             } else {
-              adapter.log.debug("CC-Ease ausgeschaltet");
+              adapter.log.info("CC-Ease ausgeschaltet");
               pcmastermode = true;
               adapter.setState('status.rs232mode', 1, true);
               client.destroy();
@@ -531,6 +534,7 @@ adapter.log.debug("CC-Ease only Modus: keine Aktualisierung / Befehle durch Adap
             } else {
               var statetext = "PC Logmode";
               adapter.setState('status.rs232mode', 3, true);
+              adapter.log.info("Parallelbetrieb aktiv");
             }
         }
         break;
