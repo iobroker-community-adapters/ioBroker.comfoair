@@ -1,10 +1,11 @@
-/**
- * comfoair adapter
- */
+33
+  /**
+   * comfoair adapter
+   */
 
-/* jshint -W097 */ // jshint strict:false
-/*jslint node: true */
-'use strict';
+  /* jshint -W097 */ // jshint strict:false
+  /*jslint node: true */
+  'use strict';
 
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
 let adapter;
@@ -39,7 +40,11 @@ var calli = 0;
 var callval;
 var safemode = false;
 var cceasemode = false;
+var pcmaster;
+var testmaster;
+var pcmastermode = false;
 var enthalpie = false;
+var testj = 0;
 
 
 let polling;
@@ -84,11 +89,11 @@ function startAdapter(options) {
       id = id.substring(adapter.namespace.length + 1); // remove instance name and id
       state = state.val;
       adapter.log.debug("id=" + id);
-      if (cceasemode = true) {
+      if (cceasemode == true && id != "control.rs232mode") {
         adapter.log.debug("CC Ease only - Modus: Führe keine Befehle aus");
         return;
       }
-      if (safemode = 'true') {
+      if (safemode == 'true') {
         adapter.log.debug("Setze RS232 auf PC Master");
         callcomfoair([0x07, 0xF0, 0x00, 0x9B, 0x01, 0x03, 0x4c, 0x07, 0x0F]);
         setTimeout(function() {
@@ -139,24 +144,26 @@ function main() {
   deviceIpAdress = adapter.config.host;
   port = adapter.config.port;
 
-  callcomfoair([0x07, 0xF0, 0x00, 0x9B, 0x01, 0x03, 0x4c, 0x07, 0x0F]);
-
   const pollingTime = adapter.config.pollInterval || 300000;
   adapter.log.info('[INFO] Configured polling interval: ' + pollingTime);
   adapter.log.debug('[START] Started Adapter with: ' + adapter.config.host);
 
-  if (safemode == true) {
-    adapter.log.info("RS- 232 Safe - Mode is ON");
-  }
-  callcomfoair([0x07, 0xF0, 0x00, 0xD5, 0x82, 0x07, 0x0F])
+  pcmaster = setTimeout(function repe() {
+    callcomfoair([0x07, 0xF0, 0x00, 0x9B, 0x01, 0x03, 0x4c, 0x07, 0x0F]);
+    if (pcmastermode == false) {
+      setTimeout(repe, 2000);
+    }
+  }, 500);
 
-  callval = setInterval(callvalues, 2000);
+  if (safemode == true) {
+    adapter.log.info("RS- 232 Switch - Mode is ON");
+  }
+
+  testmaster = setInterval(test, 1000); //Ueberprüfen, ob PC-Master-mode aktiv ist.
 
   if (!polling) {
     polling = setTimeout(function repeat() { // poll states every [30] seconds
-      if (cceasemode = true) {
-        return;
-      }
+
       if (safemode == true) {
         adapter.log.debug("Setze RS232 auf PC Master");
         callcomfoair([0x07, 0xF0, 0x00, 0x9B, 0x01, 0x03, 0x4c, 0x07, 0x0F]);
@@ -171,7 +178,53 @@ function main() {
 
 } // endMain
 
+function test() {
+
+  if (pcmastermode == true) {
+
+    adapter.log.debug("CC-Ease ausgeschaltet, Starte Adapterbetrieb");
+    callcomfoair([0x07, 0xF0, 0x00, 0xD5, 0x00, 0x82, 0x07, 0x0F]);
+
+    callval = setInterval(callvalues, 2000); //DATAREQUEST;
+    clearInterval(testmaster);
+  } else {
+
+    adapter.log.warn("Noch nicht im Adapter-only Modus");
+    callcomfoair([0x07, 0xF0, 0x00, 0x9B, 0x01, 0x03, 0x4c, 0x07, 0x0F]);
+    testj++;
+    if (testj > 3) {
+      adapter.log.warn("Fehler, kann nicht umschalten");
+      testj = 0;
+      clearInterval(testmaster);
+    }
+  }
+} // END test()
+
+function testswitch() {
+
+  if (pcmastermode == true) {
+
+    adapter.log.debug("CC-Ease ausgeschaltet, Starte Adapterbetrieb");
+
+    clearInterval(testswi);
+  } else {
+
+    adapter.log.warn("Noch nicht im Adapter-only Modus");
+    callcomfoair([0x07, 0xF0, 0x00, 0x9B, 0x01, 0x03, 0x4c, 0x07, 0x0F]);
+    testj++;
+    if (testj > 3) {
+      adapter.log.warn("Fehler, kann nicht umschalten");
+      testj = 0;
+      clearInterval(testswi);
+    }
+  }
+} // END testswitch()
+
+
 function callvalues() {
+  if (cceasemode == true) {
+    return;
+  }
   hexout = statcmdi[calli];
   adapter.log.debug(hexout);
   callcomfoair(hexout);
@@ -220,31 +273,42 @@ function controlcomfoair(id, state) {
             setrs232[5] = 0;
             cceasemode = true;
             safemode = false;
+            pcmastermode = false;
             break;
+
           case 1:
             var statetext = "Adapter only";
             setrs232[5] = 3;
             cceasemode = false;
             safemode = false;
+            if (pcmastermode == false) {
+              testswi = setInterval(testswitch, 1000); //Ueberprüfen, ob PC-Master-mode aktiv ist.
+            }
             break;
+
           case 2:
-            var statetext = "Auto Switch Mode";
-            safemode = true;
-            cceasemode = false;
-            break;
-          case 3:
             var statetext = "Parallel Mode";
             setrs232[5] = 4;
             cceasemode = false;
             safemode = false;
+            pcmastermode = false;
+            adapter.setState('status.rs232mode', 3, true);
             break;
+          case 3:
+
+            var statetext = "Auto Switch Mode";
+            safemode = true;
+            cceasemode = false;
+            pcmastermode = false;
+            adapter.setState('status.rs232mode', 2, true);
+            break;
+
         }
         adapter.log.debug("Setze RS232 - Modus auf: " + statetext);
 
         setrs232[6] = parseInt(checksumcmd(setrs232), 16);
         callcomfoair(setrs232);
         setrs232 = [0x07, 0xF0, 0x00, 0x9B, 0x01, 0x00, 0x49, 0x07, 0x0F];
-        adapter.setState('control.rs232mode', state, true);
         break;
 
 
@@ -317,7 +381,7 @@ function callcomfoair(hexout) {
         adapter.log.debug("Checksumme berechnet: " + parseInt(checksumcmd(buff.slice(2)), 16));
         if (buffarr[0] == 7 && buffarr[1] == 243 && buffarr[buffarr.length - 3] == parseInt(checksumcmd(buff.slice(2)), 16)) {
           adapter.log.debug("ACK erhalten und Checksumme ok");
-          readComfoairData(buffarr);
+          readComfoairData(buffarr, client);
         } else {
           adapter.log.debug("ACK zu Datenabfrage nicht erhalten oder Checksumme falsch");
         }
@@ -381,7 +445,7 @@ function callcomfoair(hexout) {
   });
 } //end callcomfoair
 
-function readComfoairData(buffarr) {
+function readComfoairData(buffarr, client) {
   try {
     adapter.log.debug("Verarbeite Daten");
     var cmd = buffarr[5];
@@ -446,72 +510,103 @@ function readComfoairData(buffarr) {
             break;
           case 2:
             var statetext = "CC-Ease only";
+adapter.log.debug("CC-Ease only Modus: keine Aktualisierung / Befehle durch Adapter");
+            adapter.setState('status.rs232mode', 0, true);
+            client.destroy();
             break;
           case 3:
             var statetext = "PC Master";
+            if (safemode == true) {
+              adapter.log.debug("Swicht to Master");
+            } else {
+              adapter.log.debug("CC-Ease ausgeschaltet");
+              pcmastermode = true;
+              adapter.setState('status.rs232mode', 1, true);
+              client.destroy();
+            }
             break;
           case 4:
-            var statetext = "PC Logmode";
+            if (safemode == true) {
+              adapter.log.debug("Switch to Logmode");
+            } else {
+              var statetext = "PC Logmode";
+              adapter.setState('status.rs232mode', 3, true);
+            }
         }
-        adapter.setState('status.rs232mode', buffarr[7], true);
         break;
 
       case 214:
-        if (buffarr[15] == 1) {
-          enthalpie = true;
-          statcmdi.push([0x07, 0xF0, 0x00, 0x97, 0x00, 0x44, 0x07, 0x0F]);
-          adapter.setObjectNotExists('status.enthalpie.temp', {
-            type: 'state',
-            common: {
-              name: 'Enthalpietauscher Temeperatur',
-              desc: 'Enthalpietauscher Temeperatur',
-              type: 'number',
-              role: "info.value",
-              read: true,
-              write: false,
-              unit: "°C"
-            },
-            native: {}
-          });
-          adapter.setObjectNotExists('status.enthalpie.hum', {
-            type: 'state',
-            common: {
-              name: 'Enthalpietauscher Feuchte',
-              desc: 'Enthalpietauscher realtive Feuchtigkeit',
-              type: 'number',
-              role: "info.value",
-              read: true,
-              write: false,
-              unit: "%"
-            },
-            native: {}
-          });
-          adapter.setObjectNotExists('status.enthalpie.koeff', {
-            type: 'state',
-            common: {
-              name: 'Enthalpietauscher Koeffizient',
-              desc: 'Enthalpietauscher Koeffizient',
-              type: 'number',
-              role: "info.value",
-              read: true,
-              write: false,
-              unit: "%"
-            },
-            native: {}
-          });
+        switch (buffarr[15]) {
+          case 0:
+            adapter.log.debug("Kein Enthalpietauscher");
+            break;
+
+          case 1:
+            adapter.log.debug("Enthalpietauscher vorhanden, lege Objekte an");
+            enthalpie = true;
+            statcmdi.push([0x07, 0xF0, 0x00, 0x97, 0x00, 0x44, 0x07, 0x0F]);
+            adapter.setObjectNotExists('status.enthalpie.temp', {
+              type: 'state',
+              common: {
+                name: 'Enthalpietauscher Temeperatur',
+                desc: 'Enthalpietauscher Temeperatur',
+                type: 'number',
+                role: "info.value",
+                read: true,
+                write: false,
+                unit: "°C"
+              },
+              native: {}
+            });
+            adapter.setObjectNotExists('status.enthalpie.hum', {
+              type: 'state',
+              common: {
+                name: 'Enthalpietauscher Feuchte',
+                desc: 'Enthalpietauscher realtive Feuchtigkeit',
+                type: 'number',
+                role: "info.value",
+                read: true,
+                write: false,
+                unit: "%"
+              },
+              native: {}
+            });
+            adapter.setObjectNotExists('status.enthalpie.koeff', {
+              type: 'state',
+              common: {
+                name: 'Enthalpietauscher Koeffizient',
+                desc: 'Enthalpietauscher Koeffizient',
+                type: 'number',
+                role: "info.value",
+                read: true,
+                write: false,
+                unit: "%"
+              },
+              native: {}
+            });
+            break;
+
+          case 2:
+            adapter.log.debug("Enthalpietaschuer ohne Sensor");
+            break;
+
         }
+        break;
 
       case 98:
-        if (entalpie = true) {
+        if (enthalpie == true) {
           adapter.setState('status.enthalpie.temp', ((buffarr[7] / 2) - 20), true);
           adapter.setState('status.enthalpie.hum', (buffarr[8]), true);
           adapter.setState('status.enthalpie.koeff', (buffarr[11]), true);
         }
+        break;
+
 
       default:
         adapter.log.debug("Fehler: ACK korrekt, aber Daten nicht erkannt");
 
     }
+    client.destroy();
   } catch (e) {
     adapter.log.warn("readComfoairData - Fehler: " + e);
   }

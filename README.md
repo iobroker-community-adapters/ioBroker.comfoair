@@ -21,9 +21,9 @@ Set comfoair - IP-adress, port and polling - intervall.
 
 ## Adapter & CC Ease
 
-In general it is not recommended to send data form 2 transmitters to one recievers in RS232 serial communication. The parallel use of CCEase and adapter can result in errors or, worst case, in damage to your comfoair-control! Therefor, when you start the ComfoAir - adapter your CC Ease will be shut down.
+In general it is not recommended to send data form 2 transmitters to one reciever in RS232 serial communication. The parallel use of CCEase and adapter can result in errors or, worst case, in damage to your comfoair-control! Therefore, when you start the ComfoAir - adapter your CC Ease will be shut down.
 The comfoair itself knows 4 different rs232-modes: CCEaseonly, PConly, PCMaster, PCLogmode. In PConly and PCMaster, CC-Ease is off.
-Once your adapter is running you can choose on of the following modes, switching the control.rs232mode - object.
+Once your adapter is running you can choose on of the following (adapter - rs232) modes, switching the control.rs232mode - object.
 
 ### CC Ease only
 
@@ -33,20 +33,15 @@ CC Ease is running, but your adapter will niether get data from the comfoair nor
 
 CC Ease is shut down, you can control your comfoair only with ioBroker. (rs232mode ist PCMaster, is default & recommended)
 
-### Auto Switch mode
-
-CC Ease and adapter are running. Before sending any command to the comfoair, the adapter switches the rs232mode to 'PC-Master' as in the 'Adapter only' - Mode, after the command it swiches back to 'PCLogmode'.
-You run this mode on your own risk.
-
 ### Parallel Mode
 
-CC Ease and adapter are running. comfoiar rs232mode is set to 'PCLogmode'. Tests have shown errorless - running in parallel for a longer period of time. But: You run this mode on your own risk.
+CC Ease and adapter are running. comfoiar rs232mode is set to 'PCLogmode'. You can control your ComfoAir with ioBroker and with the CC Ease unit. Tests have shown errorless - running in parallel for a longer period of time. But: You run this mode on your own risk.
 
 ## Using the adapter
 
 Values of your comfoair should be visible in the 'status' and the 'temperatures' channel.
 
-By setting/changeing values in the 'control' - channel, you control your comfoair ventilation.
+By setting/changeing values in the 'control' - channel, you control your comfoair ventilation. All values in the 'control' - channel have to be set wieth ACK=false to be recognized as commands for the adapter.
 
 Tested on comfoair CA350.
 

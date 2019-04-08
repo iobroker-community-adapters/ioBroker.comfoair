@@ -223,8 +223,7 @@
         "states": {
           "0": "CC Ease only",
           "1": "Adapter only",
-          "2": "Auto Switch Mode",
-          "3": "Parallel Mode"
+          "2": "Parallel Mode"
         },
         "def": 1,
         "desc": "Modus der RS232 - Schnittstelle (Readme!!)"
@@ -307,7 +306,13 @@
         "role": "value.info",
         "read": true,
         "write": false,
-        "def": false,
+        "states": {
+          "0": "Abwesend",
+          "1": "tief",
+          "2": "mittel",
+          "3": "hoch"
+        },
+        "def": 1,
         "desc": "Aktuelle Stufe"
       },
       "native": {
@@ -643,7 +648,7 @@
       "_id": "control.rs232mode",
       "type": "state",
       "common": {
-        "name": "Set RS232 Mode: 3:PCMaster 4:PCLogmode",
+        "name": "Set RS232 Mode",
         "type": "number",
         "role": "value.control",
         "read": true,
@@ -651,8 +656,7 @@
         "states": {
           "0": "CC Ease only",
           "1": "Adapter only",
-          "2": "Auto Switch Mode",
-          "3": "Parallel Mode"
+          "2": "Parallel Mode"
         },
         "def": 1,
         "desc": "Setzen des Modus der RS232 - Schnittstelle"
@@ -691,7 +695,7 @@
           "2": "mittel",
           "3": "hoch"
         },
-        "def": false,
+        "def": 1,
         "desc": "Vorgabe Stufe"
       },
       "native": {
