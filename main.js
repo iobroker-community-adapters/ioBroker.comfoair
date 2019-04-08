@@ -295,7 +295,7 @@ function controlcomfoair(id, state) {
             cceasemode = false;
             safemode = false;
             pcmastermode = false;
-            adapter.setState('status.rs232mode', 3, true);
+            adapter.setState('status.rs232mode', 2, true);
             break;
 
           case 3:
@@ -303,7 +303,7 @@ function controlcomfoair(id, state) {
             safemode = true;
             cceasemode = false;
             pcmastermode = false;
-            adapter.setState('status.rs232mode', 2, true);
+            adapter.setState('status.rs232mode', 3, true);
             break;
 
         }
@@ -533,7 +533,7 @@ function readComfoairData(buffarr, client) {
               adapter.log.debug("Switch to Logmode");
             } else {
               var statetext = "PC Logmode";
-              adapter.setState('status.rs232mode', 3, true);
+              adapter.setState('status.rs232mode', 2, true);
               adapter.log.info("Parallelbetrieb aktiv");
             }
         }
