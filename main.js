@@ -394,7 +394,7 @@ function callcomfoair(hexout) {
           adapter.log.debug("ACK erhalten");
           switch (hexout[3]) {
             case 153:
-              adapter.setState('status.statstufe', hexout[5], true);
+              adapter.setState('status.statstufe', (hexout[5] - 1), true);
               break;
             case 211:
               adapter.setState('temperature.statcomfort', ((hexout[5] / 2) - 20), true);
