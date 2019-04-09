@@ -47,6 +47,10 @@ Tested on comfoair CA350.
 
 ## Changelog
 
+### 0.2.1
+
+- smaller bugfixes.
+
 ### 0.2.0
 
 -   New rs232 - Modes, reading enthalpie-values, handling connection-errors.

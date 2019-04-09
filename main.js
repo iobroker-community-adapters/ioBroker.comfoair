@@ -226,7 +226,7 @@ function callvalues() {
     return;
   }
   hexout = statcmdi[calli];
-  adapter.log.debug(hexout);
+  adapter.log.debug("callcomfoair mit: " + hexout);
   callcomfoair(hexout);
   calli++;
   if (calli == statcmdL) {
@@ -472,7 +472,7 @@ function readComfoairData(buffarr, client) {
         adapter.setState('status.ventlevel.ZUL2', buffarr[12], true);
         adapter.setState('status.ventABL', buffarr[13], true);
         adapter.setState('status.ventZUL', buffarr[14], true);
-        adapter.setState('status.statstufe', buffarr[15], true);
+        adapter.setState('status.statstufe', (buffarr[15] - 1), true);
         adapter.setState('status.ventlevel.ABL3', buffarr[17], true);
         adapter.setState('status.ventlevel.ZUL3', buffarr[18], true);
         for (var i = 5; i < 11; i++) {
@@ -591,13 +591,13 @@ function readComfoairData(buffarr, client) {
             break;
 
           case 2:
-            adapter.log.debug("Enthalpietaschuer ohne Sensor");
+            adapter.log.debug("Enthalpietauscher ohne Sensor");
             break;
 
         }
         break;
 
-      case 98:
+      case 152:
         if (enthalpie == true) {
           adapter.setState('status.enthalpie.temp', ((buffarr[7] / 2) - 20), true);
           adapter.setState('status.enthalpie.hum', (buffarr[8]), true);

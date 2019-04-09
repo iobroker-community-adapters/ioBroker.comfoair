@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "news": {
+      "0.2.1": {
+        "en": "smaller bugfixes.",
+        "de": "kleinere Fehler behoben."
+      },
       "0.2.0": {
         "en": "New rs232 - Modes, reading enthalpie-values, handling connection-errors.",
         "de": "Neue rs232 - Modi, liest Enthalpie-Werte, Verbindungsfehler - Handling."
