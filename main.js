@@ -510,6 +510,14 @@ function readComfoairData(buffarr, client) {
         switch (buffarr[7]) {
           case 1:
             var statetext = "PC only";
+            if (safemode == true) {
+              adapter.log.debug("Switch to Master/PConly");
+            } else {
+              adapter.log.info("CC-Ease ausgeschaltet");
+              pcmastermode = true;
+              adapter.setState('status.rs232mode', 1, true);
+              client.destroy();
+            }
             break;
           case 2:
             var statetext = "CC-Ease only";
