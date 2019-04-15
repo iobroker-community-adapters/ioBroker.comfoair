@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "0.2.1",
+    "version": "0.3.0",
     "news": {
+      "0.3.0": {
+        "en": "new connection modes.",
+        "de": "neue Verbindungsmodi."
+      },
       "0.2.1": {
         "en": "smaller bugfixes.",
         "de": "kleinere Fehler behoben."
@@ -93,8 +97,11 @@
   },
   "native": {
     "host": "",
-    "pollInterval": 300000,
-    "port": 9999
+    "pollInterval": 1800000,
+    "port": 9999,
+    "adapteronly": true,
+    "listen": false,
+    "listencontrol": false
   },
   "objects": [],
   "instanceObjects": [
@@ -226,80 +233,13 @@
         "write": false,
         "states": {
           "0": "CC Ease only",
-          "1": "Adapter only",
-          "2": "Parallel Mode"
+          "1": "PC Master / PC only",
+          "2": "PC Logmode"
         },
         "def": 1,
         "desc": "Modus der RS232 - Schnittstelle (Readme!!)"
       },
       "native": {}
-    },
-    {
-      "_id": "status.filterh",
-      "type": "state",
-      "common": {
-        "name": "Betriebsstunden Filter",
-        "type": "number",
-        "role": "value.hours",
-        "read": true,
-        "write": false,
-        "def": false,
-        "desc": "Betriebsstunden der Filter",
-        "unit": "h"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.filterw",
-      "type": "state",
-      "common": {
-        "name": "Filter Zähler Wochen",
-        "type": "number",
-        "role": "value.weeks",
-        "read": true,
-        "write": false,
-        "def": false,
-        "desc": "Filter Wochenzähler",
-        "unit": "Wochen"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.filterChange",
-      "type": "state",
-      "common": {
-        "name": "Filter wechseln",
-        "type": "boolean",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "def": false,
-        "desc": "Filter Wechselanzeige"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.bypass",
-      "type": "state",
-      "common": {
-        "name": "bypass",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "def": false,
-        "desc": "Klappenstatus Bypass",
-        "unit": "%"
-      },
-      "native": {
-
-      }
     },
     {
       "_id": "status.statstufe",
@@ -332,7 +272,6 @@
         "role": "value.info",
         "read": true,
         "write": false,
-        "def": false,
         "desc": "Ventilatorstatus Zuluft",
         "unit": "%"
       },
@@ -349,7 +288,6 @@
         "role": "value.info",
         "read": true,
         "write": false,
-        "def": false,
         "desc": "Ventilatorstatus Abluft",
         "unit": "%"
       },
@@ -366,7 +304,6 @@
         "role": "value.info",
         "read": true,
         "write": false,
-        "def": false,
         "desc": "Ventilationsstufe Abluft abwesend",
         "unit": "%"
       },
@@ -383,7 +320,6 @@
         "role": "value.info",
         "read": true,
         "write": false,
-        "def": false,
         "desc": "Ventilationsstufe Zuluft abwesend",
         "unit": "%"
       },
@@ -400,7 +336,6 @@
         "role": "value.info",
         "read": true,
         "write": false,
-        "def": false,
         "desc": "Ventilationsstufe Abluft Stufe 1",
         "unit": "%"
       },
@@ -417,7 +352,6 @@
         "role": "value.info",
         "read": true,
         "write": false,
-        "def": false,
         "desc": "Ventilationsstufe Zuluft Stufe 1",
         "unit": "%"
       },
@@ -434,7 +368,6 @@
         "role": "value.info",
         "read": true,
         "write": false,
-        "def": false,
         "desc": "Ventilationsstufe Abluft Stufe 2",
         "unit": "%"
       },
@@ -451,7 +384,6 @@
         "role": "value.info",
         "read": true,
         "write": false,
-        "def": false,
         "desc": "Ventilationsstufe Zuluft Stufe 2",
         "unit": "%"
       },
@@ -468,7 +400,6 @@
         "role": "value.info",
         "read": true,
         "write": false,
-        "def": false,
         "desc": "Ventilationsstufe Abluft Stufe 3",
         "unit": "%"
       },
@@ -485,7 +416,6 @@
         "role": "value.info",
         "read": true,
         "write": false,
-        "def": false,
         "desc": "Ventilationsstufe Zuluft Stufe 3",
         "unit": "%"
       },
@@ -494,385 +424,48 @@
       }
     },
     {
-      "_id": "status.errors.aktuellA",
+      "_id": "status.enthalpie.temp",
       "type": "state",
       "common": {
-        "name": "aktueller Fehler A",
-        "type": "string",
+        "name": "Enthalpietauscher Temeperatur",
+        "type": "number",
         "role": "value.info",
         "read": true,
         "write": false,
-        "def": false,
-        "desc": "aktueller Fehler A"
+        "unit": "°C",
+        "desc": "Enthalpietauscher Temeperatur"
       },
       "native": {
 
       }
     },
     {
-      "_id": "status.errors.letzterA",
+      "_id": "status.enthalpie.hum",
       "type": "state",
       "common": {
-        "name": "letzter Fehler A",
-        "type": "string",
+        "name": "Enthalpietauscher Feuchte",
+        "type": "number",
         "role": "value.info",
         "read": true,
         "write": false,
-        "def": false,
-        "desc": "letzter Fehler A"
+        "unit": "%",
+        "desc": "Enthalpietauscher realtive Feuchtigkeit"
       },
       "native": {
 
       }
     },
     {
-      "_id": "status.errors.vorletzterA",
+      "_id": "status.enthalpie.koeff",
       "type": "state",
       "common": {
-        "name": "vorletzter Fehler A",
-        "type": "string",
+        "name": "Enthalpietauscher Koeffizient",
+        "type": "number",
         "role": "value.info",
         "read": true,
         "write": false,
-        "def": false,
-        "desc": "vorletzter Fehler A"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.errors.aktuellE",
-      "type": "state",
-      "common": {
-        "name": "aktueller Fehler E",
-        "type": "string",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "def": false,
-        "desc": "aktueller Fehler E"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.errors.letzterE",
-      "type": "state",
-      "common": {
-        "name": "letzter Fehler E",
-        "type": "string",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "def": false,
-        "desc": "letzter Fehler E"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.errors.vorletzterE",
-      "type": "state",
-      "common": {
-        "name": "vorletzter Fehler E",
-        "type": "string",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "def": false,
-        "desc": "vorletzter Fehler E"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.errors.aktuellEA",
-      "type": "state",
-      "common": {
-        "name": "aktueller Fehler EA",
-        "type": "string",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "def": false,
-        "desc": "aktueller Fehler EA"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.errors.letzterEA",
-      "type": "state",
-      "common": {
-        "name": "letzter Fehler EA",
-        "type": "string",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "def": false,
-        "desc": "letzter Fehler EA"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.errors.vorletzterEA",
-      "type": "state",
-      "common": {
-        "name": "vorletzter Fehler EA",
-        "type": "string",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "def": false,
-        "desc": "vorletzter Fehler EA"
-      },
-      "native": {
-
-      }
-    },
-
-    {
-      "_id": "control",
-      "type": "channel",
-      "common": {
-        "name": "Steuerung"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "control.rs232mode",
-      "type": "state",
-      "common": {
-        "name": "Set RS232 Mode",
-        "type": "number",
-        "role": "value.control",
-        "read": true,
-        "write": true,
-        "states": {
-          "0": "CC Ease only",
-          "1": "Adapter only",
-          "2": "Parallel Mode"
-        },
-        "def": 1,
-        "desc": "Setzen des Modus der RS232 - Schnittstelle"
-      },
-      "native": {}
-    },
-    {
-      "_id": "control.comfort",
-      "type": "state",
-      "common": {
-        "name": "Komforttemperatur",
-        "type": "number",
-        "role": "value.control",
-        "read": true,
-        "write": true,
-        "def": false,
-        "desc": "Vorgegebene Komforttemperatur",
-        "unit": "°C"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "control.stufe",
-      "type": "state",
-      "common": {
-        "name": "Stufe",
-        "type": "number",
-        "role": "value.control",
-        "read": true,
-        "write": true,
-        "states": {
-          "0": "Abwesend",
-          "1": "tief",
-          "2": "mittel",
-          "3": "hoch"
-        },
-        "def": 1,
-        "desc": "Vorgabe Stufe"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "control.reset",
-      "type": "channel",
-      "common": {
-        "name": "Steuerung"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "control.reset.filterh",
-      "type": "state",
-      "common": {
-        "name": "Reset Betriebsstunden Filter",
-        "type": "boolean",
-        "role": "value.control",
-        "read": true,
-        "write": true,
-        "def": false,
-        "desc": "Zurücksetzen Betriebsstunden Filter"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "control.setvent",
-      "type": "channel",
-      "common": {
-        "name": "Ventilationsstufe setzen"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "control.setvent.ABLabw",
-      "type": "state",
-      "common": {
-        "name": "Abluft abwesend",
-        "type": "number",
-        "role": "value.control",
-        "read": true,
-        "write": true,
-        "def": false,
-        "desc": "Setzen Ventilationsstufe Abluft abwesend",
-        "unit": "%"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "control.setvent.ZULabw",
-      "type": "state",
-      "common": {
-        "name": "Zuluft abwesend",
-        "type": "number",
-        "role": "value.control",
-        "read": true,
-        "write": true,
-        "def": false,
-        "desc": "Setzen Ventilationsstufe Zuluft abwesend",
-        "unit": "%"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "control.setvent.ABL1",
-      "type": "state",
-      "common": {
-        "name": "Abluft Stufe 1",
-        "type": "number",
-        "role": "value.control",
-        "read": true,
-        "write": true,
-        "def": false,
-        "desc": "Setzen Ventilationsstufe Abluft Stufe 1",
-        "unit": "%"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "control.setvent.ZUL1",
-      "type": "state",
-      "common": {
-        "name": "Zuluft Stufe 1",
-        "type": "number",
-        "role": "value.control",
-        "read": true,
-        "write": true,
-        "def": false,
-        "desc": "Setzen Ventilationsstufe Zuluft Stufe 1",
-        "unit": "%"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "control.setvent.ABL2",
-      "type": "state",
-      "common": {
-        "name": "Abluft Stufe 2",
-        "type": "number",
-        "role": "value.control",
-        "read": true,
-        "write": true,
-        "def": false,
-        "desc": "Setzen Ventilationsstufe Abluft Stufe 2",
-        "unit": "%"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "control.setvent.ZUL2",
-      "type": "state",
-      "common": {
-        "name": "Zuluft Stufe 2",
-        "type": "number",
-        "role": "value.control",
-        "read": true,
-        "write": true,
-        "def": false,
-        "desc": "Setzen Ventilationsstufe Zuluft Stufe 2",
-        "unit": "%"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "control.setvent.ABL3",
-      "type": "state",
-      "common": {
-        "name": "Abluft Stufe 3",
-        "type": "number",
-        "role": "value.control",
-        "read": true,
-        "write": true,
-        "def": false,
-        "desc": "Setzen Ventilationsstufe Abluft Stufe 3",
-        "unit": "%"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "control.setvent.ZUL3",
-      "type": "state",
-      "common": {
-        "name": "Zuluft Stufe 3",
-        "type": "number",
-        "role": "value.control",
-        "read": true,
-        "write": true,
-        "def": false,
-        "desc": "Setzen Ventilationsstufe Zuluft Stufe 3",
-        "unit": "%"
+        "unit": "%",
+        "desc": "Enthalpietauscher Koeffizient"
       },
       "native": {
 

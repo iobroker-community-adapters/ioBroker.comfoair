@@ -83,6 +83,46 @@ systemDictionary = {
     "it": "Comfoair IP:",
     "es": "Comfoair IP:"
   },
+  "whatmode": {
+    "en": "Coose your Comfoair Connection - Mode (tick only one, see Readme!):",
+    "de": "Wähle den Verbindungsmodus (nur 1 anwählen, Readme beachten!):",
+    "ru": "Coose your Comfoair Connection - Mode (tick only one, see Readme!):",
+    "pt": "Coose your Comfoair Connection - Mode (tick only one, see Readme!):",
+    "nl": "Coose your Comfoair Connection - Mode (tick only one, see Readme!):",
+    "fr": "Coose your Comfoair Connection - Mode (tick only one, see Readme!):",
+    "it": "Coose your Comfoair Connection - Mode (tick only one, see Readme!):",
+    "es": "Coose your Comfoair Connection - Mode (tick only one, see Readme!):"
+  },
+  "adapteronly": {
+    "en": "Adapter only:",
+    "de": "Nur Adapter, CCEase inaktiv:",
+    "ru": "Adapter only:",
+    "pt": "Adapter only:",
+    "nl": "Adapter only:",
+    "fr": "Adapter only:",
+    "it": "Adapter only:",
+    "es": "Adapter only:"
+  },
+  "listen": {
+    "en": "Listening only:",
+    "de": "Abhör-Modus, keine Befehle:",
+    "ru": "Listening only:",
+    "pt": "Listening only:",
+    "nl": "Listening only:",
+    "fr": "Listening only:",
+    "it": "Listening only:",
+    "es": "Listening only:"
+  },
+  "listencontrol": {
+    "en": "Paralell Mode:",
+    "de": "Parallelbetrieb:",
+    "ru": "Paralell Mode:",
+    "pt": "Paralell Mode:",
+    "nl": "Paralell Mode:",
+    "fr": "Paralell Mode:",
+    "it": "Paralell Mode:",
+    "es": "Paralell Mode:"
+  },
   "pollInterval": {
     "en": "Polling - Intervall (ms):",
     "de": "Abfrage - Intervall (ms):",
