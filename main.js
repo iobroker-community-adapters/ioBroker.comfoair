@@ -264,7 +264,9 @@ function testswitchcommand(id, state) {
   if (pcmastermode == true) {
 
     adapter.log.debug("CC-Ease ausgeschaltet, sende Befehl");
-    controlcomfoair(id, state);
+    setTimeout(function() {
+      controlcomfoair(id, state);
+    }, 500);
 
     clearInterval(testswi);
   } else {
@@ -278,7 +280,7 @@ function testswitchcommand(id, state) {
       clearInterval(testswi);
     }
   }
-} // END testswitchpolling()
+} // END testswitchcommand()
 
 
 function callvaluespcmaster() {
