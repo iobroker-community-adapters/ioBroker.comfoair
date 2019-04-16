@@ -47,6 +47,10 @@ var setventlevel = ['ABLabw', 'ABL1', 'ABL2', 'ZULabw', 'ZUL1', 'ZUL2', 'ABL3', 
 var setrs232 = [0x07, 0xF0, 0x00, 0x9B, 0x01, 0x02, 0x4b, 0x07, 0x0F];
 var set232PCLogmode = [0x07, 0xF0, 0x00, 0x9B, 0x01, 0x04, 0x4d, 0x07, 0x0F];
 var set232PCMaster = [0x07, 0xF0, 0x00, 0x9B, 0x01, 0x03, 0x4c, 0x07, 0x0F];
+var setrs232cceaseonly = [0x07, 0xF0, 0x00, 0x9B, 0x01, 0x00, 0x49, 0x07, 0x0F];
+var selbsttest = [0x07, 0xF0, 0x00, 0xDB, 0x04, 0x00, 0x00, 0x01, 0x00, 0x8d, 0x07, 0x0F];
+var verzoegerungensoll = [0x07, 0xF0, 0x00, 0xCB, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x99, 0x07, 0x0F];
+var verzoegerungen = [];
 var calli = 0;
 var callj = 0
 var callval;
@@ -54,11 +58,13 @@ var safemode = false;
 var cceasemode = false;
 var pcmaster;
 var testmaster;
-var pclogmode = false;
+var testswi;
+var pclogmode;
 var pcmastermode = false;
 var enthalpie = false;
 var testj = 0;
-var listenonly = true;
+var listenonly = false;
+var rs232;
 
 
 let polling;
@@ -106,7 +112,7 @@ function startAdapter(options) {
         adapter.log.warn("CC Ease only - Modus oder Abhör-Modus: Führe keine Befehle aus");
         return;
       }
-      if (safemode == 'true') {
+      if (safemode == true) {
         adapter.log.debug("Setze RS232 auf PC Master");
         pcmaster = setTimeout(function repe() {
           callcomfoair(set232PCMaster);
@@ -114,7 +120,7 @@ function startAdapter(options) {
             setTimeout(repe, 1000);
           }
         }, 500);
-        testmaster = setInterval(testswitchcommand(id, state), 1000); //Ueberprüfen, ob PC-Master-mode aktiv ist.
+        testswi = setInterval(testswitchcommand, 1000, id, state); //Ueberprüfen, ob PC-Master-mode aktiv ist.
 
       } else {
         controlcomfoair(id, state);
@@ -161,7 +167,7 @@ function main() {
   port = adapter.config.port;
   pcmastermode = adapter.config.adapteronly;
   listenonly = adapter.config.listen;
-  safemode = adapter.conifg.listencontrol;
+  safemode = adapter.config.listencontrol;
   if (pcmastermode == true || safemode == true) {
     setpollingobjects();
     setcontrolobjects();
@@ -170,7 +176,9 @@ function main() {
   const pollingTime = adapter.config.pollInterval || 300000;
   adapter.log.info('[INFO] Configured polling interval: ' + pollingTime);
   adapter.log.debug('[START] Started Adapter with: ' + adapter.config.host);
+
   if (listenonly == true || safemode == true) {
+    callcomfoair(setrs232cceaseonly);
     listentocomfoair();
   }
 
@@ -183,17 +191,17 @@ function main() {
     }, 500);
 
     testmaster = setInterval(test, 1000); //Ueberprüfen, ob PC-Master-mode aktiv ist.
+  }
 
-    if (!polling) {
+  if (!polling) {
+    if (pcmastermode == true) {
       polling = setTimeout(function repeat() { // poll states every [30] seconds
         callval = setInterval(callvaluespcmaster, 2000); //DATAREQUEST;
         setTimeout(repeat, pollingTime);
       }, pollingTime);
     } // endIf
-  } //endIf pcmastermode
 
-  if (safemode == true) {
-    if (!polling) {
+    if (safemode == true) {
       polling = setTimeout(function repeat() { // poll states every [30] seconds
         pcmaster = setTimeout(function repe() {
           callcomfoair(set232PCMaster);
@@ -205,10 +213,8 @@ function main() {
 
         setTimeout(repeat, pollingTime);
       }, pollingTime);
-    } // endIf
-    adapter.log.debug("Setze RS232 auf PC Master");
-    callcomfoair(set232PCMaster);
-  } //endIf safemode
+    } //end polling
+  }
 
   // all states changes inside the adapters namespace are subscribed
   adapter.subscribeStates('*');
@@ -218,12 +224,12 @@ function main() {
 function test() {
 
   if (pcmastermode == true) {
-    adapter.log.info("CC-Ease ausgeschaltet, Starte Adapterbetrieb");
-    callval = setInterval(callvalues, 2000); //DATAREQUEST;
+    adapter.log.debug("CC-Ease ausgeschaltet, Starte Adapterbetrieb");
+    callval = setInterval(callvaluespcmaster, 2000); //DATAREQUEST;
     clearInterval(testmaster);
   } else {
 
-    adapter.log.warn("Noch nicht im Adapter-only Modus");
+    adapter.log.debug("Noch nicht im Adapter-only Modus");
     testj++;
     if (testj > 3) {
       adapter.log.warn("Fehler, kann nicht umschalten");
@@ -237,12 +243,12 @@ function testswitchpolling() {
 
   if (pcmastermode == true) {
 
-    adapter.log.info("CC-Ease ausgeschaltet, Frage Werte ab");
+    adapter.log.debug("CC-Ease ausgeschaltet, Frage Werte ab");
     callval = setInterval(callvaluessafe, 2000); //DATAREQUEST;
     clearInterval(testmaster);
   } else {
 
-    adapter.log.warn("Noch nicht im PC-Master Modus");
+    adapter.log.debug("Noch nicht im PC-Master Modus");
     callcomfoair(set232PCMaster);
     testj++;
     if (testj > 3) {
@@ -257,7 +263,7 @@ function testswitchcommand(id, state) {
 
   if (pcmastermode == true) {
 
-    adapter.log.info("CC-Ease ausgeschaltet, sende Befehl");
+    adapter.log.debug("CC-Ease ausgeschaltet, sende Befehl");
     controlcomfoair(id, state);
 
     clearInterval(testswi);
@@ -303,8 +309,8 @@ function callvaluessafe() {
       adapter.log.debug("Setze RS232 auf PC Logmodus");
       callcomfoair(set232PCLogmode);
       setTimeout(function repete() {
-        callcomfoair(set232PCMaster);
-        if (pcmastermode == false) {
+        callcomfoair(set232PCLogmode);
+        if (pcmastermode == true) {
           setTimeout(repete, 1000);
         }
       }, 500);
@@ -317,12 +323,49 @@ function callvaluessafe() {
 function controlcomfoair(id, state) {
   try {
     switch (id) {
+      case "control.filterwos":
+        if (verzoegerungensoll == null) {
+          adapter.log.debug("Verzögerungswerte fehlen, Befehle wird nicht ausgeführt.");
+          return;
+        }
+        for (var i = 0; i < 8; i++) {
+          verzoegerungensoll[i + 5] = verzoegerungen[i + 7];
+        }
+        switch (state) {
+          case 0:
+            adapter.log.debug("Setzte Filtertimer auf 10 Wochen");
+            verzoegerungensoll[9] = 10;
+            verzoegerungensoll[13] = parseInt(checksumcmd(verzoegerungensoll), 16);
+            break;
+
+          case 1:
+            adapter.log.debug("Setzte Filtertimer auf 16 Wochen");
+            verzoegerungensoll[9] = 16;
+            verzoegerungensoll[13] = parseInt(checksumcmd(verzoegerungensoll), 16);
+            break;
+
+          case 2:
+            adapter.log.debug("Setzte Filtertimer auf 26 Wochen");
+            verzoegerungensoll[9] = 26;
+            verzoegerungensoll[13] = parseInt(checksumcmd(verzoegerungensoll), 16);
+            break;
+        }
+        callcomfoair(verzoegerungensoll);
+        break;
+
+      case "control.selftest":
+        if (state == true) {
+          adapter.log.debug("Starte Selbsttest");
+          callcomfoair(selbsttest);
+        }
+        break;
+
       case "control.stufe":
         adapter.log.debug("Setzte Stufe: " + state);
         callcomfoair(setfanstate[state]);
         break;
 
-      case "control.comfort":
+      case "control.comforttemp":
         adapter.log.debug("Setze Komforttemperatur auf: " + state + "°C");
         setcomfotemp[5] = ((state + 20) * 2);
         setcomfotemp[6] = parseInt(checksumcmd(setcomfotemp), 16);
@@ -343,7 +386,7 @@ function controlcomfoair(id, state) {
         switch (state) {
           case 0:
             var statetext = "CC Ease only";
-            adapter.log.info("Umschalten auf CC Ease only");
+            adapter.log.debug("Umschalten auf CC Ease only");
             setrs232[5] = 0;
             cceasemode = true;
             safemode = false;
@@ -352,18 +395,18 @@ function controlcomfoair(id, state) {
 
           case 1:
             var statetext = "Adapter only";
-            adapter.log.info("Umschalten auf Adapter only");
+            adapter.log.debug("Umschalten auf Adapter only");
             setrs232[5] = 3;
             cceasemode = false;
             safemode = false;
             if (pcmastermode == false) {
-              testswi = setInterval(testswitch, 1000); //Ueberprüfen, ob PC-Master-mode aktiv ist.
+              testswi = setInterval(testswitchcommand, 1000); //Ueberprüfen, ob PC-Master-mode aktiv ist.
             }
             break;
 
           case 2:
             var statetext = "Parallel Mode";
-            adapter.log.info("Umschalten auf Parallelbetrieb");
+            adapter.log.debug("Umschalten auf Parallelbetrieb");
             setrs232[5] = 4;
             cceasemode = false;
             safemode = false;
@@ -602,6 +645,7 @@ function readComfoairData(buffarr) {
 
       case 202:
         //polling
+        verzoegerungen = buffarr;
         adapter.setState("status.filterw", buffarr[11], true);
         break;
 
@@ -627,41 +671,46 @@ function readComfoairData(buffarr) {
         switch (parseInt(buffarr[7])) {
           case 1:
             var statetext = "PC only";
+            rs232 = 1;
             if (safemode == true) {
               adapter.log.debug("Switch to Master/PConly");
             } else {
-              adapter.log.info("CC-Ease ausgeschaltet");
-              pcmastermode = true;
-              adapter.setState('status.rs232mode', 1, true);
+              adapter.log.debug("CC-Ease ausgeschaltet");
             }
+            pcmastermode = true;
+            adapter.setState('status.rs232mode', 1, true);
             break;
 
           case 2:
             var statetext = "CC-Ease only";
-            adapter.log.info("CC-Ease only Modus: keine Aktualisierung / Befehle durch Adapter");
+            rs232 = 0;
+            adapter.log.debug("CC-Ease only Modus: keine Aktualisierung / Befehle durch Adapter");
             adapter.setState('status.rs232mode', 0, true);
             break;
 
           case 3:
             var statetext = "PC Master";
+            rs232 = 1;
             if (safemode == true) {
               adapter.log.debug("Switch to Master");
             } else {
-              adapter.log.info("CC-Ease ausgeschaltet");
-              pcmastermode = true;
-              adapter.setState('status.rs232mode', 1, true);
+              adapter.log.debug("CC-Ease ausgeschaltet");
             }
+            pcmastermode = true;
+            adapter.setState('status.rs232mode', 1, true);
             break;
 
           case 4:
             pclogmode = true;
+            rs232 = 2;
             if (safemode == true) {
               adapter.log.debug("Switch to Logmode");
+              pcmastermode = false;
             } else {
               var statetext = "PC Logmode";
-              adapter.setState('status.rs232mode', 2, true);
-              adapter.log.info("Parallelbetrieb aktiv");
+              adapter.log.debug("Parallelbetrieb aktiv");
             }
+            adapter.setState('status.rs232mode', 2, true);
         }
         break;
 
@@ -914,6 +963,36 @@ function setcontrolobjects() {
     },
     native: {}
   });
+  adapter.setObjectNotExists('control.selftest', {
+    type: 'state',
+    common: {
+      name: 'Selbsttest',
+      desc: 'Auslösen Selbsttest',
+      type: 'boolean',
+      role: "value.control",
+      read: true,
+      write: true
+    },
+    native: {}
+  });
+  adapter.setObjectNotExists('control.filterwos', {
+    type: 'state',
+    common: {
+      name: 'FilterWochenSoll',
+      desc: 'Vorgabe Filtertimer in Wochen',
+      type: 'number',
+      role: "info.value",
+      read: true,
+      write: true,
+      states: {
+        0: "10",
+        1: "16",
+        2: "26"
+      },
+      def: 1
+    },
+    native: {}
+  });
 } // end setcontrolobjects
 
 function setpollingobjects() {
@@ -981,7 +1060,7 @@ function setpollingobjects() {
     },
     native: {}
   });
-  adapter.setObjectNotExists('status.errors.letzerA', {
+  adapter.setObjectNotExists('status.errors.letzterA', {
     type: "state",
     common: {
       name: "letzter Fehler A",
@@ -1017,7 +1096,7 @@ function setpollingobjects() {
     },
     native: {}
   });
-  adapter.setObjectNotExists('status.errors.letzerE', {
+  adapter.setObjectNotExists('status.errors.letzterE', {
     type: "state",
     common: {
       name: "letzter Fehler E",
@@ -1053,7 +1132,7 @@ function setpollingobjects() {
     },
     native: {}
   });
-  adapter.setObjectNotExists('status.errors.letzerEA', {
+  adapter.setObjectNotExists('status.errors.letzterEA', {
     type: "state",
     common: {
       name: "letzter Fehler EA",

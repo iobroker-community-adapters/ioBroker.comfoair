@@ -27,7 +27,8 @@ In the instance - config you can choose one of the following connection - modes.
 
 ### Adapter only
 
-CC Ease is disconnected or will be shut down when the adapter starts, you can control your comfoair only with ioBroker. (rs232mode ist PCMaster, is default & recommended).
+CC Ease is disconnected (recommended) or will be shut down when the adapter starts, you can control your comfoair only with ioBroker. (rs232mode is PCMaster, is
+ default & recommended).
 
 ### Listening only
 
@@ -49,7 +50,7 @@ Tested on comfoair CA350.
 
 ### 0.3.0
 
--   new connection modes, i.e. 'listening only'-
+-   new connection modes, i.e. 'listening only', selftest-function and setting filter-timer added.
 
 ### 0.2.1
 
