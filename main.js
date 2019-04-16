@@ -772,7 +772,7 @@ function checksumcmd(csdata) {
 function errorcode(error) {
   try {
     if (error > 0) {
-      var errorcd = error;
+      var errorcd = (1 + Math.log2(error)).toString();
     } else {
       var errorcd = ": kein Fehler";
     }
