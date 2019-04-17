@@ -31,8 +31,7 @@ var statcmdisafe = [
   [0x07, 0xF0, 0x00, 0xDD, 0x00, 0x8A, 0x07, 0x0F], //Betriebsstunden
   [0x07, 0xF0, 0x00, 0x0D, 0x00, 0xBA, 0x07, 0x0F], //Status Bypass
   [0x07, 0xF0, 0x00, 0xC9, 0x00, 0x76, 0x07, 0x0F], //Verzögerungen (Filterwechsel)
-  [0x07, 0xF0, 0x00, 0xD9, 0x00, 0x86, 0x07, 0x0F], // Störungen/Filterwechsel
-  [0x07, 0xF0, 0x00, 0x97, 0x00, 0x44, 0x07, 0x0F] //Werte Enthalpietauscher
+  [0x07, 0xF0, 0x00, 0xD9, 0x00, 0x86, 0x07, 0x0F] //Störungen/Filterwechsel
 ];
 var setfanstate = [
   [0x07, 0xF0, 0x00, 0x99, 0x01, 0x01, 0x48, 0x07, 0x0F], //Stufe abwesend
@@ -54,6 +53,7 @@ var verzoegerungen = [];
 var calli = 0;
 var callj = 0
 var callval;
+var callvals;
 var safemode = false;
 var cceasemode = false;
 var pcmaster;
@@ -244,7 +244,7 @@ function testswitchpolling() {
   if (pcmastermode == true) {
 
     adapter.log.debug("CC-Ease ausgeschaltet, Frage Werte ab");
-    callval = setInterval(callvaluessafe, 2000); //DATAREQUEST;
+    callvals = setInterval(callvaluessafe, 2000); //DATAREQUEST;
     clearInterval(testmaster);
   } else {
 
@@ -316,9 +316,9 @@ function callvaluessafe() {
           setTimeout(repete, 1000);
         }
       }, 500);
-    }, 500);
+    }, 1000);
 
-    clearInterval(callval);
+    clearInterval(callvals);
   }
 } //end callvaluessafe
 
@@ -401,7 +401,7 @@ function controlcomfoair(id, state) {
             setrs232[5] = 3;
             cceasemode = false;
             safemode = false;
-            if (pcmastermode == false) {
+            if (pcmastermode == false && safemode == false) {
               testswi = setInterval(testswitchcommand, 1000); //Ueberprüfen, ob PC-Master-mode aktiv ist.
             }
             break;
@@ -461,7 +461,7 @@ function controlcomfoair(id, state) {
     }
     if (safemode == true) {
       setTimeout(function() {
-        callval = setInterval(callvaluessafe, 2000); //DATAREQUEST;
+        callvals = setInterval(callvaluessafe, 2000); //DATAREQUEST;
       }, 1000);
     }
   } catch (e) {
@@ -567,8 +567,11 @@ function listentocomfoair() {
     var chunkarr = decoder.write(chunk).split(',');
     if (chunkarr[3] > 65) {
       chunkarr.splice(0, 0, "7", "243");
-      adapter.log.debug("an readcomfoair: " + chunkarr);
-      readComfoairData(chunkarr);
+
+      if (pcmastermode == false) {
+        adapter.log.debug("an readcomfoair: " + chunkarr);
+        readComfoairData(chunkarr);
+      }
     }
   });
 
