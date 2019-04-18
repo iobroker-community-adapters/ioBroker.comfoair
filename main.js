@@ -59,7 +59,7 @@ var cceasemode = false;
 var pcmaster;
 var testmaster;
 var testswi;
-var pclogmode;
+var pclogmode = false;
 var pcmastermode = false;
 var enthalpie = false;
 var testj = 0;
@@ -168,7 +168,9 @@ function main() {
   pcmastermode = adapter.config.adapteronly;
   listenonly = adapter.config.listen;
   safemode = adapter.config.listencontrol;
-  if (pcmastermode == true || safemode == true) {
+  pclogmode = adapter.config.logmode;
+
+  if (pcmastermode == true || safemode == true || pclogmode == true) {
     setpollingobjects();
     setcontrolobjects();
   }
@@ -193,8 +195,19 @@ function main() {
     testmaster = setInterval(test, 1000); //Ueberprüfen, ob PC-Master-mode aktiv ist.
   }
 
+  if (pclogmode == true) {
+    pcmaster = setTimeout(function repe() {
+      callcomfoair(set232PCLogmode);
+      if (pclogmode == false) {
+        setTimeout(repe, 1000);
+      }
+    }, 500);
+
+    testmaster = setInterval(test, 1000); //Ueberprüfen, ob PC-Master-mode aktiv ist.
+  }
+
   if (!polling) {
-    if (pcmastermode == true) {
+    if (pcmastermode == true || pclogmode == true) {
       polling = setTimeout(function repeat() { // poll states every [30] seconds
         callval = setInterval(callvaluespcmaster, 2000); //DATAREQUEST;
         setTimeout(repeat, pollingTime);

@@ -123,6 +123,16 @@ systemDictionary = {
     "it": "Paralell Mode:",
     "es": "Paralell Mode:"
   },
+  "logmode": {
+    "en": "Paralell Mode in constant PC-Logmode:",
+    "de": "Parallelbetrieb im PC-Logmodus:",
+    "ru": "Paralell Mode in constant PC-Logmode:",
+    "pt": "Paralell Mode in constant PC-Logmode:",
+    "nl": "Paralell Mode in constant PC-Logmode:",
+    "fr": "Paralell Mode in constant PC-Logmode:",
+    "it": "Paralell Mode in constant PC-Logmode:",
+    "es": "Paralell Mode in constant PC-Logmode:"
+  },
   "pollInterval": {
     "en": "Polling - Intervall (ms):",
     "de": "Abfrage - Intervall (ms):",

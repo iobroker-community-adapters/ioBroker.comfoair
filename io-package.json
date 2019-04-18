@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "news": {
+      "0.3.1": {
+        "en": "new connection mode: parelell in constant PC-Logmode.",
+        "de": "neuer Verbindungsmodus: parallel, dauerhauf im PC-Logmode."
+      },
       "0.3.0": {
         "en": "new connection modes, selftest and filter-timer setting added.",
         "de": "neue Verbindungsmodi, Selbstest und Vorgabe Filtertimer ergänzt."
@@ -101,7 +105,8 @@
     "port": 9999,
     "adapteronly": true,
     "listen": false,
-    "listencontrol": false
+    "listencontrol": false,
+    "logmode": false
   },
   "objects": [],
   "instanceObjects": [
