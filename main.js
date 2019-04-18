@@ -202,8 +202,6 @@ function main() {
         setTimeout(repe, 1000);
       }
     }, 500);
-
-    testmaster = setInterval(test, 1000); //Ueberprüfen, ob PC-Master-mode aktiv ist.
   }
 
   if (!polling) {
