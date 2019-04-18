@@ -94,44 +94,44 @@ systemDictionary = {
     "es": "Coose your Comfoair Connection - Mode (tick only one, see Readme!):"
   },
   "adapteronly": {
-    "en": "Adapter only:",
-    "de": "Nur Adapter, CCEase inaktiv:",
-    "ru": "Adapter only:",
-    "pt": "Adapter only:",
-    "nl": "Adapter only:",
-    "fr": "Adapter only:",
-    "it": "Adapter only:",
-    "es": "Adapter only:"
+    "en": "Adapter only",
+    "de": "Nur Adapter, CCEase inaktiv",
+    "ru": "Adapter only",
+    "pt": "Adapter only",
+    "nl": "Adapter only",
+    "fr": "Adapter only",
+    "it": "Adapter only",
+    "es": "Adapter only"
   },
   "listen": {
-    "en": "Listening only:",
-    "de": "Abhör-Modus, keine Befehle:",
-    "ru": "Listening only:",
-    "pt": "Listening only:",
-    "nl": "Listening only:",
-    "fr": "Listening only:",
-    "it": "Listening only:",
-    "es": "Listening only:"
+    "en": "Listening only",
+    "de": "Abhör-Modus, keine Befehle",
+    "ru": "Listening only",
+    "pt": "Listening only",
+    "nl": "Listening only",
+    "fr": "Listening only",
+    "it": "Listening only",
+    "es": "Listening only"
   },
   "listencontrol": {
-    "en": "Paralell Mode:",
-    "de": "Parallelbetrieb:",
-    "ru": "Paralell Mode:",
-    "pt": "Paralell Mode:",
-    "nl": "Paralell Mode:",
-    "fr": "Paralell Mode:",
-    "it": "Paralell Mode:",
-    "es": "Paralell Mode:"
+    "en": "Paralell Mode",
+    "de": "Parallelbetrieb",
+    "ru": "Paralell Mode",
+    "pt": "Paralell Mode",
+    "nl": "Paralell Mode",
+    "fr": "Paralell Mode",
+    "it": "Paralell Mode",
+    "es": "Paralell Mode"
   },
   "logmode": {
-    "en": "Paralell Mode in constant PC-Logmode:",
-    "de": "Parallelbetrieb im PC-Logmodus:",
-    "ru": "Paralell Mode in constant PC-Logmode:",
-    "pt": "Paralell Mode in constant PC-Logmode:",
-    "nl": "Paralell Mode in constant PC-Logmode:",
-    "fr": "Paralell Mode in constant PC-Logmode:",
-    "it": "Paralell Mode in constant PC-Logmode:",
-    "es": "Paralell Mode in constant PC-Logmode:"
+    "en": "Paralell Mode in constant PC-Logmode",
+    "de": "Parallelbetrieb im PC-Logmodus",
+    "ru": "Paralell Mode in constant PC-Logmode",
+    "pt": "Paralell Mode in constant PC-Logmode",
+    "nl": "Paralell Mode in constant PC-Logmode",
+    "fr": "Paralell Mode in constant PC-Logmode",
+    "it": "Paralell Mode in constant PC-Logmode",
+    "es": "Paralell Mode in constant PC-Logmode"
   },
   "pollInterval": {
     "en": "Polling - Intervall (ms):",
