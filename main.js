@@ -656,7 +656,8 @@ function readComfoairData(buffarr) {
 
       case 224:
         // listener
-        adapter.log.debug(cmd + " : lese Status Bypass");
+        adapter.log.debug(cmd + " : lese Status Bypass 224");
+        adapter.setState('status.bypass', buffarr[10], true);
         break;
 
       case 202:
@@ -754,6 +755,21 @@ function readComfoairData(buffarr) {
         adapter.setState('status.enthalpie.temp', ((buffarr[7] / 2) - 20), true);
         adapter.setState('status.enthalpie.hum', (buffarr[8]), true);
         adapter.setState('status.enthalpie.koeff', (buffarr[11]), true);
+        break;
+
+      case 226:
+        // listener & polling
+        adapter.log.debug(cmd + " : lese Frostschutzwerte - ohne schreiben");
+        break;
+
+      case 236:
+        // listener & polling
+        adapter.log.debug(cmd + " : lese EWT/Nachheizung - ohne schreiben");
+        break;
+
+      case 170:
+        // listener & polling
+        adapter.log.debug(cmd + " : lese Daten 170 - ohne schreiben");
         break;
 
       default:

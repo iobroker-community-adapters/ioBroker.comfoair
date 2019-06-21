@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "news": {
+      "0.3.2": {
+        "en": "Bypass - error bug fixed.",
+        "de": "Bypasfeher - Fehler bebhoben."
+      },
       "0.3.1": {
         "en": "new connection mode: parelell in constant PC-Logmode.",
         "de": "neuer Verbindungsmodus: parallel, dauerhauf im PC-Logmode."
