@@ -110,7 +110,9 @@
     "adapteronly": true,
     "listen": false,
     "listencontrol": false,
-    "logmode": false
+    "logmode": false,
+    "connectionip": true,
+    "connectionserial": false
   },
   "objects": [],
   "instanceObjects": [

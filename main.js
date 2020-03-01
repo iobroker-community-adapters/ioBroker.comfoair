@@ -460,7 +460,7 @@ function controlcomfoair(id, state) {
             adapter.setState('control.setvent.ABL1', setvent[6], true);
             adapter.setState('control.setvent.ABL2', setvent[7], true);
             adapter.setState('control.setvent.ZULabw', setvent[8], true);
-            adapter.setState('control.setvent.ZUL2', setvent[10], true);
+            adapter.setState('control.setvent.ZUL2', setvent[10], true);                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
             adapter.setState('control.setvent.ZUL1', setvent[9], true);
             adapter.setState('control.setvent.ABL3', setvent[11], true);
             adapter.setState('control.setvent.ZUL3', setvent[12], true);
