@@ -26,13 +26,13 @@
   <script type="text/javascript">
     function showHideSettings() {
       if ($('#connectionip').val() === 'true') {
-        $('#serialdevice').hide();
-        $('#host').show();
-        $('#port').show();
+        $('#_serialdevice').hide();
+        $('#_host').show();
+        $('#_port').show();
       } else {
-        $('#serialdevice').show();
-        $('#host').hide();
-        $('#port').hide()
+        $('#_serialdevice').show();
+        $('#_host').hide();
+        $('#_port').hide()
       }
     }
 
@@ -134,17 +134,17 @@
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s12 m6 l3">
+        <div class="input-field col s12 m6 l3" id="_host">
           <input class="value" id="host" type="text" />
           <label for="host" class="translate">host</label>
         </div>
-        <div class="input-field col s12 m6 l3">
+        <div class="input-field col s12 m6 l3" id="_port">
           <input class="value" id="port" type="number" />
-          <label for="host" class="translate">host</label>
+          <label for="port" class="translate">port</label>
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s12 m6 l3">
+        <div class="input-field col s12 m6 l3" id="_serialdevice">
           <input class="value" id="serialdevice" type="text" />
           <label for="serialdevice" class="translate">serialdevice</label>
         </div>
