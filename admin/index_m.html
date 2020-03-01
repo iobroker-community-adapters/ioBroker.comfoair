@@ -26,11 +26,11 @@
   <script type="text/javascript">
     function showHideSettings() {
       if ($('#connectionip').val() === 'true') {
-        $('#serialaddress').hide();
+        $('#serialdevice').hide();
         $('#host').show();
         $('#port').show();
       } else {
-        $('#serialaddress').show();
+        $('#serialdevice').show();
         $('#host').hide();
         $('#port').hide()
       }
@@ -137,11 +137,10 @@
         <div class="input-field col s12 m6 l3">
           <input class="value" id="host" type="text" />
           <label for="host" class="translate">host</label>
-          <span class="translate">host</span>
         </div>
         <div class="input-field col s12 m6 l3">
           <input class="value" id="port" type="number" />
-          <label for="port" class="translate">port</label>
+          <label for="host" class="translate">host</label>
         </div>
       </div>
       <div class="row">
@@ -159,8 +158,6 @@
             <option value="listencontrol" class="translate">listencontrol</option>
             <option value="logmode" class="translate">logmode</option>
           </select>
-          <label class="translate" for="pollinterval">pollinterval</label>
-          <span class="translate" for="pollinterval_desc">pollinterval_desc</span>
         </div>
       </div>
 
