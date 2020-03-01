@@ -65,6 +65,7 @@ var enthalpie = false;
 var testj = 0;
 var listenonly = false;
 var rs232;
+var connectionip
 
 
 let polling;
@@ -165,10 +166,37 @@ function main() {
   // Vars
   deviceIpAdress = adapter.config.host;
   port = adapter.config.port;
-  pcmastermode = adapter.config.adapteronly;
-  listenonly = adapter.config.listen;
-  safemode = adapter.config.listencontrol;
-  pclogmode = adapter.config.logmode;
+  var modus = adapter.config.mode;
+  adapter.log.debug("Modus: " + modus);
+
+  if (modus == "adapteronly") {
+    pcmastermode = true;
+    listenonly = false;
+    safemode = false;
+    pclogmode = false;
+  } else if (modus == "listen") {
+    pcmastermode = false;
+    listenonly = true;
+    safemode = false;
+    pclogmode = false;
+  } else if (modus == "listencontrol") {
+    pcmastermode = false;
+    listenonly = false;
+    safemode = true;
+    pclogmode = false;
+  } else if (modus == "logmode") {
+    pcmastermode = false;
+    listenonly = false;
+    safemode = false;
+    pclogmode = true;
+  }
+
+  adapter.log.debug("Adapteronly: " + pcmastermode + ", Listenonly: " + listenonly + ",  Safemode: " + safemode + ", PC - Logmode: " + pclogmode);
+
+  connectionip = adapter.config.connectionip;
+
+  adapter.log.debug("IP-Verbindung: " + connectionip);
+
 
   if (pcmastermode == true || safemode == true || pclogmode == true) {
     setpollingobjects();
@@ -460,7 +488,7 @@ function controlcomfoair(id, state) {
             adapter.setState('control.setvent.ABL1', setvent[6], true);
             adapter.setState('control.setvent.ABL2', setvent[7], true);
             adapter.setState('control.setvent.ZULabw', setvent[8], true);
-            adapter.setState('control.setvent.ZUL2', setvent[10], true);                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+            adapter.setState('control.setvent.ZUL2', setvent[10], true);
             adapter.setState('control.setvent.ZUL1', setvent[9], true);
             adapter.setState('control.setvent.ABL3', setvent[11], true);
             adapter.setState('control.setvent.ZUL3', setvent[12], true);

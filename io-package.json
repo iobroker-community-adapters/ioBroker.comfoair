@@ -107,10 +107,7 @@
     "host": "",
     "pollInterval": 1800000,
     "port": 9999,
-    "adapteronly": true,
-    "listen": false,
-    "listencontrol": false,
-    "logmode": false,
+    "mode": "",
     "connectionip": true,
     "connectionserial": false
   },

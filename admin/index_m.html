@@ -66,32 +66,6 @@
       $('#connectionip').on('change', function() {
         showHideSettings();
       });
-
-      if ($('#mode').val() === 'adapteronly') {
-        settings.adapteronly = true;
-        settings.listen = false;
-        settings.listencontrol = false;
-        settings.logmode = false;
-
-      } else if ($('#mode').val() === 'listen') {
-        settings.adapteronly = false;
-        settings.listen = true;
-        settings.listencontrol = false;
-        settings.logmode = false;
-
-      } else if ($('#mode').val() === 'listencontrol') {
-        settings.adapteronly = false;
-        settings.listen = false;
-        settings.listencontrol = true;
-        settings.logmode = false;
-
-      } else if ($('#mode').val() === 'logmode') {
-        settings.adapteronly = false;
-        settings.listen = false;
-        settings.listencontrol = false;
-        settings.logmode = true;
-      }
-
     }
 
     // ... and the function save has to exist.
@@ -158,6 +132,7 @@
             <option value="listencontrol" class="translate">listencontrol</option>
             <option value="logmode" class="translate">logmode</option>
           </select>
+          <label for="mode" class="translate">mode</label>
         </div>
       </div>
 

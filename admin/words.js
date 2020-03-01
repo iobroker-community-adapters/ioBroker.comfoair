@@ -179,14 +179,25 @@ systemDictionary = {
 
   "serialdevice": {
     "en": "Serial device address (i.e. /dev/ttyUSB0)",
-    "de": "Serielle Geräteadresse (d. H. / Dev / ttyUSB0)",
-    "ru": "Последовательный адрес устройства (т.е. / dev / ttyUSB0)",
-    "pt": "Endereço de dispositivo serial (ou seja, / dev / ttyUSB0)",
-    "nl": "Serieel apparaatadres (d.w.z. / dev / ttyUSB0)",
-    "fr": "Adresse du périphérique série (par exemple / dev / ttyUSB0)",
-    "it": "Indirizzo del dispositivo seriale (es. / Dev / ttyUSB0)",
-    "es": "Dirección del dispositivo en serie (es decir, / dev / ttyUSB0)",
-    "pl": "Adres urządzenia szeregowego (tj. / Dev / ttyUSB0)",
-    "zh-cn": "串行设备地址（即/ dev / ttyUSB0）"
+    "de": "Serielle Geräteadresse (d. H. /dev/ttyUSB0)",
+    "ru": "Последовательный адрес устройства (т.е. /dev/ttyUSB0)",
+    "pt": "Endereço de dispositivo serial (ou seja, /dev/ttyUSB0)",
+    "nl": "Serieel apparaatadres (d.w.z. /dev/ttyUSB0)",
+    "fr": "Adresse du périphérique série (par exemple /dev/ttyUSB0)",
+    "it": "Indirizzo del dispositivo seriale (es. /dev/ttyUSB0)",
+    "es": "Dirección del dispositivo en serie (es decir, /dev/ttyUSB0)",
+    "pl": "Adres urządzenia szeregowego (tj. /dev/ttyUSB0)",
+    "zh-cn": "串行设备地址（即/dev/ttyUSB0）"
   },
+
+  "mode": {
+    "en": "comfoair connetion mode",
+    "de": "Comfoair-Verbindungsmodus",
+    "ru": "режим соединения comfoair",
+    "pt": "modo de conexão comum",
+    "nl": "comfoair connetion modus",
+    "fr": "mode de connexion comfoair",
+    "it": "modalità di connessione comfoair",
+    "es": "modo de conexión comfoair"
+  }
 }
