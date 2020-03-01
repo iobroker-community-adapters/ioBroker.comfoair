@@ -7,6 +7,8 @@
 'use strict';
 
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
+const SerialPort = require('serialport');
+const InterByteTimeout = require('@serialport/parser-inter-byte-timeout');
 let adapter;
 var deviceIpAdress;
 var port;
@@ -65,7 +67,9 @@ var enthalpie = false;
 var testj = 0;
 var listenonly = false;
 var rs232;
-var connectionip
+var connectionip;
+var serialdevice;
+var listenonlyserial = false;
 
 
 let polling;
@@ -151,11 +155,11 @@ function startAdapter(options) {
 
   // is called when databases are connected and adapter received configuration.
   adapter.on('ready', function() {
-    if (adapter.config.host) {
+    if (adapter.config.host || adapter.config.serialdevice) {
       adapter.log.info('[START] Starting comfoair adapter');
       adapter.setState('info.connection', true, true);
       main();
-    } else adapter.log.warn('[START] No IP-address set');
+    } else adapter.log.warn('[START] No IP or device - address set');
   });
 
   return adapter;
@@ -166,6 +170,8 @@ function main() {
   // Vars
   deviceIpAdress = adapter.config.host;
   port = adapter.config.port;
+  serialdevice = adapter.config.serialdevice
+
   var modus = adapter.config.mode;
   adapter.log.debug("Modus: " + modus);
 
@@ -195,8 +201,11 @@ function main() {
 
   connectionip = adapter.config.connectionip;
 
-  adapter.log.debug("IP-Verbindung: " + connectionip);
-
+  if (connectionip == true) {
+    adapter.log.info("IP-Verbindung auf: " + deviceIpAdress);
+  } else {
+    adapter.log.info("Serielle Verbindung auf: " + serialdevice)
+  }
 
   if (pcmastermode == true || safemode == true || pclogmode == true) {
     setpollingobjects();
@@ -205,7 +214,6 @@ function main() {
 
   const pollingTime = adapter.config.pollInterval || 300000;
   adapter.log.info('[INFO] Configured polling interval: ' + pollingTime);
-  adapter.log.debug('[START] Started Adapter with: ' + adapter.config.host);
 
   if (listenonly == true || safemode == true) {
     callcomfoair(setrs232cceaseonly);
@@ -510,127 +518,258 @@ function controlcomfoair(id, state) {
 } //end controlcomfoair
 
 function callcomfoair(hexout) {
-  var client = new net.Socket();
-  client.connect(port, deviceIpAdress, function() { //Connection Data ComfoAir
-    adapter.log.debug('Connected');
-    var msgbuf = new Buffer(hexout);
-    var hexoutarr = [...msgbuf];
-    adapter.log.debug("out " + msgbuf.toString('hex'));
-    adapter.log.debug("outarr: " + hexoutarr);
-    client.write(msgbuf);
-  });
+  if (connectionip == true) { //Abfrage über IP-Verbindung
+    var client = new net.Socket();
+    client.connect(port, deviceIpAdress, function() { //Connection Data ComfoAir
+      adapter.log.debug('Connected by IP');
+      var msgbuf = new Buffer(hexout);
+      var hexoutarr = [...msgbuf];
+      adapter.log.debug("out " + msgbuf.toString('hex'));
+      adapter.log.debug("outarr: " + hexoutarr);
+      client.write(msgbuf);
+    });
 
 
 
 
-  client.on('error', function(ex) {
-    adapter.log.warn("callcomfoair connection error: " + ex);
-  });
+    client.on('error', function(ex) {
+      adapter.log.warn("callcomfoair connection error: " + ex);
+    });
 
-  client.on('data', function(data) {
-    var buff = new Buffer(data, 'utf8');
-    adapter.log.debug('Received: ' + buff.toString('hex'));
-    buffarr = [...buff];
-    adapter.log.debug('Received arr: ' + buffarr);
-    try {
-      if (buffarr.length > 3) {
-        adapter.log.debug("ACK: " + buffarr[0] + ", " + buffarr[1]);
-        adapter.log.debug("Checksumme aus Datensatz: " + buffarr[buffarr.length - 3]);
-        adapter.log.debug("Checksumme berechnet: " + parseInt(checksumcmd(buff.slice(2)), 16));
-        if (buffarr[0] == 7 && buffarr[1] == 243 && buffarr[buffarr.length - 3] == parseInt(checksumcmd(buff.slice(2)), 16)) {
-          adapter.log.debug("ACK erhalten und Checksumme ok");
-          readComfoairData(buffarr);
+    client.on('data', function(data) {
+      var buff = new Buffer(data, 'utf8');
+      adapter.log.debug('Received: ' + buff.toString('hex'));
+      buffarr = [...buff];
+      adapter.log.debug('Received arr: ' + buffarr);
+      try {
+        if (buffarr.length > 3) {
+          adapter.log.debug("ACK: " + buffarr[0] + ", " + buffarr[1]);
+          adapter.log.debug("Checksumme aus Datensatz: " + buffarr[buffarr.length - 3]);
+          adapter.log.debug("Checksumme berechnet: " + parseInt(checksumcmd(buff.slice(2)), 16));
+          if (buffarr[0] == 7 && buffarr[1] == 243 && buffarr[buffarr.length - 3] == parseInt(checksumcmd(buff.slice(2)), 16)) {
+            adapter.log.debug("ACK erhalten und Checksumme ok");
+            readComfoairData(buffarr);
 
-        } else {
-          adapter.log.debug("ACK zu Datenabfrage nicht erhalten oder Checksumme falsch");
-        }
-      } else {
-        if (buff.toString('hex') == "07f3") {
-          adapter.log.debug("ACK erhalten");
-          switch (hexout[3]) {
-            case 153:
-              adapter.setState('status.statstufe', (hexout[5] - 1), true);
-              break;
-            case 211:
-              adapter.setState('temperature.statcomfort', ((hexout[5] / 2) - 20), true);
-              break;
-            case 219:
-              if (hexout[5] == 1) {
-                adapter.log.debug("Störungen zurückgesetzt");
-              }
-              if (hexout[6] == 1) {
-                adapter.log.debug("Einstellungen zurückgesetzt");
-              }
-              if (hexout[7] == 1) {
-                adapter.log.debug("Selbsttest gestartet");
-              }
-              if (hexout[8] == 1) {
-                adapter.log.debug("Betriebsstunden Filter zurückgesetzt");
-                adapter.setState('status.filterChange', 0, true);
-              }
-              break;
-            case 207:
-              adapter.setState('status.ventlevel.ABLabw', hexout[5], true);
-              adapter.setState('status.ventlevel.ABL1', hexout[6], true);
-              adapter.setState('status.ventlevel.ABL2', hexout[7], true);
-              adapter.setState('status.ventlevel.ZULabw', hexout[8], true);
-              adapter.setState('status.ventlevel.ZUL2', hexout[10], true);
-              adapter.setState('status.ventlevel.ZUL1', hexout[9], true);
-              adapter.setState('status.ventlevel.ABL3', hexout[11], true);
-              adapter.setState('status.ventlevel.ZUL3', hexout[12], true);
-              adapter.log.debug("Ventilationsstufen gesetzt");
+          } else {
+            adapter.log.debug("ACK zu Datenabfrage nicht erhalten oder Checksumme falsch");
           }
         } else {
-          adapter.log.debug("ACK zu Kommando nicht erhlaten");
+          if (buff.toString('hex') == "07f3") {
+            adapter.log.debug("ACK erhalten");
+            switch (hexout[3]) {
+              case 153:
+                adapter.setState('status.statstufe', (hexout[5] - 1), true);
+                break;
+              case 211:
+                adapter.setState('temperature.statcomfort', ((hexout[5] / 2) - 20), true);
+                break;
+              case 219:
+                if (hexout[5] == 1) {
+                  adapter.log.debug("Störungen zurückgesetzt");
+                }
+                if (hexout[6] == 1) {
+                  adapter.log.debug("Einstellungen zurückgesetzt");
+                }
+                if (hexout[7] == 1) {
+                  adapter.log.debug("Selbsttest gestartet");
+                }
+                if (hexout[8] == 1) {
+                  adapter.log.debug("Betriebsstunden Filter zurückgesetzt");
+                  adapter.setState('status.filterChange', 0, true);
+                }
+                break;
+              case 207:
+                adapter.setState('status.ventlevel.ABLabw', hexout[5], true);
+                adapter.setState('status.ventlevel.ABL1', hexout[6], true);
+                adapter.setState('status.ventlevel.ABL2', hexout[7], true);
+                adapter.setState('status.ventlevel.ZULabw', hexout[8], true);
+                adapter.setState('status.ventlevel.ZUL2', hexout[10], true);
+                adapter.setState('status.ventlevel.ZUL1', hexout[9], true);
+                adapter.setState('status.ventlevel.ABL3', hexout[11], true);
+                adapter.setState('status.ventlevel.ZUL3', hexout[12], true);
+                adapter.log.debug("Ventilationsstufen gesetzt");
+            }
+          } else {
+            adapter.log.debug("ACK zu Kommando nicht erhlaten");
+          }
         }
+
+      } catch (e) {
+        adapter.log.warn("Client-Data - Fehler" + e);
       }
+      client.destroy();
+    });
 
-    } catch (e) {
-      adapter.log.warn("Client-Data - Fehler" + e);
-    }
-    client.destroy();
-  });
+    client.on('close', function() {
+      adapter.log.debug('Connection closed');
+    });
 
-  client.on('close', function() {
-    adapter.log.debug('Connection closed');
-  });
+  } else { //Abfrage über serielle Verbindung
+
+    var msgbuf = Buffer.from(hexout);
+
+    const port = new SerialPort(serialdevice, {
+      baudRate: 9600,
+      dataBits: 8,
+      parity: 'none',
+      stopBits: 1,
+      autoOpen: false,
+      flowControl: false
+    });
+
+    const parser = port.pipe(new InterByteTimeout({
+      interval: 20
+    }));
+
+    port.open(function(err) {
+      if (err) {
+        adapter.log.info('Error opening port: ' + err.message);
+        return adapter.log.info('Error opening port: ', err.message);
+      }
+    })
+
+    // The open event is always emitted
+    port.on('open', function() {
+      adapter.log.debug('Connected to serial port');
+
+      parser.on('data', function(data) {
+        var buff = Buffer.from(data);
+        adapter.log.debug('Data received (hex): ' + buff.toString('hex'));
+        var buffarr = [...buff];
+        adapter.log.debug('Received arr: ' + buffarr);
+        try {
+          if (buffarr.length > 3) {
+            adapter.log.debug("ACK: " + buffarr[0] + ", " + buffarr[1]);
+            adapter.log.debug("Checksumme aus Datensatz: " + buffarr[buffarr.length - 3]);
+            adapter.log.debug("Checksumme berechnet: " + parseInt(checksumcmd(buff.slice(2)), 16));
+            if (buffarr[0] == 7 && buffarr[1] == 243 && buffarr[buffarr.length - 3] == parseInt(checksumcmd(buff.slice(2)), 16)) {
+              adapter.log.debug("ACK erhalten und Checksumme ok");
+              readComfoairData(buffarr);
+
+            } else {
+              adapter.log.debug("ACK zu Datenabfrage nicht erhalten oder Checksumme falsch");
+            }
+          } else {
+            if (buff.toString('hex') == "07f3") {
+              adapter.log.debug("ACK erhalten");
+              switch (hexout[3]) {
+                case 153:
+                  adapter.setState('status.statstufe', (hexout[5] - 1), true);
+                  break;
+                case 211:
+                  adapter.setState('temperature.statcomfort', ((hexout[5] / 2) - 20), true);
+                  break;
+                case 219:
+                  if (hexout[5] == 1) {
+                    adapter.log.debug("Störungen zurückgesetzt");
+                  }
+                  if (hexout[6] == 1) {
+                    adapter.log.debug("Einstellungen zurückgesetzt");
+                  }
+                  if (hexout[7] == 1) {
+                    adapter.log.debug("Selbsttest gestartet");
+                  }
+                  if (hexout[8] == 1) {
+                    adapter.log.debug("Betriebsstunden Filter zurückgesetzt");
+                    adapter.setState('status.filterChange', 0, true);
+                  }
+                  break;
+                case 207:
+                  adapter.setState('status.ventlevel.ABLabw', hexout[5], true);
+                  adapter.setState('status.ventlevel.ABL1', hexout[6], true);
+                  adapter.setState('status.ventlevel.ABL2', hexout[7], true);
+                  adapter.setState('status.ventlevel.ZULabw', hexout[8], true);
+                  adapter.setState('status.ventlevel.ZUL2', hexout[10], true);
+                  adapter.setState('status.ventlevel.ZUL1', hexout[9], true);
+                  adapter.setState('status.ventlevel.ABL3', hexout[11], true);
+                  adapter.setState('status.ventlevel.ZUL3', hexout[12], true);
+                  adapter.log.debug("Ventilationsstufen gesetzt");
+              }
+            } else {
+              adapter.log.debug("ACK zu Kommando nicht erhlaten");
+            }
+          }
+
+        } catch (e) {
+          adapter.log.warn("Client-Data - Fehler" + e);
+        }
+      });
+
+      if (listenonlyserial == false) {
+        setTimeout(function() {
+          port.write(msgbuf, function(err, result) {
+            if (err) {
+              return adapter.log.info('Error on write: ', err.message);
+            }
+            //adapter.log.info("Result: " + result.message);
+            adapter.log.debug('Daten sent: ' + msgbuf.toString('hex'));
+            var hexoutarr = [...msgbuf];
+
+            adapter.log.debug("outarr: " + hexoutarr);
+          });
+          setTimeout(function() {
+            port.close();
+          }, 500);
+        }, 500);
+
+      }
+    });
+    port.on('error', function(err) {
+      adapter.log.info('Error2: ', err.message);
+      port.close();
+    });
+
+
+    port.on('close', function() {
+      adapter.log.debug("serial port closed");
+    });
+
+  }
 } //end callcomfoair
 
 function listentocomfoair() {
-  var decoder = new StringDecoder('utf8');
-  var delimiterstream = new DelimiterStream({
-    delimiter: '7,243,'
-  });
+  if (connectionip == true) { // Zuhören über IP - Verbindung
+    var decoder = new StringDecoder('utf8');
+    var delimiterstream = new DelimiterStream({
+      delimiter: '7,243,'
+    });
 
-  delimiterstream.on('data', function(chunk) {
-    var chunkarr = decoder.write(chunk).split(',');
-    if (chunkarr[3] > 65) {
-      chunkarr.splice(0, 0, "7", "243");
+    delimiterstream.on('data', function(chunk) {
+      var chunkarr = decoder.write(chunk).split(',');
+      if (chunkarr[3] > 65) {
+        chunkarr.splice(0, 0, "7", "243");
 
-      if (pcmastermode == false) {
-        adapter.log.debug("an readcomfoair: " + chunkarr);
-        readComfoairData(chunkarr);
+        if (pcmastermode == false) {
+          adapter.log.debug("an readcomfoair: " + chunkarr);
+          readComfoairData(chunkarr);
+        }
       }
-    }
-  });
+    });
 
-  var client = new net.Socket();
+    var client = new net.Socket();
 
-  var client = client.connect(port, deviceIpAdress, function() {
-    // write out connection details
-    adapter.log.debug('Connected to comfoair');
-  });
+    var client = client.connect(port, deviceIpAdress, function() {
+      // write out connection details
+      adapter.log.debug('Connected to comfoair by IP');
+    });
 
-  client.on('data', function(data) {
-    var buff = new Buffer(data, 'utf8');
-    //adapter.log.debug('Received: ' + buff.toString('hex'));
-    buffarr = [...buff];
-    delimiterstream.write(buffarr.toString('hex'));
-  });
+    client.on('data', function(data) {
+      var buff = new Buffer(data, 'utf8');
+      //adapter.log.debug('Received: ' + buff.toString('hex'));
+      buffarr = [...buff];
+      delimiterstream.write(buffarr.toString('hex'));
+    });
 
-  client.on('close', function() {
-    adapter.log.debug("Connection closed");
-  });
+    client.on('close', function() {
+      adapter.log.debug("Connection closed");
+    });
+  } else { // Zuhören über serielle Verbindung
+
+    setTimeout(function() {
+      listenonlyserial = true;
+      callcomfoair(hexout)
+    }, 10000);
+  }
 } // end listentocomfoair()
 
 function readComfoairData(buffarr) {
