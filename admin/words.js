@@ -84,63 +84,109 @@ systemDictionary = {
     "es": "Comfoair IP:"
   },
   "whatmode": {
-    "en": "Coose your Comfoair Connection - Mode (tick only one, see Readme!):",
-    "de": "Wähle den Verbindungsmodus (nur 1 anwählen, Readme beachten!):",
-    "ru": "Coose your Comfoair Connection - Mode (tick only one, see Readme!):",
-    "pt": "Coose your Comfoair Connection - Mode (tick only one, see Readme!):",
-    "nl": "Coose your Comfoair Connection - Mode (tick only one, see Readme!):",
-    "fr": "Coose your Comfoair Connection - Mode (tick only one, see Readme!):",
-    "it": "Coose your Comfoair Connection - Mode (tick only one, see Readme!):",
-    "es": "Coose your Comfoair Connection - Mode (tick only one, see Readme!):"
+    "en": "Choose your Comfoair Connection - Mode",
+    "de": "Wählen Sie Ihren Comfoair-Verbindungsmodus",
+    "ru": "Выберите Comfoair Connection - Режим",
+    "pt": "Escolha sua conexão Comfoair - Modo",
+    "nl": "Kies uw Comfoair-verbinding - Modus",
+    "fr": "Choisissez votre connexion Comfoair - Mode",
+    "it": "Scegli la tua connessione Comfoair - Modalità",
+    "es": "Elija su conexión Comfoair - Modo"
   },
   "adapteronly": {
-    "en": "Adapter only",
+    "en": "Adapter only, CCEase inactive",
     "de": "Nur Adapter, CCEase inaktiv",
-    "ru": "Adapter only",
-    "pt": "Adapter only",
-    "nl": "Adapter only",
-    "fr": "Adapter only",
-    "it": "Adapter only",
-    "es": "Adapter only"
+    "ru": "Только адаптер, CCEase неактивен",
+    "pt": "Apenas adaptador, CCEase inativo",
+    "nl": "Alleen adapter, CCEase inactief",
+    "fr": "Adaptateur uniquement, CCEase inactif",
+    "it": "Solo adattatore, CCEase inattivo",
+    "es": "Solo adaptador, CCEase inactivo"
   },
   "listen": {
     "en": "Listening only",
     "de": "Abhör-Modus, keine Befehle",
-    "ru": "Listening only",
-    "pt": "Listening only",
-    "nl": "Listening only",
-    "fr": "Listening only",
-    "it": "Listening only",
-    "es": "Listening only"
+    "ru": "Только прослушивание",
+    "pt": "Apenas ouvindo",
+    "nl": "Alleen luisteren",
+    "fr": "Écoute uniquement",
+    "it": "Solo ascolto",
+    "es": "Solo escuchar"
   },
   "listencontrol": {
     "en": "Paralell Mode",
     "de": "Parallelbetrieb",
-    "ru": "Paralell Mode",
-    "pt": "Paralell Mode",
-    "nl": "Paralell Mode",
-    "fr": "Paralell Mode",
-    "it": "Paralell Mode",
-    "es": "Paralell Mode"
+    "ru": "Параллельный режим",
+    "pt": "Modo paralelo",
+    "nl": "Paallall-modus",
+    "fr": "Mode parallèle",
+    "it": "Modalità parallela",
+    "es": "Modo paralelo"
   },
   "logmode": {
     "en": "Paralell Mode in constant PC-Logmode",
     "de": "Parallelbetrieb im PC-Logmodus",
-    "ru": "Paralell Mode in constant PC-Logmode",
-    "pt": "Paralell Mode in constant PC-Logmode",
-    "nl": "Paralell Mode in constant PC-Logmode",
-    "fr": "Paralell Mode in constant PC-Logmode",
-    "it": "Paralell Mode in constant PC-Logmode",
-    "es": "Paralell Mode in constant PC-Logmode"
+    "ru": "Режим Paralell в постоянном режиме PC-Log",
+    "pt": "Modo Paralelo em Modo PC-Log constante",
+    "nl": "Paralell-modus in constante pc-logmodus",
+    "fr": "Mode Paralell en PC-Logmode constant",
+    "it": "Modalità Paralell in modalità PC-Log costante",
+    "es": "Modo Paralell en modo PC-Log constante"
   },
   "pollInterval": {
     "en": "Polling - Intervall (ms):",
-    "de": "Abfrage - Intervall (ms):",
-    "ru": "Abfrage - Intervall (ms):",
-    "pt": "Polling - Intervall (ms):",
+    "de": "Polling - Intervall (ms):",
+    "ru": "Опрос - Интервал (мс):",
+    "pt": "Pesquisa - Intervalo (ms):",
     "nl": "Polling - Intervall (ms):",
-    "fr": "Polling - Intervall (ms):",
+    "fr": "Interrogation - Intervall (ms):",
     "it": "Polling - Intervall (ms):",
-    "es": "Polling - Intervall (ms):"
-  }
+    "es": "Sondeo - Intervall (ms):"
+  },
+
+  "connectionserial": {
+    "en": "Serial connection",
+    "de": "Serielle Verbindung",
+    "ru": "Последовательное соединение",
+    "pt": "Conexão serial",
+    "nl": "Seriële verbinding",
+    "fr": "Connexion série",
+    "it": "Connessione seriale",
+    "es": "Conexión en serie"
+  },
+
+  "connectionip": {
+    "en": " -<< connection",
+    "de": "IP - Verbindung",
+    "ru": "IP - соединение",
+    "pt": "IP - conexão",
+    "nl": "IP - verbinding",
+    "fr": "IP - connexion",
+    "it": "Connessione IP",
+    "es": "IP - conexión"
+  },
+
+  "connectiontype": {
+    "en": "Connection Type",
+    "de": "Verbindungstyp",
+    "ru": "Тип соединения",
+    "pt": "Tipo de conexão",
+    "nl": "Connectie type",
+    "fr": "Type de connexion",
+    "it": "Tipo di connessione",
+    "es": "Tipo de conección"
+  },
+
+  "serialdevice": {
+    "en": "Serial device address (i.e. /dev/ttyUSB0)",
+    "de": "Serielle Geräteadresse (d. H. / Dev / ttyUSB0)",
+    "ru": "Последовательный адрес устройства (т.е. / dev / ttyUSB0)",
+    "pt": "Endereço de dispositivo serial (ou seja, / dev / ttyUSB0)",
+    "nl": "Serieel apparaatadres (d.w.z. / dev / ttyUSB0)",
+    "fr": "Adresse du périphérique série (par exemple / dev / ttyUSB0)",
+    "it": "Indirizzo del dispositivo seriale (es. / Dev / ttyUSB0)",
+    "es": "Dirección del dispositivo en serie (es decir, / dev / ttyUSB0)",
+    "pl": "Adres urządzenia szeregowego (tj. / Dev / ttyUSB0)",
+    "zh-cn": "串行设备地址（即/ dev / ttyUSB0）"
+  },
 }
