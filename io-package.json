@@ -1,7 +1,6 @@
 {
   "common": {
     "name": "comfoair",
-    offers now the possibility of a direct serial connection besides the connection over IP / LAN.
     "version": "1.0.0",
     "news": {
       "1.0.0": {
