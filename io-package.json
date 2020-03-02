@@ -1,8 +1,13 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "0.3.2",
+    offers now the possibility of a direct serial connection besides the connection over IP / LAN.
+    "version": "1.0.0",
     "news": {
+      "1.0.0": {
+        "en": "Offers now the possibility of a direct serial connection besides the connection over IP/LAN.",
+        "de": "Bietet nun die Möglichkeit einer direkten seriellen Verbindung neben der Verbindung über IP/LAN."
+      },
       "0.3.2": {
         "en": "Bypass - error bug fixed.",
         "de": "Bypasfeher - Fehler bebhoben."

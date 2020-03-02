@@ -179,7 +179,7 @@ systemDictionary = {
 
   "serialdevice": {
     "en": "Serial device address (i.e. /dev/ttyUSB0)",
-    "de": "Serielle Geräteadresse (d. H. /dev/ttyUSB0)",
+    "de": "Serielle Geräteadresse (z.B. /dev/ttyUSB0)",
     "ru": "Последовательный адрес устройства (т.е. /dev/ttyUSB0)",
     "pt": "Endereço de dispositivo serial (ou seja, /dev/ttyUSB0)",
     "nl": "Serieel apparaatadres (d.w.z. /dev/ttyUSB0)",
