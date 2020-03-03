@@ -112,7 +112,7 @@
     "pollInterval": 1800000,
     "port": 9999,
     "mode": "",
-    "connectionip": true,
+    "connectiontype": true,
     "connectionserial": false
   },
   "objects": [],

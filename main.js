@@ -68,7 +68,7 @@ var testj = 0;
 var listenonly = false;
 var rs232;
 var connectionip;
-var serialdevice;
+var serialdevice = "/dev/ttyUSB0";
 var listenonlyserial = false;
 
 

@@ -25,7 +25,7 @@
   <!-- you have to define 2 functions in the global scope: -->
   <script type="text/javascript">
     function showHideSettings() {
-      if ($('#connectionip').val() === 'true') {
+      if ($('#connectiontype').val() === 'true') {
         $('#_serialdevice').hide();
         $('#_host').show();
         $('#_port').show();
@@ -100,7 +100,7 @@
       </div>
       <div class="row">
         <div class="input-field col s12 m4 l2">
-          <select class="value" id="connectionip">
+          <select class="value" id="connectiontype">
             <option value="false" class="translate">connectionserial</option>
             <option value="true" class="translate">connectionip</option>
           </select>
