@@ -199,7 +199,7 @@ function main() {
 
   adapter.log.debug("Adapteronly: " + pcmastermode + ", Listenonly: " + listenonly + ",  Safemode: " + safemode + ", PC - Logmode: " + pclogmode);
 
-  connectionip = adapter.config.connectionip;
+  connectionip = adapter.config.connectiontype;
 
   if (connectionip == true) {
     adapter.log.info("IP-Verbindung auf: " + deviceIpAdress);
