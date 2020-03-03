@@ -112,8 +112,9 @@
     "pollInterval": 1800000,
     "port": 9999,
     "mode": "",
-    "connectiontype": true,
-    "connectionserial": false
+    "connectionip": true,
+    "connectionserial": false,
+    "serialdevice": "/dev/"
   },
   "objects": [],
   "instanceObjects": [
