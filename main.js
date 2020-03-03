@@ -67,7 +67,7 @@ var enthalpie = false;
 var testj = 0;
 var listenonly = false;
 var rs232;
-var connectionip;
+var connectionip = true;
 var serialdevice = "/dev/ttyUSB0";
 var listenonlyserial = false;
 
@@ -199,7 +199,7 @@ function main() {
 
   adapter.log.debug("Adapteronly: " + pcmastermode + ", Listenonly: " + listenonly + ",  Safemode: " + safemode + ", PC - Logmode: " + pclogmode);
 
-  connectionip = adapter.config.connectiontype;
+  connectionip = adapter.config.connectionip;
 
   if (connectionip == "true") {
     adapter.log.info("IP-Verbindung auf: " + deviceIpAdress);
