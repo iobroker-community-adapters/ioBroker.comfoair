@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "news": {
+      "1.0.1": {
+        "en": "Minor Bugfix",
+        "de": "Kleinere Fehler behoben"
+      },
       "1.0.0": {
         "en": "Offers now the possibility of a direct serial connection besides the connection over IP/LAN.",
         "de": "Bietet nun die Möglichkeit einer direkten seriellen Verbindung neben der Verbindung über IP/LAN."
