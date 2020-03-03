@@ -201,7 +201,7 @@ function main() {
 
   connectionip = adapter.config.connectiontype;
 
-  if (connectionip == true) {
+  if (connectionip == "true") {
     adapter.log.info("IP-Verbindung auf: " + deviceIpAdress);
   } else {
     adapter.log.info("Serielle Verbindung auf: " + serialdevice)
@@ -518,7 +518,7 @@ function controlcomfoair(id, state) {
 } //end controlcomfoair
 
 function callcomfoair(hexout) {
-  if (connectionip == true) { //Abfrage über IP-Verbindung
+  if (connectionip == "true") { //Abfrage über IP-Verbindung
     var client = new net.Socket();
     client.connect(port, deviceIpAdress, function() { //Connection Data ComfoAir
       adapter.log.debug('Connected by IP');
@@ -728,7 +728,7 @@ function callcomfoair(hexout) {
 } //end callcomfoair
 
 function listentocomfoair() {
-  if (connectionip == true) { // Zuhören über IP - Verbindung
+  if (connectionip == "true") { // Zuhören über IP - Verbindung
     var decoder = new StringDecoder('utf8');
     var delimiterstream = new DelimiterStream({
       delimiter: '7,243,'
