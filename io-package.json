@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "news": {
+      "1.1.0": {
+        "en": "Displays now working hours of different ventilation levels, preheating, bypass and frost-protection.",
+        "de": "Zeigt nun Betriebsstunden für Lüftungsstufen, Bypass, Vorheizung und Frostschutz an."
+      },
       "1.0.1": {
         "en": "Minor Bugfix",
         "de": "Kleinere Fehler behoben"

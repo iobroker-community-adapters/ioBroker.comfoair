@@ -812,7 +812,14 @@ function readComfoairData(buffarr) {
       case 222:
         //polling
         adapter.log.debug(cmd + " : lese Betriebsstunden");
-        adapter.setState('status.filterh', parseInt((buffarr[22].toString(16) + buffarr[23].toString(16)), 16), true);
+        adapter.setState('status.hLVLabw', parseInt((buffarr[7].toString(16).padStart(2, '0') + buffarr[8].toString(16).padStart(2, '0') + buffarr[9].toString(16).padStart(2, '0')), 16), true);
+        adapter.setState('status.hLVL1', parseInt((buffarr[10].toString(16).padStart(2, '0') + buffarr[11].toString(16).padStart(2, '0') + buffarr[12].toString(16).padStart(2, '0')), 16), true);
+        adapter.setState('status.hLVL2', parseInt((buffarr[13].toString(16).padStart(2, '0') + buffarr[14].toString(16).padStart(2, '0') + buffarr[15].toString(16).padStart(2, '0')), 16), true);
+        adapter.setState('status.hBypO', parseInt((buffarr[20].toString(16).padStart(2, '0') + buffarr[21].toString(16).padStart(2, '0')), 16), true);
+        adapter.setState('status.hFrostS', parseInt((buffarr[16].toString(16).padStart(2, '0') + buffarr[17].toString(16).padStart(2, '0')), 16), true);
+        adapter.setState('status.hVorh', parseInt((buffarr[18].toString(16).padStart(2, '0') + buffarr[19].toString(16).padStart(2, '0')), 16), true);
+        adapter.setState('status.hLVL3', parseInt((buffarr[24].toString(16).padStart(2, '0') + buffarr[25].toString(16).padStart(2, '0') + buffarr[26].toString(16).padStart(2, '0')), 16), true);
+        adapter.setState('status.filterh', parseInt((buffarr[22].toString(16).padStart(2, '0') + buffarr[23].toString(16).padStart(2, '0')), 16), true);
         break;
 
       case 14:
@@ -1247,6 +1254,98 @@ function setpollingobjects() {
     },
     native: {}
   });
+  adapter.setObjectNotExists('status.hLVLabw', {
+    type: "state",
+    common: {
+      name: "Betriebsstunden abwesend",
+      type: "number",
+      role: "value.info",
+      read: true,
+      write: false,
+      unit: "h",
+      desc: "Betriebsstunden Stufe Abwesend"
+    },
+    native: {}
+  });
+  adapter.setObjectNotExists('status.hLVL1', {
+    type: "state",
+    common: {
+      name: "Betriebsstunden Stufe 1",
+      type: "number",
+      role: "value.info",
+      read: true,
+      write: false,
+      unit: "h",
+      desc: "Betriebsstunden Stufe niedrig"
+    },
+    native: {}
+  });
+  adapter.setObjectNotExists('status.hLVL2', {
+    type: "state",
+    common: {
+      name: "Betriebsstunden Stufe 2",
+      type: "number",
+      role: "value.info",
+      read: true,
+      write: false,
+      unit: "h",
+      desc: "Betriebsstunden Stufe mittel"
+    },
+    native: {}
+  });
+  adapter.setObjectNotExists('status.hLVL3', {
+    type: "state",
+    common: {
+      name: "Betriebsstunden Stufe 3",
+      type: "number",
+      role: "value.info",
+      read: true,
+      write: false,
+      unit: "h",
+      desc: "Betriebsstunden Stufe hoch"
+    },
+    native: {}
+  });
+  adapter.setObjectNotExists('status.hFrostS', {
+    type: "state",
+    common: {
+      name: "Betriebsstunden Frostschutz",
+      type: "number",
+      role: "value.info",
+      read: true,
+      write: false,
+      unit: "h",
+      desc: "Betriebsstunden Frostschutz"
+    },
+    native: {}
+  });
+  adapter.setObjectNotExists('status.hVorh', {
+    type: "state",
+    common: {
+      name: "Betriebsstunden Vorheizung",
+      type: "number",
+      role: "value.info",
+      read: true,
+      write: false,
+      unit: "h",
+      desc: "Betriebsstunden Vorheizung"
+    },
+    native: {}
+  });
+  adapter.setObjectNotExists('status.hBypO', {
+    type: "state",
+    common: {
+      name: "Betriebsstunden Bypass offen",
+      type: "number",
+      role: "value.info",
+      read: true,
+      write: false,
+      unit: "h",
+      desc: "Betriebsstunden Bypass offen"
+    },
+    native: {}
+  });
+
   adapter.setObjectNotExists('status.errors.aktuellA', {
     type: "state",
     common: {
