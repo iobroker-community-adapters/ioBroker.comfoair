@@ -9,6 +9,7 @@
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
 const SerialPort = require('serialport');
 const InterByteTimeout = require('@serialport/parser-inter-byte-timeout');
+var schedule = require('node-schedule');
 let adapter;
 var deviceIpAdress;
 var port;
@@ -262,7 +263,28 @@ function main() {
       }, pollingTime);
     } //end polling
   }
+  var wdinterval = '*/' + (Math.floor(pollingTime / 60000) + 5).toString() + ' * * * *';
+  var watchdog = schedule.scheduleJob(wdinterval, function() {
+    adapter.log.debug("Prüfe ob Adapter funktioniert (alle " + (Math.floor(pollingTime / 60000) + 5).toString() + " Minuten).");
+    var dnow = new Date();
+    var utnow = dnow.getTime();
+    adapter.log.debug("jetzt: " + utnow);
+    adapter.getState('temperature.ABL', function(err, state) {
+      if (state) {
+        adapter.log.debug("Letze Datenabfrage: " + state.ts);
+        var tsabl = state.ts;
+        var tdiff = utnow - tsabl;
+        adapter.log.debug("Zeit seit letzter Datenabfrage (ms): " + tdiff);
+        if (tdiff > (2 * pollingTime)) {
+          adapter.log.warn("Zeit seit letzter Datenabfrage zu gross, NEUSTART");
+          restartAdapter();
+        } else {
+          adapter.log.debug("Adapter läuft ordnungsgemäss.");
+        }
+      }
+    });
 
+  });
   // all states changes inside the adapters namespace are subscribed
   adapter.subscribeStates('*');
 
@@ -1457,6 +1479,12 @@ function setpollingobjects() {
 
 
 }
+
+function restartAdapter() {
+  adapter.getForeignObject('system.adapter.' + adapter.namespace, (err, obj) => {
+    if (obj) adapter.setForeignObject('system.adapter.' + adapter.namespace, obj);
+  });
+} // endFunctionRestartAdapter
 
 // If started as allInOne/compact mode => return function to create instance
 if (module && module.parent) {
