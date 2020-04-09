@@ -11,57 +11,29 @@
         "en": "Displays now working hours of different ventilation levels, preheating, bypass and frost-protection.",
         "de": "Zeigt nun Betriebsstunden für Lüftungsstufen, Bypass, Vorheizung und Frostschutz an."
       },
-      "1.0.1": {
-        "en": "Minor Bugfix",
-        "de": "Kleinere Fehler behoben"
-      },
       "1.0.0": {
         "en": "Offers now the possibility of a direct serial connection besides the connection over IP/LAN.",
         "de": "Bietet nun die Möglichkeit einer direkten seriellen Verbindung neben der Verbindung über IP/LAN."
       },
-      "0.3.2": {
-        "en": "Bypass - error bug fixed.",
-        "de": "Bypasfeher - Fehler bebhoben."
-      },
       "0.3.1": {
         "en": "new connection mode: parelell in constant PC-Logmode.",
-        "de": "neuer Verbindungsmodus: parallel, dauerhauf im PC-Logmode."
+        "de": "neuer Verbindungsmodus: parallel, dauerhaft im PC-Logmode."
       },
       "0.3.0": {
         "en": "new connection modes, selftest and filter-timer setting added.",
         "de": "neue Verbindungsmodi, Selbstest und Vorgabe Filtertimer ergänzt."
       },
-      "0.2.1": {
-        "en": "smaller bugfixes.",
-        "de": "kleinere Fehler behoben."
-      },
       "0.2.0": {
         "en": "New rs232 - Modes, reading enthalpie-values, handling connection-errors.",
         "de": "Neue rs232 - Modi, liest Enthalpie-Werte, Verbindungsfehler - Handling."
-      },
-      "0.1.4": {
-        "en": "README-Update 'NO PARALLEL USE', discard 'Safe-Mode'.",
-        "de": "README-Update 'KEIN PARALLELBETRIEB', Safe-Mode verworfen."
       },
       "0.1.3": {
         "en": "RS - 232 interface: manual- or safe - mode possible.",
         "de": "RS - 232 Schnittstelle: Manual- oder Safe-Mode möglich."
       },
-      "0.1.2": {
-        "en": "ReadME - update.",
-        "de": "ReadME - Update."
-      },
       "0.1.1": {
         "en": "bugfix ventlevels, reads errors.",
         "de": "Fehler ventlevels behoben, liest Fehlermeldungen."
-      },
-      "0.1.0": {
-        "en": "Redme updated after successful 3rd party testing.",
-        "de": "Readme aktualisiert nach erfolgreichem Testing."
-      },
-      "0.0.7": {
-        "en": "Core Files/Testing Update and introduce adapter-core.",
-        "de": "Core Files/Testing Update und adapter-core eingeführt."
       },
       "0.0.6": {
         "en": "Filter - change - indicator.",
@@ -82,10 +54,6 @@
       "0.0.2": {
         "en": "First running Version. Gets temp, vent, bypass and filter states, sets fan level.",
         "de": "Erste funktionierende Version. Zeigt, Temperatur-, Ventilator-, Filter- und Bypass - Stati, ermöglicht das Setzen der Lüftungsstufe."
-      },
-      "0.0.1": {
-        "en": "development edition",
-        "de": "Entwicklungsversion"
       }
     },
     "title": "comfoair",
