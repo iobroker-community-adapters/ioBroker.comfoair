@@ -87,6 +87,8 @@ function startAdapter(options) {
   adapter.on('unload', function(callback) {
     try {
       clearInterval(polling);
+      clearTimeout(polling);
+      clearTimeout(pcmaster);
       client.destroy();
       adapter.log.info('[END] Stopping comfoair adapter...');
       adapter.setState('info.connection', false, true);
