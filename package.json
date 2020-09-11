@@ -2,7 +2,7 @@
   "name": "iobroker.comfoair",
   "version": "1.1.1",
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=10.0.0"
   },
   "description": "comfoair",
   "author": {
