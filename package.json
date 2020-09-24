@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "request": "^2.87.0",
-    "@iobroker/adapter-core": "^1.0.3",
+    "@iobroker/adapter-core": "^2.4.0",
     "delimiter-stream": "^3.0.1",
     "string_decoder": "^1.2.0",
     "serialport": "^9.0.1",
