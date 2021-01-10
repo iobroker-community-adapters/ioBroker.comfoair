@@ -859,13 +859,19 @@ function readComfoairData(buffarr) {
       case 222:
         //polling
         adapter.log.debug(cmd + " : lese Betriebsstunden");
-        adapter.setState('status.hLVLabw', parseInt((buffarr[7].toString(16).padStart(2, '0') + buffarr[8].toString(16).padStart(2, '0') + buffarr[9].toString(16).padStart(2, '0')), 16), true);
-        adapter.setState('status.hLVL1', parseInt((buffarr[10].toString(16).padStart(2, '0') + buffarr[11].toString(16).padStart(2, '0') + buffarr[12].toString(16).padStart(2, '0')), 16), true);
-        adapter.setState('status.hLVL2', parseInt((buffarr[13].toString(16).padStart(2, '0') + buffarr[14].toString(16).padStart(2, '0') + buffarr[15].toString(16).padStart(2, '0')), 16), true);
-        adapter.setState('status.hBypO', parseInt((buffarr[20].toString(16).padStart(2, '0') + buffarr[21].toString(16).padStart(2, '0')), 16), true);
-        adapter.setState('status.hFrostS', parseInt((buffarr[16].toString(16).padStart(2, '0') + buffarr[17].toString(16).padStart(2, '0')), 16), true);
-        adapter.setState('status.hVorh', parseInt((buffarr[18].toString(16).padStart(2, '0') + buffarr[19].toString(16).padStart(2, '0')), 16), true);
-        adapter.setState('status.hLVL3', parseInt((buffarr[24].toString(16).padStart(2, '0') + buffarr[25].toString(16).padStart(2, '0') + buffarr[26].toString(16).padStart(2, '0')), 16), true);
+        adapter.setState('status.hLVLabw', parseInt((buffarr[7]) * 256 + buffarr[8] * 256 + buffarr[9]), true);
+        adapter.setState('status.hLVL1', parseInt(buffarr[10] * 256 + buffarr[11] * 256 + buffarr[12]), true);
+        //  adapter.setState('status.hLVL1', parseInt((buffarr[10].toString(16).padStart(2, '0') + buffarr[11].toString(16).padStart(2, '0') + buffarr[12].toString(16).padStart(2, '0')), 16), true);
+        adapter.setState('status.hLVL2', parseInt(buffarr[13] * 256 + buffarr[14] * 256 + buffarr[15]), true);
+        //adapter.setState('status.hLVL2', parseInt((buffarr[13].toString(16).padStart(2, '0') + buffarr[14].toString(16).padStart(2, '0') + buffarr[15].toString(16).padStart(2, '0')), 16), true);
+        adapter.setState('status.hBypO', parseInt(buffarr[20] * 256 + buffarr[21]), true);
+        //adapter.setState('status.hBypO', parseInt((buffarr[20].toString(16).padStart(2, '0') + buffarr[21].toString(16).padStart(2, '0')), 16), true);
+        adapter.setState('status.hFrostS', parseInt(buffarr[16] * 256 + buffarr[17]), true);
+        //adapter.setState('status.hFrostS', parseInt((buffarr[16].toString(16).padStart(2, '0') + buffarr[17].toString(16).padStart(2, '0')), 16), true);
+        adapter.setState('status.hVorh', parseInt(buffarr[18] * 256 + buffarr[19]), true);
+        //  adapter.setState('status.hVorh', parseInt((buffarr[18].toString(16).padStart(2, '0') + buffarr[19].toString(16).padStart(2, '0')), 16), true);
+        adapter.setState('status.hLVL3', parseInt(buffarr[24] * 256 + buffarr[25] * 256 + buffarr[26]), true);
+        //adapter.setState('status.hLVL3', parseInt((buffarr[24].toString(16).padStart(2, '0') + buffarr[25].toString(16).padStart(2, '0') + buffarr[26].toString(16).padStart(2, '0')), 16), true);
         //adapter.setState('status.filterh', parseInt((buffarr[22].toString(16).padStart(2, '0') + buffarr[23].toString(16).padStart(2, '0')), 16), true);
         adapter.setState('status.filterh', parseInt(buffarr[22]) * 256 + parseInt(buffarr[23]), true);
         adapter.getState('status.filterhlastreset', function(err, state) {
