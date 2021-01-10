@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "news": {
+      "1.1.2": {
+        "en": "adpter - internal filter-h couter added",
+        "de": "adapterinternen Betriebsstundenzähler Filter hinzugefügt"
+      },
       "1.1.1": {
         "en": "Periodical self-test with restart in case of fail added",
         "de": "Periodischer Selbsttest mit Neustart wenn nötig hinzugefügt"

@@ -445,10 +445,11 @@ function controlcomfoair(id, state) {
         callcomfoair(setcomfotemp);
         break;
 
-      case "control.reset.filterh":
+      case "control.resetfilterh":
         if (state == true) {
           adapter.log.debug("Setze Betriebsstunden Filter zurück");
           setreset[8] = 1;
+          setreset = [0x07, 0xF0, 0x00, 0xDB, 0x04, 0x00, 0x00, 0x00, 0x01, 0x00, 0x07, 0x0F]
           setreset[9] = parseInt(checksumcmd(setreset), 16);
           callcomfoair(setreset);
           setreset = [0x07, 0xF0, 0x00, 0xDB, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x0F]
@@ -586,6 +587,11 @@ function callcomfoair(hexout) {
                 break;
               case 211:
                 adapter.setState('temperature.statcomfort', ((hexout[5] / 2) - 20), true);
+                adapter.getState('control.comforttemp', function(err, state) {
+                  if (state) {
+                    adapter.setState('control.comforttemp', ((hexout[5] / 2) - 20), true);
+                  }
+                });
                 break;
               case 219:
                 if (hexout[5] == 1) {
@@ -600,6 +606,12 @@ function callcomfoair(hexout) {
                 if (hexout[8] == 1) {
                   adapter.log.debug("Betriebsstunden Filter zurückgesetzt");
                   adapter.setState('status.filterChange', 0, true);
+                  adapter.setState('status.filterhinst', 0, true);
+                  adapter.getState('status.filterh', function(err, state) {
+                    if (state) {
+                      adapter.setState('status.filterhlastreset', state.val, true);
+                    }
+                  });
                 }
                 break;
               case 207:
@@ -805,6 +817,11 @@ function readComfoairData(buffarr) {
         // listener & polling
         adapter.log.debug(cmd + " : lese Temperaturwerte");
         adapter.setState('temperature.statcomfort', ((buffarr[7] / 2) - 20), true);
+        adapter.getState('control.comforttemp', function(err, state) {
+          if (state) {
+            adapter.setState('control.comforttemp', ((buffarr[7] / 2) - 20), true);
+          }
+        });
         adapter.setState('temperature.AUL', ((buffarr[8] / 2) - 20), true);
         adapter.setState('temperature.ZUL', ((buffarr[9] / 2) - 20), true);
         adapter.setState('temperature.ABL', ((buffarr[10] / 2) - 20), true);
@@ -826,6 +843,12 @@ function readComfoairData(buffarr) {
         adapter.setState('status.statstufe', (buffarr[15] - 1), true);
         adapter.setState('status.ventlevel.ABL3', buffarr[17], true);
         adapter.setState('status.ventlevel.ZUL3', buffarr[18], true);
+        adapter.getState('control.stufe', function(err, state) {
+          if (state) {
+            adapter.setState('control.stufe', (buffarr[15] - 1), true);
+          }
+        });
+
         for (var i = 5; i < 11; i++) {
           setvent[i] = buffarr[i + 2];
         }
@@ -843,7 +866,18 @@ function readComfoairData(buffarr) {
         adapter.setState('status.hFrostS', parseInt((buffarr[16].toString(16).padStart(2, '0') + buffarr[17].toString(16).padStart(2, '0')), 16), true);
         adapter.setState('status.hVorh', parseInt((buffarr[18].toString(16).padStart(2, '0') + buffarr[19].toString(16).padStart(2, '0')), 16), true);
         adapter.setState('status.hLVL3', parseInt((buffarr[24].toString(16).padStart(2, '0') + buffarr[25].toString(16).padStart(2, '0') + buffarr[26].toString(16).padStart(2, '0')), 16), true);
-        adapter.setState('status.filterh', parseInt((buffarr[22].toString(16).padStart(2, '0') + buffarr[23].toString(16).padStart(2, '0')), 16), true);
+        //adapter.setState('status.filterh', parseInt((buffarr[22].toString(16).padStart(2, '0') + buffarr[23].toString(16).padStart(2, '0')), 16), true);
+        adapter.setState('status.filterh', parseInt(buffarr[22]) * 256 + parseInt(buffarr[23]), true);
+        adapter.getState('status.filterhlastreset', function(err, state) {
+          if (state) {
+            if (parseInt(buffarr[22]) * 256 + parseInt(buffarr[23]) == 0) {
+              adapter.setState('status.filterhinst', 0, true);
+            } else {
+              adapter.setState('status.filterhinst', parseInt(buffarr[22]) * 256 + parseInt(buffarr[23]) - state.val, true);
+            }
+          }
+        });
+        //7,243,7,240,0,222,20,0,22,194,0,49,240,0,19,49,0,76,0,0,33,142,59,159,0,10,60,247,7,15
         break;
 
       case 14:
@@ -894,6 +928,11 @@ function readComfoairData(buffarr) {
             }
             pcmastermode = true;
             adapter.setState('status.rs232mode', 1, true);
+            adapter.getState('control.rs232mode', function(err, state) {
+              if (state) {
+                adapter.setState('control.rs232mode', 1, true);
+              }
+            });
             break;
 
           case 2:
@@ -901,6 +940,11 @@ function readComfoairData(buffarr) {
             rs232 = 0;
             adapter.log.debug("CC-Ease only Modus: keine Aktualisierung / Befehle durch Adapter");
             adapter.setState('status.rs232mode', 0, true);
+            adapter.getState('control.rs232mode', function(err, state) {
+              if (state) {
+                adapter.setState('control.rs232mode', 0, true);
+              }
+            });
             break;
 
           case 3:
@@ -913,6 +957,11 @@ function readComfoairData(buffarr) {
             }
             pcmastermode = true;
             adapter.setState('status.rs232mode', 1, true);
+            adapter.getState('control.rs232mode', function(err, state) {
+              if (state) {
+                adapter.setState('control.rs232mode', 1, true);
+              }
+            });
             break;
 
           case 4:
@@ -926,6 +975,11 @@ function readComfoairData(buffarr) {
               adapter.log.debug("Parallelbetrieb aktiv");
             }
             adapter.setState('status.rs232mode', 2, true);
+            adapter.getState('control.rs232mode', function(err, state) {
+              if (state) {
+                adapter.setState('control.rs232mode', 2, true);
+              }
+            });
         }
         break;
 
@@ -971,6 +1025,7 @@ function readComfoairData(buffarr) {
         break;
 
       default:
+        adapter.log.debug("datenset erhalten aber nicht ausgewertet:" + buffar);
         adapter.log.debug("Fehler: ACK korrekt, aber Daten nicht erkannt");
 
     }
@@ -1078,9 +1133,38 @@ function setcontrolobjects() {
       name: 'Reset Betriebsstunden Filter',
       desc: 'Zurücksetzen Betriebsstunden Filter',
       type: 'boolean',
-      role: "value.control",
+      role: "value.button",
       read: true,
       write: true
+    },
+    native: {}
+  });
+
+  adapter.setObjectNotExists('status.filterhlastreset', {
+    type: 'state',
+    common: {
+      name: 'Zählerstand letzer Reset',
+      desc: 'Zählerstand der Comfoair beim letzten Reset',
+      type: 'number',
+      role: "value.hours",
+      read: true,
+      write: true,
+      def: 0,
+      unit: 'h'
+    },
+    native: {}
+  });
+
+  adapter.setObjectNotExists('status.filterhinst', {
+    type: 'state',
+    common: {
+      name: 'Betriebsstunden Filter Instanz',
+      desc: 'Betriebsstunden seit dem letzten Reset in dieser Adapter-Instanz',
+      type: 'number',
+      role: "value.hours",
+      read: true,
+      write: true,
+      unit: 'h'
     },
     native: {}
   });
@@ -1199,7 +1283,7 @@ function setcontrolobjects() {
       name: 'Selbsttest',
       desc: 'Auslösen Selbsttest',
       type: 'boolean',
-      role: "value.control",
+      role: "button",
       read: true,
       write: true
     },
@@ -1278,6 +1362,7 @@ function setpollingobjects() {
     },
     native: {}
   });
+
   adapter.setObjectNotExists('status.hLVLabw', {
     type: "state",
     common: {
