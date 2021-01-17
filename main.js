@@ -1031,7 +1031,7 @@ function readComfoairData(buffarr) {
         break;
 
       default:
-        adapter.log.debug("datenset erhalten aber nicht ausgewertet:" + buffar);
+        adapter.log.debug("datenset erhalten aber nicht ausgewertet:" + buffarr);
         adapter.log.debug("Fehler: ACK korrekt, aber Daten nicht erkannt");
 
     }
