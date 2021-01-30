@@ -40,7 +40,8 @@ var setfanstate = [
   [0x07, 0xF0, 0x00, 0x99, 0x01, 0x01, 0x48, 0x07, 0x0F], //Stufe abwesend
   [0x07, 0xF0, 0x00, 0x99, 0x01, 0x02, 0x49, 0x07, 0x0F], //Stufe niedrig
   [0x07, 0xF0, 0x00, 0x99, 0x01, 0x03, 0x4A, 0x07, 0x0F], //Stufe mittel
-  [0x07, 0xF0, 0x00, 0x99, 0x01, 0x04, 0x4B, 0x07, 0x0F] //Stufe hoch
+  [0x07, 0xF0, 0x00, 0x99, 0x01, 0x04, 0x4B, 0x07, 0x0F], //Stufe hoch
+  [0x07, 0xF0, 0x00, 0x99, 0x01, 0x00, 0x47, 0x07, 0x0F] //Stufe Auto
 ];
 var setcomfotemp = [0x07, 0xF0, 0x00, 0xD3, 0x01, 0x14, 0x48, 0x07, 0x0F]; //Komforttemperatur setzen
 var setreset = [0x07, 0xF0, 0x00, 0xDB, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0x0F];
@@ -71,6 +72,8 @@ var rs232;
 var connectionip = true;
 var serialdevice = "/dev/ttyUSB0";
 var listenonlyserial = false;
+var boostlevelold;
+
 
 
 let polling;
@@ -583,7 +586,7 @@ function callcomfoair(hexout) {
             adapter.log.debug("ACK erhalten");
             switch (hexout[3]) {
               case 153:
-                adapter.setState('status.statstufe', (hexout[5] - 1), true);
+                adapter.setState('status.statstufe', (hexout[5]), true);
                 break;
               case 211:
                 adapter.setState('temperature.statcomfort', ((hexout[5] / 2) - 20), true);
@@ -690,7 +693,7 @@ function callcomfoair(hexout) {
               adapter.log.debug("ACK erhalten");
               switch (hexout[3]) {
                 case 153:
-                  adapter.setState('status.statstufe', (hexout[5] - 1), true);
+                  adapter.setState('status.statstufe', (hexout[5]), true);
                   break;
                 case 211:
                   adapter.setState('temperature.statcomfort', ((hexout[5] / 2) - 20), true);
@@ -840,12 +843,12 @@ function readComfoairData(buffarr) {
         adapter.setState('status.ventlevel.ZUL2', buffarr[12], true);
         adapter.setState('status.ventABL', buffarr[13], true);
         adapter.setState('status.ventZUL', buffarr[14], true);
-        adapter.setState('status.statstufe', (buffarr[15] - 1), true);
+        adapter.setState('status.statstufe', (buffarr[15]), true);
         adapter.setState('status.ventlevel.ABL3', buffarr[17], true);
         adapter.setState('status.ventlevel.ZUL3', buffarr[18], true);
         adapter.getState('control.stufe', function(err, state) {
           if (state) {
-            adapter.setState('control.stufe', (buffarr[15] - 1), true);
+            adapter.setState('control.stufe', (buffarr[15]), true);
           }
         });
 
@@ -1123,12 +1126,13 @@ function setcontrolobjects() {
       read: true,
       write: true,
       states: {
-        0: "Abwesend",
-        1: "tief",
-        2: "mittel",
-        3: "hoch"
+        0: "Auto",
+        1: "Abwesend",
+        2: "tief",
+        3: "mittel",
+        4: "hoch"
       },
-      def: 1
+      def: 2
     },
     native: {}
   });
@@ -1572,6 +1576,24 @@ function setpollingobjects() {
 
 
 }
+
+function boost() {
+  adapter.log.debug("Starte Boostmodus")
+  adapter.getState('status.statstufe', function(err, state) {
+    if (state) {
+      boostlevelold = state.val;
+    }
+  });
+  adapter.getState('status.boosttime', function(err, state) {
+    if (state) {
+      adapter.log.debug("Starte Boostmodus für " + state.val " Minuten, kehre danach auf Stufe " + boostlevelold + " zurück");
+      adapter.setState('control.stofe', 4, false);
+      setTimeout(function() {
+        adapter.setState('control.stofe', boostlevelold, false);
+      }, state.val);
+    }
+  });
+} //end function boost
 
 function restartAdapter() {
   adapter.getForeignObject('system.adapter.' + adapter.namespace, (err, obj) => {

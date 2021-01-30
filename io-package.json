@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "news": {
+      "1.1.3": {
+        "en": "level 'Auto and boost mode added'",
+        "de": "Stufe 'Auto' und Boostmodus/Stosslüftung (manuell) hinzugefügt"
+      },
       "1.1.2": {
         "en": "adapter - internal filter-h counter added",
         "de": "adapterinternen Betriebsstundenzähler Filter hinzugefügt"
@@ -248,10 +252,11 @@
         "read": true,
         "write": false,
         "states": {
-          "0": "Abwesend",
-          "1": "tief",
-          "2": "mittel",
-          "3": "hoch"
+          "0": "Auto",
+          "1": "Abwesend",
+          "2": "tief",
+          "3": "mittel",
+          "4": "hoch"
         },
         "def": 1,
         "desc": "Aktuelle Stufe"
@@ -463,6 +468,38 @@
         "write": false,
         "unit": "%",
         "desc": "Enthalpietauscher Koeffizient"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "control.boost",
+      "type": "state",
+      "common": {
+        "name": "Boost starten",
+        "type": "boolean",
+        "role": "value.button",
+        "read": true,
+        "write": true,
+        "desc": "Boostmodus starten"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "control.boosttime",
+      "type": "state",
+      "common": {
+        "name": "Boostdauer (min)",
+        "type": "number",
+        "role": "value.info",
+        "read": true,
+        "write": true,
+        "unit": "min",
+        "def": 3,
+        "desc": "Laufzeit Boostmodus"
       },
       "native": {
 
