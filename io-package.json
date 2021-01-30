@@ -479,7 +479,7 @@
       "common": {
         "name": "Boost starten",
         "type": "boolean",
-        "role": "value.button",
+        "role": "button",
         "read": true,
         "write": true,
         "desc": "Boostmodus starten"

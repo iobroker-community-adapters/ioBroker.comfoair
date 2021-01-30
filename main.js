@@ -1586,7 +1586,7 @@ function boost() {
   });
   adapter.getState('status.boosttime', function(err, state) {
     if (state) {
-      adapter.log.debug("Starte Boostmodus für " + state.val " Minuten, kehre danach auf Stufe " + boostlevelold + " zurück");
+      adapter.log.debug("Starte Boostmodus für " + state.val + " Minuten, kehre danach auf Stufe " + boostlevelold + " zurück");
       adapter.setState('control.stofe', 4, false);
       setTimeout(function() {
         adapter.setState('control.stofe', boostlevelold, false);
