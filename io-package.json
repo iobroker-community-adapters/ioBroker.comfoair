@@ -252,10 +252,10 @@
         "read": true,
         "write": false,
         "states": {
-          "1": "Abwesend",
-          "2": "tief",
-          "3": "mittel",
-          "4": "hoch"
+          "0": "Abwesend",
+          "1": "tief",
+          "2": "mittel",
+          "3": "hoch"
         },
         "def": 1,
         "desc": "Aktuelle Stufe"

@@ -437,8 +437,8 @@ function controlcomfoair(id, state) {
         break;
 
       case "control.stufe":
-        adapter.log.debug("Setzte Stufe: " + state);
-        callcomfoair(setfanstate[state]);
+        adapter.log.debug("Setzte Stufe: " + state + 1);
+        callcomfoair(setfanstate[state + 1]);
         clearTimeout(boostrun);
         break;
 
@@ -592,7 +592,7 @@ function callcomfoair(hexout) {
             adapter.log.debug("ACK erhalten");
             switch (hexout[3]) {
               case 153:
-                adapter.setState('status.statstufe', (hexout[5]), true);
+                adapter.setState('status.statstufe', (hexout[5] - 1), true);
                 break;
               case 211:
                 adapter.setState('temperature.statcomfort', ((hexout[5] / 2) - 20), true);
@@ -699,7 +699,7 @@ function callcomfoair(hexout) {
               adapter.log.debug("ACK erhalten");
               switch (hexout[3]) {
                 case 153:
-                  adapter.setState('status.statstufe', (hexout[5]), true);
+                  adapter.setState('status.statstufe', (hexout[5] -1), true);
                   break;
                 case 211:
                   adapter.setState('temperature.statcomfort', ((hexout[5] / 2) - 20), true);
@@ -849,12 +849,12 @@ function readComfoairData(buffarr) {
         adapter.setState('status.ventlevel.ZUL2', buffarr[12], true);
         adapter.setState('status.ventABL', buffarr[13], true);
         adapter.setState('status.ventZUL', buffarr[14], true);
-        adapter.setState('status.statstufe', (buffarr[15]), true);
+        adapter.setState('status.statstufe', (buffarr[15] - 1), true);
         adapter.setState('status.ventlevel.ABL3', buffarr[17], true);
         adapter.setState('status.ventlevel.ZUL3', buffarr[18], true);
         adapter.getState('control.stufe', function(err, state) {
           if (state) {
-            adapter.setState('control.stufe', (buffarr[15]), true);
+            adapter.setState('control.stufe', (buffarr[15] - 1), true);
           }
         });
 
@@ -1132,10 +1132,10 @@ function setcontrolobjects() {
       read: true,
       write: true,
       states: {
-        1: "Abwesend",
-        2: "tief",
-        3: "mittel",
-        4: "hoch"
+        0: "Abwesend",
+        1: "tief",
+        2: "mittel",
+        3: "hoch"
       },
       def: 2
     },
