@@ -72,6 +72,7 @@ var connectionip = true;
 var serialdevice = "/dev/ttyUSB0";
 var listenonlyserial = false;
 var boostlevelold;
+var boostrun;
 
 
 
@@ -438,6 +439,7 @@ function controlcomfoair(id, state) {
       case "control.stufe":
         adapter.log.debug("Setzte Stufe: " + state);
         callcomfoair(setfanstate[state]);
+        clearTimeout(boostrun);
         break;
 
       case "control.comforttemp":
@@ -1591,7 +1593,7 @@ function boost() {
     if (state) {
       adapter.log.debug("Starte Boostmodus für " + state.val + " Minuten, kehre danach auf Stufe " + boostlevelold + " zurück");
       adapter.setState('control.stofe', 4, false);
-      setTimeout(function() {
+      boostrun = setTimeout(function() {
         adapter.setState('control.stofe', boostlevelold, false);
       }, state.val);
     }
