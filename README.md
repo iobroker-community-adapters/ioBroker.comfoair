@@ -59,7 +59,7 @@ Tested on comfoair CA350.
 
 ### 1.1.3
 
-- level 'Auto' and boostmode added
+-  boostmode added
 
 ### 1.1.2
 

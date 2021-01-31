@@ -92,6 +92,7 @@ function startAdapter(options) {
       clearInterval(polling);
       clearTimeout(polling);
       clearTimeout(pcmaster);
+      clearTimeout(boostrun);
       client.destroy();
       adapter.log.info('[END] Stopping comfoair adapter...');
       adapter.setState('info.connection', false, true);
@@ -437,8 +438,8 @@ function controlcomfoair(id, state) {
         break;
 
       case "control.stufe":
-        adapter.log.debug("Setzte Stufe: " + state + 1);
-        callcomfoair(setfanstate[state + 1]);
+        adapter.log.debug("Setzte Stufe: " + state);
+        callcomfoair(setfanstate[state]);
         clearTimeout(boostrun);
         break;
 
@@ -699,7 +700,7 @@ function callcomfoair(hexout) {
               adapter.log.debug("ACK erhalten");
               switch (hexout[3]) {
                 case 153:
-                  adapter.setState('status.statstufe', (hexout[5] -1), true);
+                  adapter.setState('status.statstufe', (hexout[5] - 1), true);
                   break;
                 case 211:
                   adapter.setState('temperature.statcomfort', ((hexout[5] / 2) - 20), true);
@@ -1587,17 +1588,22 @@ function boost() {
   adapter.getState('status.statstufe', function(err, state) {
     if (state) {
       boostlevelold = state.val;
+      adapter.log.debug("Speichere Stufe: " + boostlevelold);
+      adapter.getState('control.boosttime', function(err, state) {
+        if (state) {
+          adapter.log.debug("Starte Boostmodus für " + state.val + " Minuten, kehre danach auf Stufe " + boostlevelold + " zurück");
+          callcomfoair(setfanstate[3]);;
+          boostrun = setTimeout(function() {
+            adapter.log.debug("Boost Ende");
+            adapter.setState('control.stufe', boostlevelold, false);
+          }, state.val * 60000);
+        } else {
+          adapter.log.debug("keine Boostzeit gefunden!");
+        }
+      });
     }
   });
-  adapter.getState('status.boosttime', function(err, state) {
-    if (state) {
-      adapter.log.debug("Starte Boostmodus für " + state.val + " Minuten, kehre danach auf Stufe " + boostlevelold + " zurück");
-      adapter.setState('control.stofe', 4, false);
-      boostrun = setTimeout(function() {
-        adapter.setState('control.stofe', boostlevelold, false);
-      }, state.val);
-    }
-  });
+
 } //end function boost
 
 function restartAdapter() {
