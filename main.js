@@ -836,7 +836,7 @@ function readComfoairData(buffarr) {
         adapter.setState('temperature.ZUL', ((buffarr[9] / 2) - 20), true);
         adapter.setState('temperature.ABL', ((buffarr[10] / 2) - 20), true);
         adapter.setState('temperature.FOL', ((buffarr[11] / 2) - 20), true);
-        adapter.setState('temperature.FOL', ((buffarr[11] / 2) - 20), true);
+        adapter.setState('temperature.EWT', ((buffarr[13] / 2) - 20), true);
         break;
 
       case 206:

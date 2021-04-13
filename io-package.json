@@ -150,6 +150,22 @@
       }
     },
     {
+      "_id": "temperature.EWT",
+      "type": "state",
+      "common": {
+        "name": "EWT Temperatur",
+        "type": "number",
+        "role": "value.temperature",
+        "read": true,
+        "write": false,
+        "desc": "EWT Temperatur",
+        "unit": "°C"
+      },
+      "native": {
+
+      }
+    },
+    {
       "_id": "temperature.FOL",
       "type": "state",
       "common": {
