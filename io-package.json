@@ -93,7 +93,9 @@
     "loglevel": "info",
     "type": "climate-control",
     "license": "MIT",
-    "messagebox": false
+    "messagebox": false,
+    "connectionType": "local",
+    "dataSource": "poll"
   },
   "native": {
     "host": "",
