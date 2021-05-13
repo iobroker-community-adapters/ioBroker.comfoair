@@ -615,7 +615,7 @@ function callcomfoair(hexout) {
                 }
                 if (hexout[8] == 1) {
                   adapter.log.debug("Betriebsstunden Filter zurückgesetzt");
-                  adapter.setState('status.filterChange', 0, true);
+                  adapter.setState('status.filterChange', false, true);
                   adapter.setState('status.filterhinst', 0, true);
                   adapter.getState('status.filterh', function(err, state) {
                     if (state) {
@@ -625,14 +625,14 @@ function callcomfoair(hexout) {
                 }
                 break;
               case 207:
-                adapter.setState('status.ventlevel.ABLabw', hexout[5], true);
-                adapter.setState('status.ventlevel.ABL1', hexout[6], true);
-                adapter.setState('status.ventlevel.ABL2', hexout[7], true);
-                adapter.setState('status.ventlevel.ZULabw', hexout[8], true);
-                adapter.setState('status.ventlevel.ZUL2', hexout[10], true);
-                adapter.setState('status.ventlevel.ZUL1', hexout[9], true);
-                adapter.setState('status.ventlevel.ABL3', hexout[11], true);
-                adapter.setState('status.ventlevel.ZUL3', hexout[12], true);
+                adapter.setState('status.ventlevel.ABLabw', parseInt(hexout[5]), true);
+                adapter.setState('status.ventlevel.ABL1', parseInt(hexout[6]), true);
+                adapter.setState('status.ventlevel.ABL2', parseInt(hexout[7]), true);
+                adapter.setState('status.ventlevel.ZULabw', parseInt(hexout[8]), true);
+                adapter.setState('status.ventlevel.ZUL2', parseInt(hexout[10]), true);
+                adapter.setState('status.ventlevel.ZUL1', parseInt(hexout[9]), true);
+                adapter.setState('status.ventlevel.ABL3', parseInt(hexout[11]), true);
+                adapter.setState('status.ventlevel.ZUL3', parseInt(hexout[12]), true);
                 adapter.log.debug("Ventilationsstufen gesetzt");
             }
           } else {
