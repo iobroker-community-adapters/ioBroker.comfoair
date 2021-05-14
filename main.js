@@ -717,7 +717,7 @@ function callcomfoair(hexout) {
                   }
                   if (hexout[8] == 1) {
                     adapter.log.debug("Betriebsstunden Filter zurückgesetzt");
-                    adapter.setState('status.filterChange', 0, true);
+                    adapter.setState('status.filterChange', false, true);
                   }
                   break;
                 case 207:
@@ -917,7 +917,7 @@ function readComfoairData(buffarr) {
       case 218:
         //polling
         adapter.log.debug(cmd + ": lese Störungsmeldungen");
-        adapter.setState("status.filterChange", buffarr[15], true);
+        adapter.setState("status.filterChange", !!+buffarr[15], true);
         adapter.setState("status.errors.aktuellA", 'A' + errorcode(buffarr[7]), true);
         adapter.setState("status.errors.aktuellE", 'E' + errorcode(buffarr[8]), true);
         adapter.setState("status.errors.letzterA", 'A' + errorcode(buffarr[9]), true);
