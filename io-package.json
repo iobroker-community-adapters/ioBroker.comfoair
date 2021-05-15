@@ -110,6 +110,11 @@
     "connectionserial": false,
     "serialdevice": "/dev/"
   },
+  "plugins": {
+    "sentry": {
+      "dsn": "https://...@.../..."
+    }
+  },
   "objects": [],
   "instanceObjects": [
 
