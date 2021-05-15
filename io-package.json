@@ -99,7 +99,12 @@
     "license": "MIT",
     "messagebox": false,
     "connectionType": "local",
-    "dataSource": "poll"
+    "dataSource": "poll",
+    "plugins": {
+      "sentry": {
+        "dsn": "https://b52b2262a6b04cd891ea2cfada37431c@o667513.ingest.sentry.io/5767068"
+      }
+    }
   },
   "native": {
     "host": "",
@@ -110,11 +115,7 @@
     "connectionserial": false,
     "serialdevice": "/dev/"
   },
-  "plugins": {
-    "sentry": {
-      "dsn": "https://...@.../..."
-    }
-  },
+
   "objects": [],
   "instanceObjects": [
 
