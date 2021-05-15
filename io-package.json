@@ -1,9 +1,9 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "news": {
-      "1.1.4": {
+      "1.1.5": {
         "en": "bugfix (js-controller update)'",
         "de": "Fehlerbehebung (js-controller update)"
       },

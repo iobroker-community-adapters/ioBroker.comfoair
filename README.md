@@ -59,7 +59,7 @@ Tested on comfoair CA350.
 
 ## Changelog
 
-### 1.1.4
+### 1.1.5
 
 -   Bugfix (js-controller update)
 

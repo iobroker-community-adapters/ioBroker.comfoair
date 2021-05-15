@@ -676,70 +676,71 @@ function callcomfoair(hexout) {
 
     // The open event is always emitted
     port.on('open', function() {
-      adapter.log.debug('Connected to serial port');
+        adapter.log.debug('Connected to serial port');
 
-      parser.on('data', function(data) {
-        var buff = Buffer.from(data);
-        adapter.log.debug('Data received (hex): ' + buff.toString('hex'));
-        var buffarr = [...buff];
-        adapter.log.debug('Received arr: ' + buffarr);
-        try {
-          if (buffarr.length > 3) {
-            adapter.log.debug("ACK: " + buffarr[0] + ", " + buffarr[1]);
-            adapter.log.debug("Checksumme aus Datensatz: " + buffarr[buffarr.length - 3]);
-            adapter.log.debug("Checksumme berechnet: " + parseInt(checksumcmd(buff.slice(2)), 16));
-            if (buffarr[0] == 7 && buffarr[1] == 243 && buffarr[buffarr.length - 3] == parseInt(checksumcmd(buff.slice(2)), 16)) {
-              adapter.log.debug("ACK erhalten und Checksumme ok");
-              readComfoairData(buffarr);
+        parser.on('data', function(data) {
+            var buff = Buffer.from(data);
+            adapter.log.debug('Data received (hex): ' + buff.toString('hex'));
+            var buffarr = [...buff];
+            adapter.log.debug('Received arr: ' + buffarr);
+            try {
+              if (buffarr.length > 3) {
+                adapter.log.debug("ACK: " + buffarr[0] + ", " + buffarr[1]);
+                adapter.log.debug("Checksumme aus Datensatz: " + buffarr[buffarr.length - 3]);
+                adapter.log.debug("Checksumme berechnet: " + parseInt(checksumcmd(buff.slice(2)), 16));
+                if (buffarr[0] == 7 && buffarr[1] == 243 && buffarr[buffarr.length - 3] == parseInt(checksumcmd(buff.slice(2)), 16)) {
+                  adapter.log.debug("ACK erhalten und Checksumme ok");
+                  readComfoairData(buffarr);
 
-            } else {
-              adapter.log.debug("ACK zu Datenabfrage nicht erhalten oder Checksumme falsch");
-            }
-          } else {
-            if (buff.toString('hex') == "07f3") {
-              adapter.log.debug("ACK erhalten");
-              switch (hexout[3]) {
-                case 153:
-                  adapter.setState('status.statstufe', (hexout[5] - 1), true);
-                  break;
-                case 211:
-                  adapter.setState('temperature.statcomfort', ((hexout[5] / 2) - 20), true);
-                  break;
-                case 219:
-                  if (hexout[5] == 1) {
-                    adapter.log.debug("Störungen zurückgesetzt");
-                  }
-                  if (hexout[6] == 1) {
-                    adapter.log.debug("Einstellungen zurückgesetzt");
-                  }
-                  if (hexout[7] == 1) {
-                    adapter.log.debug("Selbsttest gestartet");
-                  }
-                  if (hexout[8] == 1) {
-                    adapter.log.debug("Betriebsstunden Filter zurückgesetzt");
-                    adapter.setState('status.filterChange', false, true);
-                  }
-                  break;
-                case 207:
-                  adapter.setState('status.ventlevel.ABLabw', hexout[5], true);
-                  adapter.setState('status.ventlevel.ABL1', hexout[6], true);
-                  adapter.setState('status.ventlevel.ABL2', hexout[7], true);
-                  adapter.setState('status.ventlevel.ZULabw', hexout[8], true);
-                  adapter.setState('status.ventlevel.ZUL2', hexout[10], true);
-                  adapter.setState('status.ventlevel.ZUL1', hexout[9], true);
-                  adapter.setState('status.ventlevel.ABL3', hexout[11], true);
-                  adapter.setState('status.ventlevel.ZUL3', hexout[12], true);
+                } else {
+                  adapter.log.debug("ACK zu Datenabfrage nicht erhalten oder Checksumme falsch");
+                }
+              } else {
+                if (buff.toString('hex') == "07f3") {
+                  adapter.log.debug("ACK erhalten");
+                  switch (hexout[3]) {
+                    case 153:
+                      adapter.setState('status.statstufe', (hexout[5] - 1), true);
+                      break;
+                    case 211:
+                      adapter.setState('temperature.statcomfort', ((hexout[5] / 2) - 20), true);
+                      break;
+                    case 219:
+                      if (hexout[5] == 1) {
+                        adapter.log.debug("Störungen zurückgesetzt");
+                      }
+                      if (hexout[6] == 1) {
+                        adapter.log.debug("Einstellungen zurückgesetzt");
+                      }
+                      if (hexout[7] == 1) {
+                        adapter.log.debug("Selbsttest gestartet");
+                      }
+                      if (hexout[8] == 1) {
+                        adapter.log.debug("Betriebsstunden Filter zurückgesetzt");
+                        adapter.setState('status.filterChange', false, true);
+                      }
+                      break;
+                    case 207:
+                    )
+                  adapter.setState('status.ventlevel.ABLabw', parseInt(hexout[5]), true);
+                  adapter.setState('status.ventlevel.ABL1', parseInt(hexout[6]), true);
+                  adapter.setState('status.ventlevel.ABL2', parseInt(hexout[7]), true);
+                  adapter.setState('status.ventlevel.ZULabw', parseInt(hexout[8]), true);
+                  adapter.setState('status.ventlevel.ZUL2', parseInt(hexout[10]), true);
+                  adapter.setState('status.ventlevel.ZUL1', parseInt(hexout[9]), true);
+                  adapter.setState('status.ventlevel.ABL3', parseInt(hexout[11]), true);
+                  adapter.setState('status.ventlevel.ZUL3', parseInt(hexout[12]), true);
                   adapter.log.debug("Ventilationsstufen gesetzt");
+                }
+              } else {
+                adapter.log.debug("ACK zu Kommando nicht erhlaten");
               }
-            } else {
-              adapter.log.debug("ACK zu Kommando nicht erhlaten");
             }
-          }
 
-        } catch (e) {
-          adapter.log.warn("Client-Data - Fehler" + e);
-        }
-      });
+          } catch (e) {
+            adapter.log.warn("Client-Data - Fehler" + e);
+          }
+        });
 
       if (listenonlyserial == false) {
         setTimeout(function() {
@@ -760,17 +761,17 @@ function callcomfoair(hexout) {
 
       }
     });
-    port.on('error', function(err) {
-      adapter.log.info('Error2: ', err.message);
-      port.close();
-    });
+  port.on('error', function(err) {
+    adapter.log.info('Error2: ', err.message);
+    port.close();
+  });
 
 
-    port.on('close', function() {
-      adapter.log.debug("serial port closed");
-    });
+  port.on('close', function() {
+    adapter.log.debug("serial port closed");
+  });
 
-  }
+}
 } //end callcomfoair
 
 function listentocomfoair() {
@@ -842,20 +843,20 @@ function readComfoairData(buffarr) {
       case 206:
         // listener & polling
         adapter.log.debug(cmd + " : lese Ventilatorstatus");
-        adapter.setState('status.ventlevel.ABLabw', buffarr[7], true);
-        adapter.setState('status.ventlevel.ABL1', buffarr[8], true);
-        adapter.setState('status.ventlevel.ABL2', buffarr[9], true);
-        adapter.setState('status.ventlevel.ZULabw', buffarr[10], true);
-        adapter.setState('status.ventlevel.ZUL1', buffarr[11], true);
-        adapter.setState('status.ventlevel.ZUL2', buffarr[12], true);
-        adapter.setState('status.ventABL', buffarr[13], true);
-        adapter.setState('status.ventZUL', buffarr[14], true);
-        adapter.setState('status.statstufe', (buffarr[15] - 1), true);
-        adapter.setState('status.ventlevel.ABL3', buffarr[17], true);
-        adapter.setState('status.ventlevel.ZUL3', buffarr[18], true);
+        adapter.setState('status.ventlevel.ABLabw', parseInt(buffarr[7]), true);
+        adapter.setState('status.ventlevel.ABL1', parseInt(buffarr[8]), true);
+        adapter.setState('status.ventlevel.ABL2', parseInt(buffarr[9]), true);
+        adapter.setState('status.ventlevel.ZULabw', parseInt(buffarr[10]), true);
+        adapter.setState('status.ventlevel.ZUL1', parseInt(buffarr[11]), true);
+        adapter.setState('status.ventlevel.ZUL2', parseInt(buffarr[12]), true);
+        adapter.setState('status.ventABL', parseInt(buffarr[13]), true);
+        adapter.setState('status.ventZUL', parseInt(buffarr[14]), true);
+        adapter.setState('status.statstufe', parseInt((buffarr[15] - 1)), true);
+        adapter.setState('status.ventlevel.ABL3', parseInt(buffarr[17]), true);
+        adapter.setState('status.ventlevel.ZUL3', parseInt(buffarr[18]), true);
         adapter.getState('control.stufe', function(err, state) {
           if (state) {
-            adapter.setState('control.stufe', (buffarr[15] - 1), true);
+            adapter.setState('control.stufe', parseInt((buffarr[15] - 1)), true);
           }
         });
 
@@ -899,13 +900,13 @@ function readComfoairData(buffarr) {
       case 14:
         //polling
         adapter.log.debug(cmd + " : lese Status Bypass");
-        adapter.setState('status.bypass', buffarr[7], true);
+        adapter.setState('status.bypass', parseInt(buffarr[7]), true);
         break;
 
       case 224:
         // listener
         adapter.log.debug(cmd + " : lese Status Bypass 224");
-        adapter.setState('status.bypass', buffarr[10], true);
+        adapter.setState('status.bypass', parseInt(buffarr[10]), true);
         break;
 
       case 202:
@@ -1020,9 +1021,9 @@ function readComfoairData(buffarr) {
       case 152:
         // listener & polling
         adapter.log.debug(cmd + " : lese Enthalpietauscherwerte");
-        adapter.setState('status.enthalpie.temp', ((buffarr[7] / 2) - 20), true);
-        adapter.setState('status.enthalpie.hum', (buffarr[8]), true);
-        adapter.setState('status.enthalpie.koeff', (buffarr[11]), true);
+        adapter.setState('status.enthalpie.temp', parseInt(((buffarr[7] / 2) - 20)), true);
+        adapter.setState('status.enthalpie.hum', parseInt((buffarr[8])), true);
+        adapter.setState('status.enthalpie.koeff', parseInt((buffarr[11])), true);
         break;
 
       case 226:
