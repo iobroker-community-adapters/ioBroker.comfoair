@@ -676,52 +676,52 @@ function callcomfoair(hexout) {
 
     // The open event is always emitted
     port.on('open', function() {
-        adapter.log.debug('Connected to serial port');
+      adapter.log.debug('Connected to serial port');
 
-        parser.on('data', function(data) {
-            var buff = Buffer.from(data);
-            adapter.log.debug('Data received (hex): ' + buff.toString('hex'));
-            var buffarr = [...buff];
-            adapter.log.debug('Received arr: ' + buffarr);
-            try {
-              if (buffarr.length > 3) {
-                adapter.log.debug("ACK: " + buffarr[0] + ", " + buffarr[1]);
-                adapter.log.debug("Checksumme aus Datensatz: " + buffarr[buffarr.length - 3]);
-                adapter.log.debug("Checksumme berechnet: " + parseInt(checksumcmd(buff.slice(2)), 16));
-                if (buffarr[0] == 7 && buffarr[1] == 243 && buffarr[buffarr.length - 3] == parseInt(checksumcmd(buff.slice(2)), 16)) {
-                  adapter.log.debug("ACK erhalten und Checksumme ok");
-                  readComfoairData(buffarr);
+      parser.on('data', function(data) {
+        var buff = Buffer.from(data);
+        adapter.log.debug('Data received (hex): ' + buff.toString('hex'));
+        var buffarr = [...buff];
+        adapter.log.debug('Received arr: ' + buffarr);
+        try {
+          if (buffarr.length > 3) {
+            adapter.log.debug("ACK: " + buffarr[0] + ", " + buffarr[1]);
+            adapter.log.debug("Checksumme aus Datensatz: " + buffarr[buffarr.length - 3]);
+            adapter.log.debug("Checksumme berechnet: " + parseInt(checksumcmd(buff.slice(2)), 16));
+            if (buffarr[0] == 7 && buffarr[1] == 243 && buffarr[buffarr.length - 3] == parseInt(checksumcmd(buff.slice(2)), 16)) {
+              adapter.log.debug("ACK erhalten und Checksumme ok");
+              readComfoairData(buffarr);
 
-                } else {
-                  adapter.log.debug("ACK zu Datenabfrage nicht erhalten oder Checksumme falsch");
-                }
-              } else {
-                if (buff.toString('hex') == "07f3") {
-                  adapter.log.debug("ACK erhalten");
-                  switch (hexout[3]) {
-                    case 153:
-                      adapter.setState('status.statstufe', (hexout[5] - 1), true);
-                      break;
-                    case 211:
-                      adapter.setState('temperature.statcomfort', ((hexout[5] / 2) - 20), true);
-                      break;
-                    case 219:
-                      if (hexout[5] == 1) {
-                        adapter.log.debug("Störungen zurückgesetzt");
-                      }
-                      if (hexout[6] == 1) {
-                        adapter.log.debug("Einstellungen zurückgesetzt");
-                      }
-                      if (hexout[7] == 1) {
-                        adapter.log.debug("Selbsttest gestartet");
-                      }
-                      if (hexout[8] == 1) {
-                        adapter.log.debug("Betriebsstunden Filter zurückgesetzt");
-                        adapter.setState('status.filterChange', false, true);
-                      }
-                      break;
-                    case 207:
-                    )
+            } else {
+              adapter.log.debug("ACK zu Datenabfrage nicht erhalten oder Checksumme falsch");
+            }
+          } else {
+            if (buff.toString('hex') == "07f3") {
+              adapter.log.debug("ACK erhalten");
+              switch (hexout[3]) {
+                case 153:
+                  adapter.setState('status.statstufe', (hexout[5] - 1), true);
+                  break;
+                case 211:
+                  adapter.setState('temperature.statcomfort', ((hexout[5] / 2) - 20), true);
+                  break;
+                case 219:
+                  if (hexout[5] == 1) {
+                    adapter.log.debug("Störungen zurückgesetzt");
+                  }
+                  if (hexout[6] == 1) {
+                    adapter.log.debug("Einstellungen zurückgesetzt");
+                  }
+                  if (hexout[7] == 1) {
+                    adapter.log.debug("Selbsttest gestartet");
+                  }
+                  if (hexout[8] == 1) {
+                    adapter.log.debug("Betriebsstunden Filter zurückgesetzt");
+                    adapter.setState('status.filterChange', false, true);
+                  }
+                  break;
+                case 207:
+
                   adapter.setState('status.ventlevel.ABLabw', parseInt(hexout[5]), true);
                   adapter.setState('status.ventlevel.ABL1', parseInt(hexout[6]), true);
                   adapter.setState('status.ventlevel.ABL2', parseInt(hexout[7]), true);
@@ -731,16 +731,16 @@ function callcomfoair(hexout) {
                   adapter.setState('status.ventlevel.ABL3', parseInt(hexout[11]), true);
                   adapter.setState('status.ventlevel.ZUL3', parseInt(hexout[12]), true);
                   adapter.log.debug("Ventilationsstufen gesetzt");
-                }
-              } else {
-                adapter.log.debug("ACK zu Kommando nicht erhlaten");
               }
+            } else {
+              adapter.log.debug("ACK zu Kommando nicht erhlaten");
             }
-
-          } catch (e) {
-            adapter.log.warn("Client-Data - Fehler" + e);
           }
-        });
+
+        } catch (e) {
+          adapter.log.warn("Client-Data - Fehler" + e);
+        }
+      });
 
       if (listenonlyserial == false) {
         setTimeout(function() {
@@ -761,17 +761,17 @@ function callcomfoair(hexout) {
 
       }
     });
-  port.on('error', function(err) {
-    adapter.log.info('Error2: ', err.message);
-    port.close();
-  });
+    port.on('error', function(err) {
+      adapter.log.info('Error2: ', err.message);
+      port.close();
+    });
 
 
-  port.on('close', function() {
-    adapter.log.debug("serial port closed");
-  });
+    port.on('close', function() {
+      adapter.log.debug("serial port closed");
+    });
 
-}
+  }
 } //end callcomfoair
 
 function listentocomfoair() {
