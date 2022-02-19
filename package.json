@@ -30,7 +30,7 @@
     "delimiter-stream": "^3.0.1",
     "string_decoder": "^1.2.0",
     "serialport": "^9.0.1",
-    "@serialport/parser-inter-byte-timeout": "^9.0.1"
+    "@serialport/parser-inter-byte-timeout": "^10.3.0"
 
   },
   "devDependencies": {
