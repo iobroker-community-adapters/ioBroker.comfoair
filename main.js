@@ -1597,6 +1597,7 @@ function boost() {
           boostrun = setTimeout(function() {
             adapter.log.debug("Boost Ende");
             adapter.setState('control.stufe', boostlevelold, false);
+            adapter.setState('control.boost', false, true);
           }, state.val * 60000);
         } else {
           adapter.log.debug("keine Boostzeit gefunden!");

@@ -104,7 +104,10 @@
       "sentry": {
         "dsn": "https://b52b2262a6b04cd891ea2cfada37431c@o667513.ingest.sentry.io/5767068"
       }
-    }
+    },
+    "dependencies": [{
+      "js-controller": ">=3.0.0"
+    }]
   },
   "native": {
     "host": "",
