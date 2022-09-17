@@ -71,7 +71,15 @@
     "title": "comfoair",
     "titleLang": {
       "en": "comfoairControl",
-      "de": "ComfoairSteuerung"
+      "de": "in den Warenkorb",
+      "ru": "comfoairКонтроль",
+      "pt": "compartimentação",
+      "nl": "comfoairContro",
+      "fr": "comfoairControl",
+      "it": "comfoairControl",
+      "es": "comfoairControl",
+      "pl": "komfoairControl",
+      "zh-cn": "comfoairControl"
     },
     "desc": {
       "en": "Control your ComfoAir ventilation",
