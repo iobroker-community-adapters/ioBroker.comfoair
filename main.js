@@ -912,7 +912,7 @@ function readComfoairData(buffarr) {
       case 202:
         //polling
         verzoegerungen = buffarr;
-        adapter.setState("status.filterw", buffarr[11], true);
+        adapter.setState("status.filterw", parseInt(buffarr[11]), true);
         break;
 
       case 218:
