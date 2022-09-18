@@ -92,7 +92,7 @@ function startAdapter(options) {
       clearInterval(polling);
       clearTimeout(polling);
       clearTimeout(pcmaster);
-      clearTimeout(boostrun);
+      clearBoostTimeout();
       client.destroy();
       adapter.log.info('[END] Stopping comfoair adapter...');
       adapter.setState('info.connection', false, true);
@@ -440,7 +440,7 @@ function controlcomfoair(id, state) {
       case "control.stufe":
         adapter.log.debug("Setzte Stufe: " + state);
         callcomfoair(setfanstate[state]);
-        clearTimeout(boostrun);
+        clearBoostTimeout();
         break;
 
       case "control.comforttemp":
@@ -510,8 +510,12 @@ function controlcomfoair(id, state) {
         break;
 
       case "control.boost":
-        adapter.log.debug("Starte boost");
-        boost();
+        if (state == true) {
+          adapter.log.debug("Starte boost");
+          boost();
+        } else {
+          clearBoostTimeout();
+        }
         break;
 
 
@@ -1593,7 +1597,7 @@ function boost() {
       adapter.getState('control.boosttime', function(err, state) {
         if (state) {
           adapter.log.debug("Starte Boostmodus für " + state.val + " Minuten, kehre danach auf Stufe " + boostlevelold + " zurück");
-          callcomfoair(setfanstate[3]);;
+          callcomfoair(setfanstate[3]);
           boostrun = setTimeout(function() {
             adapter.log.debug("Boost Ende");
             adapter.setState('control.stufe', boostlevelold, false);
@@ -1607,6 +1611,16 @@ function boost() {
   });
 
 } //end function boost
+
+function clearBoostTimeout() {
+  adapter.log.debug("boostrun Timeout zurückgesetzt")
+  clearTimeout(boostrun);
+  adapter.getState('control.boost', function (err, state) {
+    if (state.val == true) {
+      adapter.setState('control.boost', false, false);
+    }
+  });
+} //end function clearBoostTimeout
 
 function restartAdapter() {
   adapter.getForeignObject('system.adapter.' + adapter.namespace, (err, obj) => {
