@@ -30,8 +30,8 @@
     "@iobroker/adapter-core": "^2.6.0",
     "delimiter-stream": "^3.0.1",
     "string_decoder": "^1.3.0",
-    "serialport": "^10.4.0",
-    "@serialport/parser-inter-byte-timeout": "^10.4.0"
+    "serialport": "^10.3.0",
+    "@serialport/parser-inter-byte-timeout": "^10.3.0"
 
   },
   "devDependencies": {
