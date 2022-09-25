@@ -11,7 +11,8 @@
   },
   "contributors": [{
     "name": "Marcel Adam",
-    "email": "marceladam@gmx.ch"
+    "email": "marceladam@gmx.ch",
+    "name": "crosenbe"
   }],
   "homepage": "https://github.com/iobroker-community-adapters/ioBroker.comfoair",
   "license": "MIT",
@@ -26,28 +27,47 @@
     "url": "https://github.com/iobroker-community-adapters/ioBroker.comfoair"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.4.0",
+    "@iobroker/adapter-core": "^2.6.0",
     "delimiter-stream": "^3.0.1",
-    "string_decoder": "^1.2.0",
-    "serialport": "^10.3.0",
-    "@serialport/parser-inter-byte-timeout": "^10.3.0"
+    "string_decoder": "^1.3.0",
+    "serialport": "^10.4.0",
+    "@serialport/parser-inter-byte-timeout": "^10.4.0"
 
   },
   "devDependencies": {
-    "gulp": "^4.0.0",
+    "@iobroker/testing": "^4.1.0",
+    "@types/chai": "^4.3.3",
+    "@types/chai-as-promised": "^7.1.5",
+    "@types/gulp": "^4.0.9",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^14.18.26",
+    "@types/proxyquire": "^1.3.28",
+    "@types/sinon": "^10.0.13",
+    "@types/sinon-chai": "^3.2.8",
+    "axios": "^0.27.2",
+    "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^8.22.0",
+    "gulp": "^4.0.2",
     "mocha": "^10.0.0",
-    "chai": "^4.1.2",
-    "@iobroker/testing": "^4.1.0"
+    "proxyquire": "^2.1.3",
+    "sinon": "^14.0.0",
+    "sinon-chai": "^3.7.0"
   },
-  "main": "main.js",
-  "scripts": {
-    "test": "npm run test:package && npm run test:unit",
-    "test:package": "mocha test/package --exit",
-    "test:unit": "mocha test/unit --exit",
-    "test:integration": "mocha test/integration --exit"
-  },
-  "bugs": {
-    "url": "https://github.com/iobroker-community-adapters/ioBroker.comfoair/issues"
-  },
-  "readmeFilename": "README.md"
+},
+"main": "main.js",
+"scripts": {
+  "test": "npm run test:package && npm run test:unit",
+  "test:package": "mocha test/package --exit",
+  "test:unit": "mocha test/unit --exit",
+  "test:integration": "mocha test/integration --exit",
+  "release": "release-script",
+  "release-patch": "release-script patch --yes --no-update-lockfile",
+  "release-minor": "release-script minor --yes --no-update-lockfile",
+  "release-major": "release-script major --yes --no-update-lockfile"
+},
+"bugs": {
+  "url": "https://github.com/iobroker-community-adapters/ioBroker.comfoair/issues"
+},
+"readmeFilename": "README.md"
 }
