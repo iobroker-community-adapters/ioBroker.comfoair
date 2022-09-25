@@ -54,20 +54,19 @@
     "sinon": "^14.0.0",
     "sinon-chai": "^3.7.0"
   },
-},
-"main": "main.js",
-"scripts": {
-  "test": "npm run test:package && npm run test:unit",
-  "test:package": "mocha test/package --exit",
-  "test:unit": "mocha test/unit --exit",
-  "test:integration": "mocha test/integration --exit",
-  "release": "release-script",
-  "release-patch": "release-script patch --yes --no-update-lockfile",
-  "release-minor": "release-script minor --yes --no-update-lockfile",
-  "release-major": "release-script major --yes --no-update-lockfile"
-},
-"bugs": {
-  "url": "https://github.com/iobroker-community-adapters/ioBroker.comfoair/issues"
-},
-"readmeFilename": "README.md"
+  "main": "main.js",
+  "scripts": {
+    "test": "npm run test:package && npm run test:unit",
+    "test:package": "mocha test/package --exit",
+    "test:unit": "mocha test/unit --exit",
+    "test:integration": "mocha test/integration --exit",
+    "release": "release-script",
+    "release-patch": "release-script patch --yes --no-update-lockfile",
+    "release-minor": "release-script minor --yes --no-update-lockfile",
+    "release-major": "release-script major --yes --no-update-lockfile"
+  },
+  "bugs": {
+    "url": "https://github.com/iobroker-community-adapters/ioBroker.comfoair/issues"
+  },
+  "readmeFilename": "README.md"
 }
