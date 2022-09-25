@@ -68,7 +68,7 @@
         "de": "Erste funktionierende Version. Zeigt, Temperatur-, Ventilator-, Filter- und Bypass - Stati, ermöglicht das Setzen der Lüftungsstufe."
       }
     },
-      "titleLang": {
+    "titleLang": {
       "en": "comfoairControl",
       "de": "in den Warenkorb",
       "ru": "comfoairКонтроль",
@@ -81,17 +81,17 @@
       "zh-cn": "comfoairControl"
     },
     "desc": {
-    "en": "Control your ComfoAir ventilation",
-    "de": "Steuern Sie Ihren Comfo Luftentlüftung",
-    "ru": "Контролируйте свое Comfo Воздушная вентиляция",
-    "pt": "Controle seu Comfo Ventilação de ar",
-    "nl": "Controleer je Comfo Air ventilatie",
-    "fr": "Contrôlez votre Comfo Ventilation de l ' air",
-    "it": "Controlla il tuo Comfo Aria di ventilazione",
-    "es": "Controla tu Comfo Ventilación aire",
-    "pl": "Przestrzenij Komfo wentylacja",
-    "zh-cn": "控制你的工作 空运"
-  },
+      "en": "Control your ComfoAir ventilation",
+      "de": "Steuern Sie Ihren Comfo Luftentlüftung",
+      "ru": "Контролируйте свое Comfo Воздушная вентиляция",
+      "pt": "Controle seu Comfo Ventilação de ar",
+      "nl": "Controleer je Comfo Air ventilatie",
+      "fr": "Contrôlez votre Comfo Ventilation de l ' air",
+      "it": "Controlla il tuo Comfo Aria di ventilazione",
+      "es": "Controla tu Comfo Ventilación aire",
+      "pl": "Przestrzenij Komfo wentylacja",
+      "zh-cn": "控制你的工作 空运"
+    },
     "authors": [
       "forelleblau <marceladam@gmx.ch>"
     ],
