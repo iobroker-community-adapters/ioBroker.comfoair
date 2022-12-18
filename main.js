@@ -1340,7 +1340,8 @@ function setpollingobjects() {
       read: true,
       write: false,
       desc: "Klappenstatus Bypass",
-      unit: "%"
+      unit: "%",
+      def: 0
     },
     native: {}
   });
@@ -1615,7 +1616,7 @@ function boost() {
 function clearBoostTimeout() {
   adapter.log.debug("boostrun Timeout zurückgesetzt")
   clearTimeout(boostrun);
-  adapter.getState('control.boost', function (err, state) {
+  adapter.getState('control.boost', function(err, state) {
     if (state.val == true) {
       adapter.setState('control.boost', false, false);
     }
