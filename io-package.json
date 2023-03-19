@@ -1,566 +1,580 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "1.1.6",
+    "version": "1.1.7",
     "news": {
-      "1.1.6": {
-        "en": "boostmode enhanced, dependencies updated",
-        "de": "boostmode verbessert, abhängigkeiten aktualisiert",
-        "ru": "boostmode улучшено, обновлены зависимости",
-        "pt": "boostmode aprimorado, dependências atualizadas",
-        "nl": "verbeterd, afhankelijkheid geüpload",
-        "fr": "boostmode amélioré, dépendances mises à jour",
-        "it": "potenziato, dipendenze aggiornate",
-        "es": "mejorada, actualizadas las dependencias",
-        "pl": "boostmoda wzmocniona, zależność aktualizowana",
-        "zh-cn": "b. 改善因素"
-      },
-      "1.1.5": {
-        "en": "bugfix (js-controller update)'",
-        "de": "Fehlerbehebung (js-controller update)"
-      },
-      "1.1.3": {
-        "en": "boost mode added'",
-        "de": "Boostmodus/Stosslüftung (manuell) hinzugefügt"
-      },
-      "1.1.2": {
-        "en": "adapter - internal filter-h counter added",
-        "de": "adapterinternen Betriebsstundenzähler Filter hinzugefügt"
-      },
-      "1.1.1": {
-        "en": "Periodical self-test with restart in case of fail added",
-        "de": "Periodischer Selbsttest mit Neustart wenn nötig hinzugefügt"
-      },
-      "1.1.0": {
-        "en": "Displays now working hours of different ventilation levels, preheating, bypass and frost-protection.",
-        "de": "Zeigt nun Betriebsstunden für Lüftungsstufen, Bypass, Vorheizung und Frostschutz an."
-      },
-      "1.0.0": {
-        "en": "Offers now the possibility of a direct serial connection besides the connection over IP/LAN.",
-        "de": "Bietet nun die Möglichkeit einer direkten seriellen Verbindung neben der Verbindung über IP/LAN."
-      },
-      "0.3.1": {
-        "en": "new connection mode: parelell in constant PC-Logmode.",
-        "de": "neuer Verbindungsmodus: parallel, dauerhaft im PC-Logmode."
-      },
-      "0.3.0": {
-        "en": "new connection modes, selftest and filter-timer setting added.",
-        "de": "neue Verbindungsmodi, Selbstest und Vorgabe Filtertimer ergänzt."
-      },
-      "0.2.0": {
-        "en": "New rs232 - Modes, reading enthalpie-values, handling connection-errors.",
-        "de": "Neue rs232 - Modi, liest Enthalpie-Werte, Verbindungsfehler - Handling."
-      },
-      "0.1.3": {
-        "en": "RS - 232 interface: manual- or safe - mode possible.",
-        "de": "RS - 232 Schnittstelle: Manual- oder Safe-Mode möglich."
-      },
-      "0.1.1": {
-        "en": "bugfix ventlevels, reads errors.",
-        "de": "Fehler ventlevels behoben, liest Fehlermeldungen."
-      },
-      "0.0.6": {
-        "en": "Filter - change - indicator.",
-        "de": "Filterwechselanzeige."
-      },
-      "0.0.5": {
-        "en": "bugfix set vent levels.",
-        "de": "Fehlerbehebung setzen Ventilationsstufen."
-      },
-      "0.0.4": {
-        "en": "gets & sets vent levels, gets filter-timer.",
-        "de": "Abfrage und setzen Ventilationsstufen, anzeigen Filter-Timer."
-      },
-      "0.0.3": {
-        "en": "minor bugfixes, sets comfort-temperature and resets filter-hours.",
-        "de": "Kleinere Fehler behoben, Setzen Komforttemperatur und Reset Filter-Timer möglich."
-      },
-      "0.0.2": {
-        "en": "First running Version. Gets temp, vent, bypass and filter states, sets fan level.",
-        "de": "Erste funktionierende Version. Zeigt, Temperatur-, Ventilator-, Filter- und Bypass - Stati, ermöglicht das Setzen der Lüftungsstufe."
+      "1.1.7": {
+        "en": "dependencies updated, serialport 10.x - update",
+        "de": "abhängigkeiten aktualisiert, serialport 10.x - update",
+        "ru": "зависимости обновлены, серийный порт 10.x - обновление",
+        "pt": "dependências atualizadas, serialport 10.x - atualização",
+        "nl": "afhankelijkheid geüpload. 10.x",
+        "fr": "dépendances mises à jour, port série 10.x - mise à jour",
+        "it": "dipendenze aggiornate, porta seriale 10.x - aggiornamento",
+        "es": "dependencias actualizadas, serialport 10.x - actualización",
+        "pl": "zależności 10.x – aktualizacja",
+        "uk": "залежностей оновлено, серійний порт 10.x - оновлення",
+        "zh-cn": "b. 更新的依赖情况,追溯性 十. 更新"
       }
     },
-    "titleLang": {
-      "en": "comfoairControl",
-      "de": "in den Warenkorb",
-      "ru": "comfoairКонтроль",
-      "pt": "compartimentação",
-      "nl": "comfoairContro",
-      "fr": "comfoairControl",
-      "it": "comfoairControl",
-      "es": "comfoairControl",
-      "pl": "komfoairControl",
-      "zh-cn": "comfoairControl"
+    "1.1.6": {
+      "en": "boostmode enhanced, dependencies updated",
+      "de": "boostmode verbessert, abhängigkeiten aktualisiert",
+      "ru": "boostmode улучшено, обновлены зависимости",
+      "pt": "boostmode aprimorado, dependências atualizadas",
+      "nl": "verbeterd, afhankelijkheid geüpload",
+      "fr": "boostmode amélioré, dépendances mises à jour",
+      "it": "potenziato, dipendenze aggiornate",
+      "es": "mejorada, actualizadas las dependencias",
+      "pl": "boostmoda wzmocniona, zależność aktualizowana",
+      "zh-cn": "b. 改善因素"
     },
-    "desc": {
-      "en": "Control your ComfoAir ventilation",
-      "de": "Steuern Sie Ihren Comfo Luftentlüftung",
-      "ru": "Контролируйте свое Comfo Воздушная вентиляция",
-      "pt": "Controle seu Comfo Ventilação de ar",
-      "nl": "Controleer je Comfo Air ventilatie",
-      "fr": "Contrôlez votre Comfo Ventilation de l ' air",
-      "it": "Controlla il tuo Comfo Aria di ventilazione",
-      "es": "Controla tu Comfo Ventilación aire",
-      "pl": "Przestrzenij Komfo wentylacja",
-      "zh-cn": "控制你的工作 空运"
+    "1.1.5": {
+      "en": "bugfix (js-controller update)'",
+      "de": "Fehlerbehebung (js-controller update)"
     },
-    "authors": [
-      "forelleblau <marceladam@gmx.ch>"
-    ],
-    "platform": "Javascript/Node.js",
-    "mode": "daemon",
-    "compact": true,
-    "icon": "comfoair.png",
-    "materialize": true,
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.comfoair/master/admin/comfoair.png",
-    "keywords": [
-      "comfoair",
-      "ventilation",
-      "smart",
-      "home"
-    ],
-    "readme": "https://github.com/iobroker-community-adapters/ioBroker.comfoair/blob/master/README.md",
-    "loglevel": "info",
-    "type": "climate-control",
-    "license": "MIT",
-    "messagebox": false,
-    "connectionType": "local",
-    "dataSource": "poll",
-    "plugins": {
-      "sentry": {
-        "dsn": "https://b52b2262a6b04cd891ea2cfada37431c@o667513.ingest.sentry.io/5767068"
-      }
+    "1.1.3": {
+      "en": "boost mode added'",
+      "de": "Boostmodus/Stosslüftung (manuell) hinzugefügt"
     },
-    "dependencies": [{
-      "js-controller": ">=3.3.22"
-    }]
-  },
-  "native": {
-    "host": "",
-    "pollInterval": 1800000,
-    "port": 9999,
-    "mode": "",
-    "connectionip": true,
-    "connectionserial": false,
-    "serialdevice": "/dev/"
-  },
-
-  "objects": [],
-  "instanceObjects": [
-
-    {
-      "_id": "temperature",
-      "type": "channel",
-      "common": {
-        "name": "Temperatures"
-      },
-      "native": {
-
-      }
+    "1.1.2": {
+      "en": "adapter - internal filter-h counter added",
+      "de": "adapterinternen Betriebsstundenzähler Filter hinzugefügt"
     },
-    {
-      "_id": "temperature.ABL",
-      "type": "state",
-      "common": {
-        "name": "Ablufttemperatur",
-        "type": "number",
-        "role": "value.temperature",
-        "read": true,
-        "write": false,
-        "desc": "Ablufttemperatur",
-        "unit": "°C"
-      },
-      "native": {
-
-      }
+    "1.1.1": {
+      "en": "Periodical self-test with restart in case of fail added",
+      "de": "Periodischer Selbsttest mit Neustart wenn nötig hinzugefügt"
     },
-    {
-      "_id": "temperature.AUL",
-      "type": "state",
-      "common": {
-        "name": "Aussenlufttemperatur",
-        "type": "number",
-        "role": "value.temperature",
-        "read": true,
-        "write": false,
-        "desc": "Aussenlufttemperatur",
-        "unit": "°C"
-      },
-      "native": {
-
-      }
+    "1.1.0": {
+      "en": "Displays now working hours of different ventilation levels, preheating, bypass and frost-protection.",
+      "de": "Zeigt nun Betriebsstunden für Lüftungsstufen, Bypass, Vorheizung und Frostschutz an."
     },
-    {
-      "_id": "temperature.EWT",
-      "type": "state",
-      "common": {
-        "name": "EWT Temperatur",
-        "type": "number",
-        "role": "value.temperature",
-        "read": true,
-        "write": false,
-        "desc": "EWT Temperatur",
-        "unit": "°C"
-      },
-      "native": {
-
-      }
+    "1.0.0": {
+      "en": "Offers now the possibility of a direct serial connection besides the connection over IP/LAN.",
+      "de": "Bietet nun die Möglichkeit einer direkten seriellen Verbindung neben der Verbindung über IP/LAN."
     },
-    {
-      "_id": "temperature.FOL",
-      "type": "state",
-      "common": {
-        "name": "Fortlufttemperatur",
-        "type": "number",
-        "role": "value.temperature",
-        "read": true,
-        "write": false,
-        "desc": "Fortlufttemperatur",
-        "unit": "°C"
-      },
-      "native": {
-
-      }
+    "0.3.1": {
+      "en": "new connection mode: parelell in constant PC-Logmode.",
+      "de": "neuer Verbindungsmodus: parallel, dauerhaft im PC-Logmode."
     },
-    {
-      "_id": "temperature.ZUL",
-      "type": "state",
-      "common": {
-        "name": "Zulufttemperatur",
-        "type": "number",
-        "role": "value.temperature",
-        "read": true,
-        "write": false,
-        "desc": "Zulufttemperatur",
-        "unit": "°C"
-      },
-      "native": {
-
-      }
+    "0.3.0": {
+      "en": "new connection modes, selftest and filter-timer setting added.",
+      "de": "neue Verbindungsmodi, Selbstest und Vorgabe Filtertimer ergänzt."
     },
-    {
-      "_id": "temperature.statcomfort",
-      "type": "state",
-      "common": {
-        "name": "Status Komforttemperatur",
-        "type": "number",
-        "role": "value.temperature",
-        "read": true,
-        "write": false,
-        "desc": "Eingestellte Komforttemperatur",
-        "unit": "°C"
-      },
-      "native": {
-
-      }
+    "0.2.0": {
+      "en": "New rs232 - Modes, reading enthalpie-values, handling connection-errors.",
+      "de": "Neue rs232 - Modi, liest Enthalpie-Werte, Verbindungsfehler - Handling."
     },
-    {
-      "_id": "info.connection",
-      "type": "state",
-      "common": {
-        "name": "comfoair connected",
-        "type": "boolean",
-        "role": "indicator.connected",
-        "read": true,
-        "write": false,
-        "def": false,
-        "desc": "Is comfoair connected?"
-      },
-      "native": {
-
-      }
+    "0.1.3": {
+      "en": "RS - 232 interface: manual- or safe - mode possible.",
+      "de": "RS - 232 Schnittstelle: Manual- oder Safe-Mode möglich."
     },
-    {
-      "_id": "status",
-      "type": "channel",
-      "common": {
-        "name": "Status"
-      },
-      "native": {
-
-      }
+    "0.1.1": {
+      "en": "bugfix ventlevels, reads errors.",
+      "de": "Fehler ventlevels behoben, liest Fehlermeldungen."
     },
-    {
-      "_id": "status.rs232mode",
-      "type": "state",
-      "common": {
-        "name": "RS232 Mode",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "states": {
-          "0": "CC Ease only",
-          "1": "PC Master / PC only",
-          "2": "PC Logmode"
-        },
-        "def": 1,
-        "desc": "Modus der RS232 - Schnittstelle (Readme!!)"
-      },
-      "native": {}
+    "0.0.6": {
+      "en": "Filter - change - indicator.",
+      "de": "Filterwechselanzeige."
     },
-    {
-      "_id": "status.statstufe",
-      "type": "state",
-      "common": {
-        "name": "statstufe",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "states": {
-          "0": "Abwesend",
-          "1": "tief",
-          "2": "mittel",
-          "3": "hoch"
-        },
-        "def": 1,
-        "desc": "Aktuelle Stufe"
-      },
-      "native": {
-
-      }
+    "0.0.5": {
+      "en": "bugfix set vent levels.",
+      "de": "Fehlerbehebung setzen Ventilationsstufen."
     },
-    {
-      "_id": "status.ventZUL",
-      "type": "state",
-      "common": {
-        "name": "ventZUL",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "desc": "Ventilatorstatus Zuluft",
-        "unit": "%"
-      },
-      "native": {
-
-      }
+    "0.0.4": {
+      "en": "gets & sets vent levels, gets filter-timer.",
+      "de": "Abfrage und setzen Ventilationsstufen, anzeigen Filter-Timer."
     },
-    {
-      "_id": "status.ventABL",
-      "type": "state",
-      "common": {
-        "name": "ventABL",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "desc": "Ventilatorstatus Abluft",
-        "unit": "%"
-      },
-      "native": {
-
-      }
+    "0.0.3": {
+      "en": "minor bugfixes, sets comfort-temperature and resets filter-hours.",
+      "de": "Kleinere Fehler behoben, Setzen Komforttemperatur und Reset Filter-Timer möglich."
     },
-    {
-      "_id": "status.ventlevel.ABLabw",
-      "type": "state",
-      "common": {
-        "name": "Ventilationsstufe Abluft abwesend",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "desc": "Ventilationsstufe Abluft abwesend",
-        "unit": "%"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.ventlevel.ZULabw",
-      "type": "state",
-      "common": {
-        "name": "Ventilationsstufe Zuluft abwesend",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "desc": "Ventilationsstufe Zuluft abwesend",
-        "unit": "%"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.ventlevel.ABL1",
-      "type": "state",
-      "common": {
-        "name": "Ventilationsstufe Abluft Stufe 1",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "desc": "Ventilationsstufe Abluft Stufe 1",
-        "unit": "%"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.ventlevel.ZUL1",
-      "type": "state",
-      "common": {
-        "name": "Ventilationsstufe Zuluft Stufe 1",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "desc": "Ventilationsstufe Zuluft Stufe 1",
-        "unit": "%"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.ventlevel.ABL2",
-      "type": "state",
-      "common": {
-        "name": "Ventilationsstufe Abluft Stufe 2",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "desc": "Ventilationsstufe Abluft Stufe 2",
-        "unit": "%"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.ventlevel.ZUL2",
-      "type": "state",
-      "common": {
-        "name": "Ventilationsstufe Zuluft Stufe 2",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "desc": "Ventilationsstufe Zuluft Stufe 2",
-        "unit": "%"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.ventlevel.ABL3",
-      "type": "state",
-      "common": {
-        "name": "Ventilationsstufe Abluft Stufe 3",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "desc": "Ventilationsstufe Abluft Stufe 3",
-        "unit": "%"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.ventlevel.ZUL3",
-      "type": "state",
-      "common": {
-        "name": "Ventilationsstufe Zuluft Stufe 3",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "desc": "Ventilationsstufe Zuluft Stufe 3",
-        "unit": "%"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.enthalpie.temp",
-      "type": "state",
-      "common": {
-        "name": "Enthalpietauscher Temeperatur",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "unit": "°C",
-        "desc": "Enthalpietauscher Temeperatur"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.enthalpie.hum",
-      "type": "state",
-      "common": {
-        "name": "Enthalpietauscher Feuchte",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "unit": "%",
-        "desc": "Enthalpietauscher realtive Feuchtigkeit"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "status.enthalpie.koeff",
-      "type": "state",
-      "common": {
-        "name": "Enthalpietauscher Koeffizient",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": false,
-        "unit": "%",
-        "desc": "Enthalpietauscher Koeffizient"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "control.boost",
-      "type": "state",
-      "common": {
-        "name": "Boost starten",
-        "type": "boolean",
-        "role": "button",
-        "read": true,
-        "write": true,
-        "desc": "Boostmodus starten"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "control.boosttime",
-      "type": "state",
-      "common": {
-        "name": "Boostdauer (min)",
-        "type": "number",
-        "role": "value.info",
-        "read": true,
-        "write": true,
-        "unit": "min",
-        "def": 3,
-        "desc": "Laufzeit Boostmodus"
-      },
-      "native": {
-
-      }
+    "0.0.2": {
+      "en": "First running Version. Gets temp, vent, bypass and filter states, sets fan level.",
+      "de": "Erste funktionierende Version. Zeigt, Temperatur-, Ventilator-, Filter- und Bypass - Stati, ermöglicht das Setzen der Lüftungsstufe."
     }
-  ]
+  },
+  "titleLang": {
+    "en": "comfoairControl",
+    "de": "in den Warenkorb",
+    "ru": "comfoairКонтроль",
+    "pt": "compartimentação",
+    "nl": "comfoairContro",
+    "fr": "comfoairControl",
+    "it": "comfoairControl",
+    "es": "comfoairControl",
+    "pl": "komfoairControl",
+    "zh-cn": "comfoairControl"
+  },
+  "desc": {
+    "en": "Control your ComfoAir ventilation",
+    "de": "Steuern Sie Ihren Comfo Luftentlüftung",
+    "ru": "Контролируйте свое Comfo Воздушная вентиляция",
+    "pt": "Controle seu Comfo Ventilação de ar",
+    "nl": "Controleer je Comfo Air ventilatie",
+    "fr": "Contrôlez votre Comfo Ventilation de l ' air",
+    "it": "Controlla il tuo Comfo Aria di ventilazione",
+    "es": "Controla tu Comfo Ventilación aire",
+    "pl": "Przestrzenij Komfo wentylacja",
+    "zh-cn": "控制你的工作 空运"
+  },
+  "authors": [
+    "forelleblau <marceladam@gmx.ch>"
+  ],
+  "platform": "Javascript/Node.js",
+  "mode": "daemon",
+  "compact": true,
+  "icon": "comfoair.png",
+  "materialize": true,
+  "enabled": true,
+  "extIcon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.comfoair/master/admin/comfoair.png",
+  "keywords": [
+    "comfoair",
+    "ventilation",
+    "smart",
+    "home"
+  ],
+  "readme": "https://github.com/iobroker-community-adapters/ioBroker.comfoair/blob/master/README.md",
+  "loglevel": "info",
+  "type": "climate-control",
+  "license": "MIT",
+  "messagebox": false,
+  "connectionType": "local",
+  "dataSource": "poll",
+  "plugins": {
+    "sentry": {
+      "dsn": "https://b52b2262a6b04cd891ea2cfada37431c@o667513.ingest.sentry.io/5767068"
+    }
+  },
+  "dependencies": [{
+    "js-controller": ">=3.3.22"
+  }]
+},
+"native": {
+  "host": "",
+  "pollInterval": 1800000,
+  "port": 9999,
+  "mode": "",
+  "connectionip": true,
+  "connectionserial": false,
+  "serialdevice": "/dev/"
+},
+
+"objects": [],
+"instanceObjects": [
+
+  {
+    "_id": "temperature",
+    "type": "channel",
+    "common": {
+      "name": "Temperatures"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "temperature.ABL",
+    "type": "state",
+    "common": {
+      "name": "Ablufttemperatur",
+      "type": "number",
+      "role": "value.temperature",
+      "read": true,
+      "write": false,
+      "desc": "Ablufttemperatur",
+      "unit": "°C"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "temperature.AUL",
+    "type": "state",
+    "common": {
+      "name": "Aussenlufttemperatur",
+      "type": "number",
+      "role": "value.temperature",
+      "read": true,
+      "write": false,
+      "desc": "Aussenlufttemperatur",
+      "unit": "°C"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "temperature.EWT",
+    "type": "state",
+    "common": {
+      "name": "EWT Temperatur",
+      "type": "number",
+      "role": "value.temperature",
+      "read": true,
+      "write": false,
+      "desc": "EWT Temperatur",
+      "unit": "°C"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "temperature.FOL",
+    "type": "state",
+    "common": {
+      "name": "Fortlufttemperatur",
+      "type": "number",
+      "role": "value.temperature",
+      "read": true,
+      "write": false,
+      "desc": "Fortlufttemperatur",
+      "unit": "°C"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "temperature.ZUL",
+    "type": "state",
+    "common": {
+      "name": "Zulufttemperatur",
+      "type": "number",
+      "role": "value.temperature",
+      "read": true,
+      "write": false,
+      "desc": "Zulufttemperatur",
+      "unit": "°C"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "temperature.statcomfort",
+    "type": "state",
+    "common": {
+      "name": "Status Komforttemperatur",
+      "type": "number",
+      "role": "value.temperature",
+      "read": true,
+      "write": false,
+      "desc": "Eingestellte Komforttemperatur",
+      "unit": "°C"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "info.connection",
+    "type": "state",
+    "common": {
+      "name": "comfoair connected",
+      "type": "boolean",
+      "role": "indicator.connected",
+      "read": true,
+      "write": false,
+      "def": false,
+      "desc": "Is comfoair connected?"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "status",
+    "type": "channel",
+    "common": {
+      "name": "Status"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "status.rs232mode",
+    "type": "state",
+    "common": {
+      "name": "RS232 Mode",
+      "type": "number",
+      "role": "value.info",
+      "read": true,
+      "write": false,
+      "states": {
+        "0": "CC Ease only",
+        "1": "PC Master / PC only",
+        "2": "PC Logmode"
+      },
+      "def": 1,
+      "desc": "Modus der RS232 - Schnittstelle (Readme!!)"
+    },
+    "native": {}
+  },
+  {
+    "_id": "status.statstufe",
+    "type": "state",
+    "common": {
+      "name": "statstufe",
+      "type": "number",
+      "role": "value.info",
+      "read": true,
+      "write": false,
+      "states": {
+        "0": "Abwesend",
+        "1": "tief",
+        "2": "mittel",
+        "3": "hoch"
+      },
+      "def": 1,
+      "desc": "Aktuelle Stufe"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "status.ventZUL",
+    "type": "state",
+    "common": {
+      "name": "ventZUL",
+      "type": "number",
+      "role": "value.info",
+      "read": true,
+      "write": false,
+      "desc": "Ventilatorstatus Zuluft",
+      "unit": "%"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "status.ventABL",
+    "type": "state",
+    "common": {
+      "name": "ventABL",
+      "type": "number",
+      "role": "value.info",
+      "read": true,
+      "write": false,
+      "desc": "Ventilatorstatus Abluft",
+      "unit": "%"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "status.ventlevel.ABLabw",
+    "type": "state",
+    "common": {
+      "name": "Ventilationsstufe Abluft abwesend",
+      "type": "number",
+      "role": "value.info",
+      "read": true,
+      "write": false,
+      "desc": "Ventilationsstufe Abluft abwesend",
+      "unit": "%"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "status.ventlevel.ZULabw",
+    "type": "state",
+    "common": {
+      "name": "Ventilationsstufe Zuluft abwesend",
+      "type": "number",
+      "role": "value.info",
+      "read": true,
+      "write": false,
+      "desc": "Ventilationsstufe Zuluft abwesend",
+      "unit": "%"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "status.ventlevel.ABL1",
+    "type": "state",
+    "common": {
+      "name": "Ventilationsstufe Abluft Stufe 1",
+      "type": "number",
+      "role": "value.info",
+      "read": true,
+      "write": false,
+      "desc": "Ventilationsstufe Abluft Stufe 1",
+      "unit": "%"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "status.ventlevel.ZUL1",
+    "type": "state",
+    "common": {
+      "name": "Ventilationsstufe Zuluft Stufe 1",
+      "type": "number",
+      "role": "value.info",
+      "read": true,
+      "write": false,
+      "desc": "Ventilationsstufe Zuluft Stufe 1",
+      "unit": "%"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "status.ventlevel.ABL2",
+    "type": "state",
+    "common": {
+      "name": "Ventilationsstufe Abluft Stufe 2",
+      "type": "number",
+      "role": "value.info",
+      "read": true,
+      "write": false,
+      "desc": "Ventilationsstufe Abluft Stufe 2",
+      "unit": "%"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "status.ventlevel.ZUL2",
+    "type": "state",
+    "common": {
+      "name": "Ventilationsstufe Zuluft Stufe 2",
+      "type": "number",
+      "role": "value.info",
+      "read": true,
+      "write": false,
+      "desc": "Ventilationsstufe Zuluft Stufe 2",
+      "unit": "%"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "status.ventlevel.ABL3",
+    "type": "state",
+    "common": {
+      "name": "Ventilationsstufe Abluft Stufe 3",
+      "type": "number",
+      "role": "value.info",
+      "read": true,
+      "write": false,
+      "desc": "Ventilationsstufe Abluft Stufe 3",
+      "unit": "%"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "status.ventlevel.ZUL3",
+    "type": "state",
+    "common": {
+      "name": "Ventilationsstufe Zuluft Stufe 3",
+      "type": "number",
+      "role": "value.info",
+      "read": true,
+      "write": false,
+      "desc": "Ventilationsstufe Zuluft Stufe 3",
+      "unit": "%"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "status.enthalpie.temp",
+    "type": "state",
+    "common": {
+      "name": "Enthalpietauscher Temeperatur",
+      "type": "number",
+      "role": "value.info",
+      "read": true,
+      "write": false,
+      "unit": "°C",
+      "desc": "Enthalpietauscher Temeperatur"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "status.enthalpie.hum",
+    "type": "state",
+    "common": {
+      "name": "Enthalpietauscher Feuchte",
+      "type": "number",
+      "role": "value.info",
+      "read": true,
+      "write": false,
+      "unit": "%",
+      "desc": "Enthalpietauscher realtive Feuchtigkeit"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "status.enthalpie.koeff",
+    "type": "state",
+    "common": {
+      "name": "Enthalpietauscher Koeffizient",
+      "type": "number",
+      "role": "value.info",
+      "read": true,
+      "write": false,
+      "unit": "%",
+      "desc": "Enthalpietauscher Koeffizient"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "control.boost",
+    "type": "state",
+    "common": {
+      "name": "Boost starten",
+      "type": "boolean",
+      "role": "button",
+      "read": true,
+      "write": true,
+      "desc": "Boostmodus starten"
+    },
+    "native": {
+
+    }
+  },
+  {
+    "_id": "control.boosttime",
+    "type": "state",
+    "common": {
+      "name": "Boostdauer (min)",
+      "type": "number",
+      "role": "value.info",
+      "read": true,
+      "write": true,
+      "unit": "min",
+      "def": 3,
+      "desc": "Laufzeit Boostmodus"
+    },
+    "native": {
+
+    }
+  }
+]
 }
