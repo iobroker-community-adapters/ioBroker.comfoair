@@ -10,7 +10,9 @@ const utils = require('@iobroker/adapter-core'); // Get common adapter utils
 const {
   SerialPort
 } = require('serialport');
-const InterByteTimeout = require('@serialport/parser-inter-byte-timeout');
+const {
+  InterByteTimeout
+} = require('@serialport/parser-inter-byte-timeout');
 var schedule = require('node-schedule');
 let adapter;
 var deviceIpAdress;
@@ -660,7 +662,8 @@ function callcomfoair(hexout) {
 
     var msgbuf = Buffer.from(hexout);
 
-    const port = new SerialPort(serialdevice, {
+    const port = new SerialPort({
+      path: serialdevice,
       baudRate: 9600,
       dataBits: 8,
       parity: 'none',
