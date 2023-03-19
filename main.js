@@ -11,7 +11,7 @@ const {
   SerialPort
 } = require('serialport');
 const {
-  InterByteTimeout
+  InterByteTimeoutParser
 } = require('@serialport/parser-inter-byte-timeout');
 var schedule = require('node-schedule');
 let adapter;
@@ -672,7 +672,7 @@ function callcomfoair(hexout) {
       flowControl: false
     });
 
-    const parser = port.pipe(new InterByteTimeout({
+    const parser = port.pipe(new InterByteTimeoutParser({
       interval: 20
     }));
 
