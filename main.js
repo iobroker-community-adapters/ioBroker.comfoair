@@ -7,7 +7,9 @@
 'use strict';
 
 const utils = require('@iobroker/adapter-core'); // Get common adapter utils
-const SerialPort = require('serialport');
+const {
+  SerialPort
+} = require('serialport');
 const InterByteTimeout = require('@serialport/parser-inter-byte-timeout');
 var schedule = require('node-schedule');
 let adapter;
