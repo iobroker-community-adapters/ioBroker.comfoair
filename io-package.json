@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "1.1.7",
+    "version": "1.1.8",
     "news": {
+      "1.1.8": {
+        "en": "fixed boost-error (sentry)",
+        "de": "fester boosterror (sentry)",
+        "ru": "фиксированный усилитель (sentry)",
+        "pt": "fix boost-error (sentry)",
+        "nl": "vertaling:",
+        "fr": "(sentry)",
+        "it": "boost-error fisso (senteria)",
+        "es": "impulso fijo-error (sentry)",
+        "pl": "błyskawic (pol.)",
+        "uk": "фіксований підсилювач-error (серія)",
+        "zh-cn": "固定增援者(工业)"
+      },
       "1.1.7": {
         "en": "dependencies updated, serialport 10.x - update",
         "de": "abhängigkeiten aktualisiert, serialport 10.x - update",

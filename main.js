@@ -513,7 +513,7 @@ function controlcomfoair(id, state) {
         setrs232 = [0x07, 0xF0, 0x00, 0x9B, 0x01, 0x00, 0x49, 0x07, 0x0F];
         break;
 
-      case "control.boost":
+      case "clearboost":
         if (state == true) {
           adapter.log.debug("Starte boost");
           boost();
