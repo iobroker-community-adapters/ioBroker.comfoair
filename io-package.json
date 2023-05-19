@@ -552,6 +552,7 @@
         "role": "button",
         "read": true,
         "write": true,
+        "def": false,
         "desc": "Boostmodus starten"
       },
       "native": {

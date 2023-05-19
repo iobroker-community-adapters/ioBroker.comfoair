@@ -1622,10 +1622,15 @@ function clearBoostTimeout() {
   adapter.log.debug("boostrun Timeout zurückgesetzt")
   clearTimeout(boostrun);
   adapter.getState('control.boost', function(err, state) {
-    if (state.val == true) {
-      adapter.setState('control.boost', false, false);
+    if (state) {
+      if (state.val == true) {
+        adapter.setState('control.boost', false, false);
+      }
+    } else {
+      adapter.log.debug("keine Boostwert gefunden!");
     }
   });
+
 } //end function clearBoostTimeout
 
 function restartAdapter() {
