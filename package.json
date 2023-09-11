@@ -1,9 +1,6 @@
 {
   "name": "iobroker.comfoair",
   "version": "1.1.8",
-  "engines": {
-    "node": ">=12.0.0"
-  },
   "description": "comfoair",
   "author": {
     "name": "Marcel Adam",
@@ -25,6 +22,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/iobroker-community-adapters/ioBroker.comfoair"
+  },
+  "engines": {
+    "node": ">=16"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.0.3",
