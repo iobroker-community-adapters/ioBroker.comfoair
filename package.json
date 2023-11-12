@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@iobroker/testing": "^4.1.0",
+    "@iobroker/adapter-dev",
     "@types/chai": "^4.3.3",
     "@types/chai-as-promised": "^7.1.5",
     "@types/gulp": "^4.0.9",
@@ -73,7 +74,9 @@
     "release": "release-script",
     "release-patch": "release-script patch --yes --no-update-lockfile",
     "release-minor": "release-script minor --yes --no-update-lockfile",
-    "release-major": "release-script major --yes --no-update-lockfile"
+    "release-major": "release-script major --yes --no-update-lockfile",
+    "translate": "translate-adapter",
+    "build": "build-adapter"
   },
   "bugs": {
     "url": "https://github.com/iobroker-community-adapters/ioBroker.comfoair/issues"
