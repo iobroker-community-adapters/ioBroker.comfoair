@@ -1,0 +1,12 @@
+{
+    "Auto": "Auto",
+    "Manual": "Met de hand",
+    "My select": "Mijn select",
+    "host": "Comfoair-IP:",
+    "on save adapter restarts with new config immediately": "on save-adapter wordt onmiddellijk opnieuw opgestart met nieuwe config",
+    "pollInterval": "Polling - Interval (ms):",
+    "port": "Haven",
+    "template adapter settings": "sjabloon-adapterinstellingen",
+    "test1": "Test 1",
+    "test2": "Test 2"
+}

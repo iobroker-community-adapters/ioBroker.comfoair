@@ -1,0 +1,156 @@
+<html>
+
+<head>
+  <!-- these 4 files always have to be included -->
+  <link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+  <link rel="stylesheet" type="text/css" href="../../css/adapter.css" />
+
+  <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+
+  <!-- these files always have to be included -->
+  <script type="text/javascript" src="../../js/translate.js"></script>
+  <script type="text/javascript" src="../../lib/js/materialize.js"></script>
+  <script type="text/javascript" src="../../js/adapter-settings.js"></script>
+  <script type="text/javascript" src="words.js"></script>
+  <style>
+    .m .col .select-wrapper+label {
+      top: -26px;
+    }
+
+    .m span {
+      font-size: 0.9em;
+    }
+  </style>
+  <!-- you have to define 2 functions in the global scope: -->
+  <script type="text/javascript">
+    function showHideSettings() {
+      if ($('#connectionip').val() === 'true') {
+        $('#_serialdevice').hide();
+        $('#_host').show();
+        $('#_port').show();
+      } else {
+        $('#_serialdevice').show();
+        $('#_host').hide();
+        $('#_port').hide()
+      }
+    }
+
+
+    // the function loadSettings has to exist ...
+    function load(settings, onChange) {
+      // example: select elements with id=key and class=value and insert value
+      if (!settings) return;
+      $('.value').each(function() {
+        var $key = $(this);
+        var id = $key.attr('id');
+        if ($key.attr('type') === 'checkbox') {
+          // do not call onChange direct, because onChange could expect some arguments
+          $key.prop('checked', settings[id]).on('change', function() {
+            onChange();
+          });
+        } else {
+          // do not call onChange direct, because onChange could expect some arguments
+          $key.val(settings[id]).on('change', function() {
+            onChange();
+          }).on('keyup', function() {
+            onChange();
+          });
+        }
+      });
+      showHideSettings();
+
+      onChange(false);
+      M.updateTextFields(); // function Materialize.updateTextFields(); to reinitialize all the Materialize labels on the page if you are dynamically adding inputs.
+
+      $('#connectionip').on('change', function() {
+        showHideSettings();
+      });
+    }
+
+    // ... and the function save has to exist.
+    // you have to make sure the callback is called with the settings object as first param!
+    function save(callback) {
+      // example: select elements with class=value and build settings object
+      var obj = {};
+      $('.value').each(function() {
+        var $this = $(this);
+        if ($this.attr('type') === 'checkbox') {
+          obj[$this.attr('id')] = $this.prop('checked');
+        } else {
+          obj[$this.attr('id')] = $this.val();
+        }
+      });
+      callback(obj);
+    }
+  </script>
+</head>
+
+<body>
+  <!-- you have to put your config page in a div with id adapter-container -->
+  <div class="m adapter-container">
+
+    <div class="row">
+      <!-- Forms are the standard way to receive user inputted data.
+         Learn more http://materializecss.com/forms.html-->
+      <div class="row">
+        <div class="input-field col s6">
+          <img src="comfoair.png" class="logo">
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12 m4 l2">
+          <select class="value" id="connectionip">
+            <option value="false" class="translate">connectionserial</option>
+            <option value="true" class="translate">connectionip</option>
+          </select>
+          <label class="translate" for="connectionip">connectiontype</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12 m6 l3" id="_host">
+          <input class="value" id="host" type="text" />
+          <label for="host" class="translate">host</label>
+        </div>
+        <div class="input-field col s12 m6 l3" id="_port">
+          <input class="value" id="port" type="number" min="1" max="65565" />
+          <label for="port" class="translate">port</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12 m6 l3" id="_serialdevice">
+          <input class="value" id="serialdevice" type="text" />
+          <label for="serialdevice" class="translate">serialdevice</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 m6 l2">
+          <select class="value" id="mode">
+            <option value="adapteronly" class="translate">adapteronly</option>
+            <option value="listen" class="translate">listen</option>
+            <option value="listencontrol" class="translate">listencontrol</option>
+            <option value="logmode" class="translate">logmode</option>
+          </select>
+          <label for="mode" class="translate">mode</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12 m6 l4">
+          <input type="number" class="value" id="pollInterval" min="20000" />
+          <label for="pollInterval" class="translate">pollInterval</label>
+          <!-- Important: label must come directly after input. Label is important. -->
+          <!--span class="translate">pollInterval</span-->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <p class="translate">on save adapter restarts with new config immediately</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
