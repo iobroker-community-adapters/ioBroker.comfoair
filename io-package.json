@@ -253,10 +253,10 @@
     },
     "titleLang": {
       "en": "comfoairControl",
-      "de": "in den Warenkorb",
-      "ru": "comfoairКонтроль",
-      "pt": "compartimentação",
-      "nl": "comfoairContro",
+      "de": "comfoairControl",
+      "ru": "comfoairControl",
+      "pt": "comfoairControl",
+      "nl": "comfoairControl",
       "fr": "comfoairControl",
       "it": "comfoairControl",
       "es": "comfoairControl",
@@ -266,7 +266,7 @@
     },
     "desc": {
       "en": "Control your ComfoAir ventilation",
-      "de": "Steuern Sie Ihren Comfo Luftentlüftung",
+      "de": "Steuern Sie Ihre ComfoAir Lüftung",
       "ru": "Контролируйте свое Comfo Воздушная вентиляция",
       "pt": "Controle seu Comfo Ventilação de ar",
       "nl": "Controleer je Comfo Air ventilatie",
