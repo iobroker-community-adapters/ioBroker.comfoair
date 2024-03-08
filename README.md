@@ -63,7 +63,7 @@ Tested on comfoair CA350.
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.1.9 (2024-03-08)
 
 -   (mcm1957) German title of adapter has been corrected
 -   (mcm1957) Dependencies have been updated
