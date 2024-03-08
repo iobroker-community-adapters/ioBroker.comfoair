@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "1.1.8",
+    "version": "1.1.9-alpha.0",
     "news": {
+      "1.1.9-alpha.0": {
+        "en": "German title of adapter has been corrected\nDependencies have been updated",
+        "de": "Deutscher Adaptertitel wurde korrigiert\nAbhängigkeiten wurden aktualisiert",
+        "ru": "Немецкое название адаптера было исправлено\nЗависимость обновлена",
+        "pt": "Título alemão do adaptador foi corrigido\nAs dependências foram atualizadas",
+        "nl": "Duitse titel van adapter is gecorrigeerd\nAfhankelijkheden zijn bijgewerkt",
+        "fr": "Le titre allemand de l'adaptateur a été corrigé\nLes dépendances ont été actualisées",
+        "it": "Il titolo di adattatore tedesco è stato corretto\nLe dipendenze sono state aggiornate",
+        "es": "Título alemán del adaptador ha sido corregido\nSe han actualizado las dependencias",
+        "pl": "Niemiecki tytuł adaptera został poprawiony\nZaktualizowano zależności",
+        "uk": "Німецька назва адаптера була виправлена\nЗалежність було оновлено",
+        "zh-cn": "适配器的德语标题已更正\n依赖关系已更新"
+      },
       "1.1.8": {
         "en": "fixed boost-error (sentry)",
         "de": "fester boosterror (sentry)",
@@ -80,175 +93,6 @@
         "pl": "adapter - dodano wewnętrzny licznik h filtra",
         "uk": "адаптер - додано внутрішній лічильник filter-h",
         "zh-cn": "适配器 - 添加了内部过滤器 h 计数器"
-      },
-      "1.1.1": {
-        "en": "Periodical self-test with restart in case of fail added",
-        "de": "Periodischer Selbsttest mit Neustart wenn nötig hinzugefügt",
-        "ru": "Добавлено периодическое самотестирование с перезапуском в случае сбоя.",
-        "pt": "Autoteste periódico com reinício em caso de falha adicionado",
-        "nl": "Periodieke zelftest met herstart in geval van mislukking toegevoegd",
-        "fr": "Auto-test périodique avec redémarrage en cas d'échec ajouté",
-        "it": "Aggiunto autotest periodico con riavvio in caso di guasto",
-        "es": "Se agregó autoprueba periódica con reinicio en caso de falla.",
-        "pl": "Dodano okresowy autotest z ponownym uruchomieniem w przypadku awarii",
-        "uk": "Додано періодичне самотестування з перезапуском у разі збою",
-        "zh-cn": "添加了定期自检并在失败时重新启动的功能"
-      },
-      "1.1.0": {
-        "en": "Displays now working hours of different ventilation levels, preheating, bypass and frost-protection.",
-        "de": "Zeigt nun Betriebsstunden für Lüftungsstufen, Bypass, Vorheizung und Frostschutz an.",
-        "ru": "Теперь отображается рабочее время различных уровней вентиляции, предварительного подогрева, байпаса и защиты от замерзания.",
-        "pt": "Exibe agora horas de trabalho de diferentes níveis de ventilação, pré-aquecimento, bypass e proteção contra congelamento.",
-        "nl": "Toont nu werkuren van verschillende ventilatieniveaus, voorverwarmen, bypass en vorstbeveiliging.",
-        "fr": "Affiche désormais les heures de fonctionnement des différents niveaux de ventilation, préchauffage, bypass et protection antigel.",
-        "it": "Visualizza ora gli orari di funzionamento dei diversi livelli di ventilazione, preriscaldamento, bypass e protezione antigelo.",
-        "es": "Ahora muestra las horas de trabajo de diferentes niveles de ventilación, precalentamiento, bypass y protección contra heladas.",
-        "pl": "Wyświetla teraz godziny pracy różnych poziomów wentylacji, podgrzewania wstępnego, obejścia i ochrony przed zamarzaniem.",
-        "uk": "Тепер відображає години роботи різних рівнів вентиляції, попереднього підігріву, байпасу та захисту від замерзання.",
-        "zh-cn": "现在显示不同通风级别、预热、旁路和防冻的工作时间。"
-      },
-      "1.0.0": {
-        "en": "Offers now the possibility of a direct serial connection besides the connection over IP/LAN.",
-        "de": "Bietet nun die Möglichkeit einer direkten seriellen Verbindung neben der Verbindung über IP/LAN.",
-        "ru": "Предлагает теперь возможность прямого последовательного соединения помимо соединения через IP/LAN.",
-        "pt": "Oferece agora a possibilidade de conexão serial direta além da conexão via IP/LAN.",
-        "nl": "Biedt nu naast de verbinding via IP/LAN ook de mogelijkheid tot een directe seriële verbinding.",
-        "fr": "Offre désormais la possibilité d'une connexion série directe en plus de la connexion sur IP/LAN.",
-        "it": "Offre ora la possibilità di una connessione seriale diretta oltre alla connessione su IP/LAN.",
-        "es": "Ofrece ahora la posibilidad de una conexión serie directa además de la conexión sobre IP/LAN.",
-        "pl": "Oferuje teraz możliwość bezpośredniego połączenia szeregowego oprócz połączenia przez IP/LAN.",
-        "uk": "Тепер пропонується можливість прямого послідовного підключення, окрім підключення через IP/LAN.",
-        "zh-cn": "除了通过 IP/LAN 连接之外，现在还提供直接串行连接的可能性。"
-      },
-      "0.3.1": {
-        "en": "new connection mode: parelell in constant PC-Logmode.",
-        "de": "neuer Verbindungsmodus: parallel, dauerhaft im PC-Logmode.",
-        "ru": "новый режим подключения: parelell в постоянном режиме PC-Log.",
-        "pt": "novo modo de conexão: parellel em PC-Logmode constante.",
-        "nl": "nieuwe verbindingsmodus: parelell in constante PC-Logmodus.",
-        "fr": "nouveau mode de connexion : parelell en PC-Logmode constant.",
-        "it": "nuova modalità di connessione: parelell in modalità PC-Log costante.",
-        "es": "Nuevo modo de conexión: paralelo en modo de registro de PC constante.",
-        "pl": "nowy tryb połączenia: parelell w stałym trybie PC-Logmode.",
-        "uk": "новий режим підключення: parelell у постійному режимі PC-Log.",
-        "zh-cn": "新的连接模式：恒定 PC-Log 模式下的并行。"
-      },
-      "0.3.0": {
-        "en": "new connection modes, selftest and filter-timer setting added.",
-        "de": "neue Verbindungsmodi, Selbstest und Vorgabe Filtertimer ergänzt.",
-        "ru": "добавлены новые режимы подключения, самотестирование и настройка таймера фильтра.",
-        "pt": "novos modos de conexão, autoteste e configuração de temporizador de filtro adicionados.",
-        "nl": "nieuwe verbindingsmodi, zelftest en filtertimerinstelling toegevoegd.",
-        "fr": "nouveaux modes de connexion, autotest et réglage de la minuterie de filtre ajoutés.",
-        "it": "aggiunte nuove modalità di connessione, autotest e impostazione del timer del filtro.",
-        "es": "Se agregaron nuevos modos de conexión, autoprueba y configuración de temporizador de filtro.",
-        "pl": "dodano nowe tryby połączenia, autotest i ustawienie timera filtra.",
-        "uk": "додано нові режими підключення, самоперевірку та налаштування фільтра-таймера.",
-        "zh-cn": "添加了新的连接模式、自测试和过滤定时器设置。"
-      },
-      "0.2.0": {
-        "en": "New rs232 - Modes, reading enthalpie-values, handling connection-errors.",
-        "de": "Neue rs232 - Modi, liest Enthalpie-Werte, Verbindungsfehler - Handling.",
-        "ru": "Новый rs232 — режимы, чтение значений энтальпии, обработка ошибок соединения.",
-        "pt": "Novo rs232 - Modos, leitura de valores de entalpia, tratamento de erros de conexão.",
-        "nl": "Nieuwe rs232 - Modi, enthalpie-waarden lezen, verbindingsfouten afhandelen.",
-        "fr": "Nouveau rs232 - Modes, lecture des valeurs d'enthalpie, gestion des erreurs de connexion.",
-        "it": "Nuova rs232 - Modalità, lettura valori entalpie, gestione errori di connessione.",
-        "es": "Nuevo rs232: modos, lectura de valores de entalpie, manejo de errores de conexión.",
-        "pl": "Nowy rs232 - Tryby, odczyt wartości entalpii, obsługa błędów połączenia.",
-        "uk": "Новий rs232 - режими, читання значень ентальпії, обробка помилок підключення.",
-        "zh-cn": "新的 rs232 - 模式、读取焓值、处理连接错误。"
-      },
-      "0.1.3": {
-        "en": "RS - 232 interface: manual- or safe - mode possible.",
-        "de": "RS - 232 Schnittstelle: Manual- oder Safe-Mode möglich.",
-        "ru": "Интерфейс RS-232: возможен ручной или безопасный режим.",
-        "pt": "Interface RS - 232: modo manual ou de segurança possível.",
-        "nl": "RS - 232 interface: handmatige of veilige modus mogelijk.",
-        "fr": "Interface RS-232 : mode manuel ou sans échec possible.",
-        "it": "Interfaccia RS - 232: modalità manuale o sicura possibile.",
-        "es": "Interfaz RS - 232: modo manual o seguro posible.",
-        "pl": "Interfejs RS-232: możliwy tryb ręczny lub bezpieczny.",
-        "uk": "Інтерфейс RS-232: можливий ручний або безпечний режим.",
-        "zh-cn": "RS - 232 接口：可以使用手动或安全模式。"
-      },
-      "0.1.1": {
-        "en": "bugfix ventlevels, reads errors.",
-        "de": "Fehler ventlevels behoben, liest Fehlermeldungen.",
-        "ru": "исправление вентиляционных уровней, чтение ошибок.",
-        "pt": "bugfix ventlevels, lê erros.",
-        "nl": "bugfix ventlevels, leest fouten.",
-        "fr": "bugfix ventlevels, lit les erreurs.",
-        "it": "bugfix ventlevels, errori di lettura.",
-        "es": "Corrige niveles de ventilación, lee errores.",
-        "pl": "naprawiono poziomy wentylacji, odczytuje błędy.",
-        "uk": "виправлення помилок ventlevels, читання помилок.",
-        "zh-cn": "错误修复通风级别，读取错误。"
-      },
-      "0.0.6": {
-        "en": "Filter - change - indicator.",
-        "de": "Filterwechselanzeige.",
-        "ru": "Фильтр-изменение-индикатор.",
-        "pt": "Filtro - mudança - indicador.",
-        "nl": "Filter - wijzigen - indicator.",
-        "fr": "Filtre - changement - indicateur.",
-        "it": "Filtro - modifica - indicatore.",
-        "es": "Filtro - cambio - indicador.",
-        "pl": "Filtr - zmiana - wskaźnik.",
-        "uk": "Фільтр - зміна - індикатор.",
-        "zh-cn": "过滤器-更改-指示器。"
-      },
-      "0.0.5": {
-        "en": "bugfix set vent levels.",
-        "de": "Fehlerbehebung setzen Ventilationsstufen.",
-        "ru": "исправление ошибки установки уровней вентиляции.",
-        "pt": "correção de bug definir níveis de ventilação.",
-        "nl": "bugfix stel ventilatieniveaus in.",
-        "fr": "correction d'un bug définissant les niveaux de ventilation.",
-        "it": "correzione del bug relativo all'impostazione dei livelli di ventilazione.",
-        "es": "corrección de errores establece niveles de ventilación.",
-        "pl": "poprawka ustawiania poziomów wentylacji.",
-        "uk": "виправлення помилок встановлення рівнів вентиляційних отворів.",
-        "zh-cn": "错误修复设置通风级别。"
-      },
-      "0.0.4": {
-        "en": "gets & sets vent levels, gets filter-timer.",
-        "de": "Abfrage und setzen Ventilationsstufen, anzeigen Filter-Timer.",
-        "ru": "получает и устанавливает уровни вентиляции, получает таймер фильтра.",
-        "pt": "obtém e define os níveis de ventilação, obtém o temporizador do filtro.",
-        "nl": "haalt en stelt ventilatieniveaus in, haalt filtertimer op.",
-        "fr": "obtient et définit les niveaux de ventilation, obtient la minuterie du filtre.",
-        "it": "ottiene e imposta i livelli di ventilazione, ottiene il timer del filtro.",
-        "es": "Obtiene y establece niveles de ventilación, obtiene temporizador de filtro.",
-        "pl": "pobiera i ustawia poziomy wentylacji, pobiera licznik czasu filtra.",
-        "uk": "отримує та встановлює рівні вентиляції, отримує фільтр-таймер.",
-        "zh-cn": "获取和设置通风水平，获取过滤计时器。"
-      },
-      "0.0.3": {
-        "en": "minor bugfixes, sets comfort-temperature and resets filter-hours.",
-        "de": "Kleinere Fehler behoben, Setzen Komforttemperatur und Reset Filter-Timer möglich.",
-        "ru": "мелкие исправления, устанавливает комфортную температуру и сбрасывает часы работы фильтра.",
-        "pt": "pequenas correções de bugs, define a temperatura de conforto e redefine as horas do filtro.",
-        "nl": "kleine bugfixes, stelt de comforttemperatuur in en reset de filteruren.",
-        "fr": "corrections de bugs mineurs, règle la température de confort et réinitialise les heures de filtrage.",
-        "it": "correzioni di bug minori, impostazione della temperatura di comfort e ripristino delle ore di filtro.",
-        "es": "corrige errores menores, establece la temperatura de confort y restablece las horas del filtro.",
-        "pl": "drobne poprawki błędów, ustawia temperaturę komfortową i resetuje godziny filtra.",
-        "uk": "незначні виправлення помилок, встановлення комфортної температури та скидання робочих годин фільтра.",
-        "zh-cn": "小错误修复，设置舒适温度并重置过滤时间。"
-      },
-      "0.0.2": {
-        "en": "First running Version. Gets temp, vent, bypass and filter states, sets fan level.",
-        "de": "Erste funktionierende Version. Zeigt, Temperatur-, Ventilator-, Filter- und Bypass - Stati, ermöglicht das Setzen der Lüftungsstufe.",
-        "ru": "Первая работающая версия. Получает состояния температуры, вентиляции, байпаса и фильтра, устанавливает уровень вентилятора.",
-        "pt": "Primeira versão em execução. Obtém os estados de temperatura, ventilação, bypass e filtro, define o nível do ventilador.",
-        "nl": "Eerste werkende versie. Krijgt temperatuur-, ventilatie-, bypass- en filterstatussen, stelt het ventilatorniveau in.",
-        "fr": "Première version en cours d'exécution. Obtient les états de température, de ventilation, de dérivation et de filtre, définit le niveau du ventilateur.",
-        "it": "Prima versione funzionante. Ottiene gli stati di temperatura, ventilazione, bypass e filtro e imposta il livello della ventola.",
-        "es": "Primera versión en ejecución. Obtiene los estados de temperatura, ventilación, derivación y filtro, establece el nivel del ventilador.",
-        "pl": "Pierwsza działająca wersja. Pobiera stany temperatury, wentylacji, obejścia i filtra, ustawia poziom wentylatora.",
-        "uk": "Перша запущена версія. Отримує температуру, вентиляцію, байпас і стан фільтра, встановлює рівень вентилятора.",
-        "zh-cn": "第一个运行版本。获取温度、通风、旁路和过滤器状态，设置风扇级别。"
       }
     },
     "titleLang": {
@@ -305,9 +149,11 @@
         "dsn": "https://b52b2262a6b04cd891ea2cfada37431c@o667513.ingest.sentry.io/5767068"
       }
     },
-    "dependencies": [{
-      "js-controller": ">=3.3.22"
-    }]
+    "dependencies": [
+      {
+        "js-controller": ">=3.3.22"
+      }
+    ]
   },
   "native": {
     "host": "",
@@ -319,7 +165,8 @@
     "serialdevice": "/dev/"
   },
   "objects": [],
-  "instanceObjects": [{
+  "instanceObjects": [
+    {
       "_id": "temperature",
       "type": "channel",
       "common": {
