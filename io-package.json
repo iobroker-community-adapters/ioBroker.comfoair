@@ -3,19 +3,6 @@
     "name": "comfoair",
     "version": "1.1.9-alpha.0",
     "news": {
-      "1.1.9-alpha.0": {
-        "en": "German title of adapter has been corrected\nDependencies have been updated",
-        "de": "Deutscher Adaptertitel wurde korrigiert\nAbhängigkeiten wurden aktualisiert",
-        "ru": "Немецкое название адаптера было исправлено\nЗависимость обновлена",
-        "pt": "Título alemão do adaptador foi corrigido\nAs dependências foram atualizadas",
-        "nl": "Duitse titel van adapter is gecorrigeerd\nAfhankelijkheden zijn bijgewerkt",
-        "fr": "Le titre allemand de l'adaptateur a été corrigé\nLes dépendances ont été actualisées",
-        "it": "Il titolo di adattatore tedesco è stato corretto\nLe dipendenze sono state aggiornate",
-        "es": "Título alemán del adaptador ha sido corregido\nSe han actualizado las dependencias",
-        "pl": "Niemiecki tytuł adaptera został poprawiony\nZaktualizowano zależności",
-        "uk": "Німецька назва адаптера була виправлена\nЗалежність було оновлено",
-        "zh-cn": "适配器的德语标题已更正\n依赖关系已更新"
-      },
       "1.1.8": {
         "en": "fixed boost-error (sentry)",
         "de": "fester boosterror (sentry)",
