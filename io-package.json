@@ -139,8 +139,12 @@
     ],
     "readme": "https://github.com/iobroker-community-adapters/ioBroker.comfoair/blob/master/README.md",
     "loglevel": "info",
+    "tier": 2,
     "type": "climate-control",
-    "license": "MIT",
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
     "messagebox": false,
     "connectionType": "local",
     "dataSource": "poll",
@@ -151,7 +155,12 @@
     },
     "dependencies": [
       {
-        "js-controller": ">=3.3.22"
+        "js-controller": ">=35.0.0"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.13"
       }
     ]
   },
