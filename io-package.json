@@ -1,9 +1,9 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "news": {
-      "1.2.1": {
+      "1.2.2": {
         "en": "The dependency requirements have been corrected\nSome dependencies have been updated",
         "de": "Die Abhängigkeitsanforderungen wurden korrigiert\nEinige Abhängigkeiten wurden aktualisiert",
         "ru": "Исправлены требования в отношении иждивенцев\nНекоторые зависимости были обновлены",
@@ -80,19 +80,6 @@
         "pl": "boostmoda wzmocniona, zależność aktualizowana",
         "zh-cn": "b. 改善因素",
         "uk": "boostmode покращено, залежності оновлено"
-      },
-      "1.1.5": {
-        "en": "bugfix (js-controller update)'",
-        "de": "Fehlerbehebung (js-controller update)",
-        "ru": "исправление (обновление js-контроллера)'",
-        "pt": "correção de bug (atualização do controlador js)'",
-        "nl": "bugfix (js-controller-update)'",
-        "fr": "correction de bug (mise à jour du contrôleur js)'",
-        "it": "correzione del bug (aggiornamento del controller js)'",
-        "es": "corrección de errores (actualización del controlador js)'",
-        "pl": "poprawka błędu (aktualizacja kontrolera js)”",
-        "uk": "виправлення (оновлення js-контролера)'",
-        "zh-cn": "错误修复（js 控制器更新）'"
       }
     },
     "titleLang": {
