@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "news": {
+      "1.2.1": {
+        "en": "The dependency requirements have been corrected\nSome dependencies have been updated",
+        "de": "Die Abhängigkeitsanforderungen wurden korrigiert\nEinige Abhängigkeiten wurden aktualisiert",
+        "ru": "Исправлены требования в отношении иждивенцев\nНекоторые зависимости были обновлены",
+        "pt": "Os requisitos de dependência foram corrigidos\nAlgumas dependências foram atualizadas",
+        "nl": "De afhankelijkheidseisen zijn gecorrigeerd\nEnkele afhankelijkheden zijn bijgewerkt",
+        "fr": "Les besoins en matière de dépendance ont été corrigés\nCertaines dépendances ont été mises à jour",
+        "it": "I requisiti di dipendenza sono stati corretti\nAlcune dipendenze sono state aggiornate",
+        "es": "Se han corregido los requisitos de dependencia\nSe han actualizado algunas dependencias",
+        "pl": "Wymogi dotyczące zależności zostały skorygowane\nNiektóre zależności zostały zaktualizowane",
+        "uk": "Вимоги до залежності були виправлені\nДеякі залежності були оновлено",
+        "zh-cn": "扶养要求已经纠正\n一些依赖关系已经更新"
+      },
       "1.2.0": {
         "en": "Adapter requires node.js 18 and js-controller >= 5 now\nDependencies have been updated",
         "de": "Adapter benötigt node.js 18 und js-controller >= 5 jetzt\nAbhängigkeiten wurden aktualisiert",
@@ -80,19 +93,6 @@
         "pl": "poprawka błędu (aktualizacja kontrolera js)”",
         "uk": "виправлення (оновлення js-контролера)'",
         "zh-cn": "错误修复（js 控制器更新）'"
-      },
-      "1.1.3": {
-        "en": "boost mode added'",
-        "de": "Boostmodus/Stosslüftung (manuell) hinzugefügt",
-        "ru": "добавлен режим ускорения'",
-        "pt": "modo boost adicionado'",
-        "nl": "boost-modus toegevoegd'",
-        "fr": "mode boost ajouté'",
-        "it": "aggiunta modalità boost'",
-        "es": "modo de impulso añadido'",
-        "pl": "dodano tryb wzmocnienia”",
-        "uk": "додано режим посилення'",
-        "zh-cn": "添加了升压模式'"
       }
     },
     "titleLang": {
