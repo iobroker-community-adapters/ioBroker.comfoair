@@ -2,15 +2,10 @@
   "name": "iobroker.comfoair",
   "version": "1.2.2",
   "description": "comfoair",
-  "author": {
-    "name": "Marcel Adam",
-    "email": "marceladam@gmx.ch"
-  },
+  "author": "Marcel Adam <marceladam@gmx.ch>",
   "contributors": [
-    {
-      "name": "crosenbe",
-      "email": "marceladam@gmx.ch"
-    }
+    "crosenbe <marceladam@gmx.ch>",
+    "iobroker-community-adapters <iobroker-community-adapters@gmx.de>"
   ],
   "homepage": "https://github.com/iobroker-community-adapters/ioBroker.comfoair",
   "license": "MIT",
