@@ -803,7 +803,7 @@ function listentocomfoair() {
         });
 
         client.on('data', function (data) {
-            var buff = new Buffer(data, 'utf8');
+            var buff = Buffer.from(data, 'utf8');
             //adapter.log.debug('Received: ' + buff.toString('hex'));
             buffarr = [...buff];
             delimiterstream.write(buffarr.toString('hex'));
