@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "comfoair",
-    "version": "1.2.2",
+    "version": "1.3.0",
     "news": {
+      "1.3.0": {
+        "en": "Adapter requires node.js >=20 now\nAdapter requires admin >= 7.7.22 now\nAdapter requires js-controller >= 6.0.11 now\nDependencies have been updated\n**CI/CD**: Migrated to ESLint 9 and @iobroker/eslint-config",
+        "de": "Adapter benötigt node.js >=20 jetzt\nAdapter benötigt admin >= 7.7.22 jetzt\nAdapter benötigt jetzt js-controller >= 6.0.11\nAbhängigkeiten wurden aktualisiert\n**CI/CD**: auf ESLint 9 und @iobroker/eslint-config migriert",
+        "ru": "Адаптер требует node.js >=20\nАдаптер требует администратора >= 7.7.22\nАдаптер требует js-контроллер >= 6.0.11\nЗависимости были обновлены\n**CI/CD**: мигранты в ESLint 9 и @iobroker/eslint-config",
+        "pt": "Adaptador requer nod.js >= 20 agora\nAdaptador requer admin >= 7.7.22 agora\nAdaptador requer js-controlador >= 6.0.11 agora\nAs dependências foram atualizadas\n**CI/CD**: Migrado para ESLint 9 e @iobroker/eslint-config",
+        "nl": "Adapter vereist node.js < 20 nu\nAdapter vereist admin < 7.7.22 nu\nAdapter vereist js-controller > 6,0.11 nu\nAfhankelijkheden zijn bijgewerkt\n**CI/CD**: Migreren naar ESLint 9 en @iobroker/eslint-config",
+        "fr": "Adaptateur nécessite node.js >=20 maintenant\nAdaptateur nécessite admin >= 7.7.22 maintenant\nAdaptateur nécessite js-controller >= 6.0.11 maintenant\nLes dépendances ont été actualisées\n**CI/CD**: Migré pour ESLint 9 et @iobroker/eslint-config",
+        "it": "L'adattatore richiede node.js >=20 ora\nAdattatore richiede admin >= 7.7.22 ora\nAdattatore richiede js-controller >= 6.0.11 ora\nLe dipendenze sono state aggiornate\n**CI/CD**: Migrato a ESLint 9 e @iobroker/eslint-config",
+        "es": "Adaptador requiere node.js >=20 ahora\nEl adaptador requiere admin= 7.7.22 ahora\nAdaptador requiere js-controller >= 6.0.11\nSe han actualizado las dependencias\n**CI/CD**: Migrated to ESLint 9 and @iobroker/eslint-config",
+        "pl": "Adapter wymaga node.js > = 20\nAdapter wymaga admin > = 7.7.22\nAdapter wymaga sterownika js- > = 6.0.11\nZaktualizowano zależności\n* *CI / CD* *: Migrated to ESLint 9 and @ iobroker / eslint- config ",
+        "uk": "Адаптер вимагає node.js >=20 тепер\nАдаптер вимагає адмін >= 7.7.22 тепер\nАдаптер вимагає js-controller >=6.0.11 тепер\nЗалежність було оновлено\n**CI/CD**: Міграція на ESLint 9 та @iobroker/eslint-config",
+        "zh-cn": "适配器现在需要节点.js QQ20\n适任者需要管理员 \\ 7.7.22 现在\n适配器需要js控制器 现在6.0.11\n依赖关系已更新\n** CI/CD**:已迁移到ESLint 9和@iobroster/eslint-config"
+      },
       "1.2.2": {
         "en": "The dependency requirements have been corrected\nSome dependencies have been updated",
         "de": "Die Abhängigkeitsanforderungen wurden korrigiert\nEinige Abhängigkeiten wurden aktualisiert",
