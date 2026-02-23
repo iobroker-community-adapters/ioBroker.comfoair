@@ -554,23 +554,23 @@ function controlcomfoair(id, state) {
 function callcomfoair(hexout) {
     if (connectionip == 'true') {
         //Abfrage über IP-Verbindung
-        var client = new net.Socket();
-        client.connect(port, deviceIpAdress, function () {
+        var requestClient = new net.Socket();
+        requestClient.connect(port, deviceIpAdress, function () {
             //Connection Data ComfoAir
             adapter.log.debug('Connected by IP');
-            var msgbuf = new Buffer(hexout);
+            var msgbuf = Buffer.from(hexout);
             var hexoutarr = [...msgbuf];
             adapter.log.debug(`out ${msgbuf.toString('hex')}`);
             adapter.log.debug(`outarr: ${hexoutarr}`);
-            client.write(msgbuf);
+            requestClient.write(msgbuf);
         });
 
-        client.on('error', function (ex) {
+        requestClient.on('error', function (ex) {
             adapter.log.warn(`callcomfoair connection error: ${ex}`);
         });
 
-        client.on('data', function (data) {
-            var buff = new Buffer(data, 'utf8');
+        requestClient.on('data', function (data) {
+            var buff = Buffer.from(data, 'utf8');
             adapter.log.debug(`Received: ${buff.toString('hex')}`);
             buffarr = [...buff];
             adapter.log.debug(`Received arr: ${buffarr}`);
@@ -643,10 +643,10 @@ function callcomfoair(hexout) {
             } catch (e) {
                 adapter.log.warn(`Client-Data - Fehler${e}`);
             }
-            client.destroy();
+            requestClient.destroy();
         });
 
-        client.on('close', function () {
+        requestClient.on('close', function () {
             adapter.log.debug('Connection closed');
         });
     } else {
@@ -672,8 +672,7 @@ function callcomfoair(hexout) {
 
         port.open(function (err) {
             if (err) {
-                adapter.log.info(`Error opening port: ${err.message}`);
-                return adapter.log.info('Error opening port: ', err.message);
+                return adapter.log.warn(`Error opening port: ${err.message}`);
             }
         });
 
