@@ -76,6 +76,7 @@ Tested on comfoair CA350.
 - (copilot) Adapter requires admin >= 7.7.22 now
 - (copilot) Adapter requires js-controller >= 6.0.11 now
 - (mcm1957) Dependencies have been updated
+- (copilot) **CI/CD**: Migrated to ESLint 9 and @iobroker/eslint-config
 
 ### 1.2.2 (2024-04-24)
 
