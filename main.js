@@ -90,7 +90,10 @@ function startAdapter(options) {
             clearTimeout(polling);
             clearTimeout(pcmaster);
             clearBoostTimeout();
-            client.destroy();
+            if (client) {
+                client.destroy();
+                client = null;
+            }
             adapter.log.info('[END] Stopping comfoair adapter...');
             adapter.setState('info.connection', false, true);
             callback();
