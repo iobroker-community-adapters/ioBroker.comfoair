@@ -201,7 +201,7 @@ The MIT License (MIT)
 
 
 Copyright (c) 2026 iobroker-community-adapters <iobroker-community-adapters@gmx.de>  
-Copyright (c) 2023-2024 forelleblau marceladam@gmx.ch
+Copyright (c) 2023-2025 forelleblau marceladam@gmx.ch
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
