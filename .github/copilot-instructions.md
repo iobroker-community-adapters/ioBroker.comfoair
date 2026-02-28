@@ -1,6 +1,6 @@
 # ioBroker Adapter Development with GitHub Copilot
 
-**Version:** 0.5.6
+**Version:** 0.5.7
 **Template Source:** https://github.com/DrozmotiX/ioBroker-Copilot-Instructions
 
 This file contains instructions and best practices for GitHub Copilot when working on ioBroker adapter development.
@@ -116,18 +116,19 @@ npm install --save-dev eslint @iobroker/eslint-config
 ```json
 {
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint --max-warnings 0 .",
     "lint:fix": "eslint . --fix"
   }
 }
 ```
 
 #### Best Practices
-1. ✅ Run ESLint before committing
+1. ✅ Run ESLint before committing — fix ALL warnings, not just errors
 2. ✅ Use `lint:fix` for auto-fixable issues
 3. ✅ Don't disable rules without documentation
 4. ✅ Lint all relevant files (main code, tests, build scripts)
 5. ✅ Keep `@iobroker/eslint-config` up to date
+6. ✅ **ESLint warnings are treated as errors in CI** (`--max-warnings 0`). The `lint` script above already includes this flag — run `npm run lint` to match CI behavior locally
 
 #### Common Issues
 - **Unused variables**: Remove or prefix with underscore (`_variable`)
@@ -140,13 +141,15 @@ npm install --save-dev eslint @iobroker/eslint-config
 ## Testing
 
 ### Unit Testing
-- Use Jest as the primary testing framework for ioBroker adapters
+
+- Use Jest as the primary testing framework
 - Create tests for all adapter main functions and helper methods
 - Test error handling scenarios and edge cases
 - Mock external API calls and hardware dependencies
 - For adapters connecting to APIs/devices not reachable by internet, provide example data files to allow testing of functionality without live connections
-- Example test structure:
-  ```javascript
+
+**Example Structure:**
+```javascript
   describe('AdapterName', () => {
     let adapter;
     
