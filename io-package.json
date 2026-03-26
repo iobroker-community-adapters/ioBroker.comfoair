@@ -80,19 +80,6 @@
         "pl": "zależności 10.x – aktualizacja",
         "uk": "залежностей оновлено, серійний порт 10.x - оновлення",
         "zh-cn": "b. 更新的依赖情况,追溯性 十. 更新"
-      },
-      "1.1.6": {
-        "en": "boostmode enhanced, dependencies updated",
-        "de": "boostmode verbessert, abhängigkeiten aktualisiert",
-        "ru": "boostmode улучшено, обновлены зависимости",
-        "pt": "boostmode aprimorado, dependências atualizadas",
-        "nl": "verbeterd, afhankelijkheid geüpload",
-        "fr": "boostmode amélioré, dépendances mises à jour",
-        "it": "potenziato, dipendenze aggiornate",
-        "es": "mejorada, actualizadas las dependencias",
-        "pl": "boostmoda wzmocniona, zależność aktualizowana",
-        "zh-cn": "b. 改善因素",
-        "uk": "boostmode покращено, залежності оновлено"
       }
     },
     "titleLang": {
