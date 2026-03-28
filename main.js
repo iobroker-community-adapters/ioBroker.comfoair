@@ -13,9 +13,9 @@ var schedule = require('node-schedule');
 let adapter;
 var deviceIpAdress;
 var port;
-var net = require('net');
+var net = require('node:net');
 var DelimiterStream = require('delimiter-stream');
-var StringDecoder = require('string_decoder').StringDecoder;
+var StringDecoder = require('node:string_decoder').StringDecoder;
 var hexout = [];
 var buffarr = [];
 
