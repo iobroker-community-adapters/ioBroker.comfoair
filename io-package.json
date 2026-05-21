@@ -117,6 +117,9 @@
     "compact": true,
     "icon": "comfoair.png",
     "materialize": true,
+    "adminUI": {
+      "config": "json"
+    },
     "enabled": true,
     "extIcon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.comfoair/master/admin/comfoair.png",
     "keywords": [

@@ -1,0 +1,21 @@
+{
+  "adapteronly": "Alleen adapter, CCEase inactief",
+  "Auto": "Auto",
+  "connectionip": "IP - verbinding",
+  "connectionserial": "Seriële verbinding",
+  "connectiontype": "Connectie type",
+  "host": "Comfoair IP:",
+  "listen": "Alleen luisteren",
+  "listencontrol": "Paallall-modus",
+  "logmode": "Paralell-modus in constante pc-logmodus",
+  "Manual": "Met de hand",
+  "mode": "comfoair connetion modus",
+  "My select": "Mijn select",
+  "on save adapter restarts with new config immediately": "on save-adapter wordt onmiddellijk opnieuw opgestart met nieuwe config",
+  "pollInterval": "Polling - Intervall (ms):",
+  "port": "Port",
+  "serialdevice": "Serieel apparaatadres (d.w.z. /dev/ttyUSB0)",
+  "template adapter settings": "sjabloon-adapterinstellingen",
+  "test1": "Test 1",
+  "whatmode": "Kies uw Comfoair-verbinding - Modus"
+}
