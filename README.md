@@ -72,6 +72,7 @@ Tested on comfoair CA350.
 -->
 ### **WORK IN PROGRESS**
 - (copilot) Adapter requires node.js >= 22 now
+- (copilot) **ENHANCED**: Migrated adapter admin configuration to jsonConfig-based UI
 
 ### 1.3.0 (2026-02-23)
 - (mcm1957) Adapter requires node.js >=20 now

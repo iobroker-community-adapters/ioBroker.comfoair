@@ -1,0 +1,21 @@
+{
+  "adapteronly": "Apenas adaptador, CCEase inativo",
+  "Auto": "Auto",
+  "connectionip": "IP - conexão",
+  "connectionserial": "Conexão serial",
+  "connectiontype": "Tipo de conexão",
+  "host": "Comfoair IP:",
+  "listen": "Apenas ouvindo",
+  "listencontrol": "Modo paralelo",
+  "logmode": "Modo Paralelo em Modo PC-Log constante",
+  "Manual": "Manual",
+  "mode": "modo de conexão comum",
+  "My select": "Meu selecionado",
+  "on save adapter restarts with new config immediately": "no adaptador de salvar reinicia com nova configuraÃ§Ã£o imediatamente",
+  "pollInterval": "Pesquisa - Intervalo (ms):",
+  "port": "Port",
+  "serialdevice": "Endereço de dispositivo serial (ou seja, /dev/ttyUSB0)",
+  "template adapter settings": "configuraÃ§Ãµes do adaptador de modelo",
+  "test1": "Teste 1",
+  "whatmode": "Escolha sua conexão Comfoair - Modo"
+}

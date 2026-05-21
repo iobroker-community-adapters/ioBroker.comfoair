@@ -1,0 +1,107 @@
+{
+  "i18n": true,
+  "type": "panel",
+  "items": {
+    "connectionip": {
+      "type": "select",
+      "label": "connectiontype",
+      "options": [
+        {
+          "label": "connectionserial",
+          "value": "false"
+        },
+        {
+          "label": "connectionip",
+          "value": "true"
+        }
+      ],
+      "xs": 12,
+      "sm": 6,
+      "md": 4,
+      "lg": 3,
+      "xl": 2
+    },
+    "host": {
+      "newLine": true,
+      "type": "text",
+      "label": "host",
+      "hidden": "data.connectionip !== 'true'",
+      "xs": 12,
+      "sm": 6,
+      "md": 4,
+      "lg": 3,
+      "xl": 2
+    },
+    "port": {
+      "type": "number",
+      "label": "port",
+      "min": 1,
+      "max": 65565,
+      "hidden": "data.connectionip !== 'true'",
+      "xs": 12,
+      "sm": 6,
+      "md": 4,
+      "lg": 3,
+      "xl": 2
+    },
+    "serialdevice": {
+      "type": "text",
+      "label": "serialdevice",
+      "hidden": "data.connectionip === 'true'",
+      "xs": 12,
+      "sm": 6,
+      "md": 4,
+      "lg": 3,
+      "xl": 2
+    },
+    "mode": {
+      "newLine": true,
+      "type": "select",
+      "label": "mode",
+      "options": [
+        {
+          "label": "adapteronly",
+          "value": "adapteronly"
+        },
+        {
+          "label": "listen",
+          "value": "listen"
+        },
+        {
+          "label": "listencontrol",
+          "value": "listencontrol"
+        },
+        {
+          "label": "logmode",
+          "value": "logmode"
+        }
+      ],
+      "xs": 12,
+      "sm": 6,
+      "md": 4,
+      "lg": 3,
+      "xl": 2
+    },
+    "pollInterval": {
+      "newLine": true,
+      "type": "number",
+      "label": "pollInterval",
+      "min": 20000,
+      "xs": 12,
+      "sm": 6,
+      "md": 4,
+      "lg": 3,
+      "xl": 2
+    },
+    "_restartHint": {
+      "newLine": true,
+      "type": "staticText",
+      "text": "on save adapter restarts with new config immediately",
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
+    }
+  }
+}

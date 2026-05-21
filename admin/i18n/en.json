@@ -1,0 +1,21 @@
+{
+  "adapteronly": "Adapter only, CCEase inactive",
+  "Auto": "Auto",
+  "connectionip": "IP - connection",
+  "connectionserial": "Serial connection",
+  "connectiontype": "Connection Type",
+  "host": "Comfoair IP:",
+  "listen": "Listening only",
+  "listencontrol": "Paralell Mode",
+  "logmode": "Paralell Mode in constant PC-Logmode",
+  "Manual": "Manual",
+  "mode": "comfoair connetion mode",
+  "My select": "My select",
+  "on save adapter restarts with new config immediately": "on save adapter restarts with new config immediately",
+  "pollInterval": "Polling - Intervall (ms):",
+  "port": "Port",
+  "serialdevice": "Serial device address (i.e. /dev/ttyUSB0)",
+  "template adapter settings": "template adapter settings",
+  "test1": "Test 1",
+  "whatmode": "Choose your Comfoair Connection - Mode"
+}

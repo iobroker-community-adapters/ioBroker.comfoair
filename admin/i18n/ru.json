@@ -1,0 +1,21 @@
+{
+  "adapteronly": "Только адаптер, CCEase неактивен",
+  "Auto": "Автоматически",
+  "connectionip": "IP - соединение",
+  "connectionserial": "Последовательное соединение",
+  "connectiontype": "Тип соединения",
+  "host": "Comfoair IP:",
+  "listen": "Только прослушивание",
+  "listencontrol": "Параллельный режим",
+  "logmode": "Режим Paralell в постоянном режиме PC-Log",
+  "Manual": "Вручную",
+  "mode": "режим соединения comfoair",
+  "My select": "Выбор",
+  "on save adapter restarts with new config immediately": "При сохранении настроек адаптера он сразу же перезапускается",
+  "pollInterval": "Опрос - Интервал (мс):",
+  "port": "Port",
+  "serialdevice": "Последовательный адрес устройства (т.е. /dev/ttyUSB0)",
+  "template adapter settings": "Пример",
+  "test1": "Тест 1",
+  "whatmode": "Выберите Comfoair Connection - Режим"
+}
