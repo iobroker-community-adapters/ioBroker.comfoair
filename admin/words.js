@@ -156,7 +156,7 @@ systemDictionary = {
   },
 
   "connectionip": {
-    "en": " -<< connection",
+    "en": "IP - connection",
     "de": "IP - Verbindung",
     "ru": "IP - соединение",
     "pt": "IP - conexão",
