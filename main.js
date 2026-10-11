@@ -577,17 +577,11 @@ function callcomfoair(hexout) {
             try {
                 if (buffarr.length > 3) {
                     adapter.log.debug(`ACK: ${buffarr[0]}, ${buffarr[1]}`);
-                    adapter.log.debug(`Checksumme aus Datensatz: ${buffarr[buffarr.length - 3]}`);
-                    adapter.log.debug(`Checksumme berechnet: ${parseInt(checksumcmd(buff.slice(2)), 16)}`);
-                    if (
-                        buffarr[0] == 7 &&
-                        buffarr[1] == 243 &&
-                        buffarr[buffarr.length - 3] == parseInt(checksumcmd(buff.slice(2)), 16)
-                    ) {
-                        adapter.log.debug('ACK erhalten und Checksumme ok');
+                    if (buffarr[0] == 7 && buffarr[1] == 243) {
+                        // structure, byte stuffing and checksum are fully validated in readComfoairData
                         readComfoairData(buffarr);
                     } else {
-                        adapter.log.debug('ACK zu Datenabfrage nicht erhalten oder Checksumme falsch');
+                        adapter.log.debug('no ACK received for the data request');
                     }
                 } else {
                     if (buff.toString('hex') == '07f3') {
@@ -688,17 +682,11 @@ function callcomfoair(hexout) {
                 try {
                     if (buffarr.length > 3) {
                         adapter.log.debug(`ACK: ${buffarr[0]}, ${buffarr[1]}`);
-                        adapter.log.debug(`Checksumme aus Datensatz: ${buffarr[buffarr.length - 3]}`);
-                        adapter.log.debug(`Checksumme berechnet: ${parseInt(checksumcmd(buff.slice(2)), 16)}`);
-                        if (
-                            buffarr[0] == 7 &&
-                            buffarr[1] == 243 &&
-                            buffarr[buffarr.length - 3] == parseInt(checksumcmd(buff.slice(2)), 16)
-                        ) {
-                            adapter.log.debug('ACK erhalten und Checksumme ok');
+                        if (buffarr[0] == 7 && buffarr[1] == 243) {
+                            // structure, byte stuffing and checksum are fully validated in readComfoairData
                             readComfoairData(buffarr);
                         } else {
-                            adapter.log.debug('ACK zu Datenabfrage nicht erhalten oder Checksumme falsch');
+                            adapter.log.debug('no ACK received for the data request');
                         }
                     } else {
                         if (buff.toString('hex') == '07f3') {
@@ -821,9 +809,87 @@ function listentocomfoair() {
     }
 } // end listentocomfoair()
 
+// Parse and validate a ComfoAir response frame according to the RS232 protocol:
+//   [ACK 07 F3] 07 F0 <cmdHi> <cmdLo> <len> <data...> <checksum> 07 0F
+// A 0x07 inside the data area is doubled on the wire ("07 07"); the extra 0x07 counts neither
+// towards the length nor the checksum and has to be collapsed to a single 0x07. The checksum is
+// (sum of command, length and unstuffed data bytes + 173), low byte. Returns a normalized array
+// (doubled 0x07 removed) in the same layout the callers index into, or null when the frame is
+// structurally invalid - e.g. a spurious byte shifted the data, which the purely additive
+// checksum on its own does not detect (an injected 0x00 keeps the sum unchanged).
+function normalizeComfoairFrame(raw) {
+    // callers pass either a byte array or, from the delimiter stream, an array of strings
+    var arr = Array.from(raw, Number);
+    var i = 0;
+    var ack = [];
+    if (arr[i] === 7 && arr[i + 1] === 243) {
+        ack = [7, 243];
+        i += 2;
+    }
+    // start marker 07 F0
+    if (arr[i] !== 7 || arr[i + 1] !== 240) {
+        adapter.log.debug(`Frame rejected: start marker 07 F0 missing (${arr[i]},${arr[i + 1]})`);
+        return null;
+    }
+    i += 2;
+    var cmdHi = arr[i++];
+    var cmdLo = arr[i++];
+    var len = arr[i++];
+    if (!Number.isFinite(cmdHi) || !Number.isFinite(cmdLo) || !Number.isFinite(len)) {
+        adapter.log.debug('Frame rejected: command/length bytes incomplete');
+        return null;
+    }
+    var data = [];
+    for (var d = 0; d < len; d++) {
+        var b = arr[i++];
+        if (!Number.isFinite(b)) {
+            adapter.log.debug(`Frame rejected: too short, only ${d} of ${len} data bytes present`);
+            return null;
+        }
+        if (b === 7) {
+            // a 0x07 in the data area is doubled on the wire; drop the inserted second 0x07
+            if (arr[i] !== 7) {
+                adapter.log.debug(`Frame rejected: malformed 0x07 byte stuffing at position ${i} (${arr[i]})`);
+                return null;
+            }
+            i++;
+        }
+        data.push(b);
+    }
+    var checksum = arr[i++];
+    // end marker 07 0F right after the checksum
+    if (arr[i] !== 7 || arr[i + 1] !== 15) {
+        adapter.log.debug(
+            `Frame rejected: end marker 07 0F not at expected position ${i} (${arr[i]},${arr[i + 1]}) - ` +
+                'a spurious byte likely shifted the data',
+        );
+        return null;
+    }
+    var sum = cmdHi + cmdLo + len;
+    for (var k = 0; k < data.length; k++) {
+        sum += data[k];
+    }
+    if (((sum + 173) & 0xff) !== checksum) {
+        adapter.log.debug(
+            `Frame rejected: checksum mismatch (computed ${(sum + 173) & 0xff}, frame ${checksum})`,
+        );
+        return null;
+    }
+    return ack.concat([7, 240, cmdHi, cmdLo, len], data, [checksum, 7, 15]);
+}
+
 function readComfoairData(buffarr) {
     try {
         adapter.log.debug('Verarbeite Daten');
+        // normalize and validate the frame before reading fixed byte positions from it; a
+        // corrupted/shifted frame (e.g. with an injected 0x00) would otherwise produce wildly
+        // wrong values like -20 C
+        var frame = normalizeComfoairFrame(buffarr);
+        if (!frame) {
+            adapter.log.warn(`Ignoring malformed ComfoAir frame: ${Array.from(buffarr, Number)}`);
+            return;
+        }
+        buffarr = frame;
         var cmd = parseInt(buffarr[5]);
         switch (cmd) {
             case 210:
